@@ -1,4 +1,4 @@
-# UlasBuku: Project Tugas Kelompok PBP 2024 - Kelompok A04
+# UlasBuku: Project Tugas Kelompok A04 PBP
 - Link Repository: [Click](https://github.com/yps-a04/proyekTengahSemester.git)
 - Link *Website* Proyek UTS: (soon)
 
