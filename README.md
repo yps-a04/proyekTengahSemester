@@ -44,7 +44,7 @@ Tema yang kami gunakan adalah **<i>website review</i> buku**
 
 ## Sumber <i>dataset</i> katalog buku
 - Kelompok kami menggunakan **Kaggle** sebagai sumber dataset buku-buku yang tersedia di UlasBuku
-- Dataset Kaggle yang kami pilih berupa API **GoodReads** dan **Amazon**
+- Dataset Kaggle yang kami pilih bersumber dari **GoodReads** dan **Amazon**
     - [Goodreads](https://www.kaggle.com/datasets/jealousleopard/goodreadsbooks)
     - [Amazon](https://www.kaggle.com/datasets/saurabhbagchi/books-dataset)
 
