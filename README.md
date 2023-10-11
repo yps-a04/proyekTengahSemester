@@ -6,7 +6,7 @@
 1. [Ghaisan Luqyana Aqila - 22068300460](https://github.com/Ghaisan007)
 2. [Williams - 2206820440](https://github.com/NtapSlur)
 3. [Yasmine Putri Viryadhani - 2206081862](https://github.com/sdikyarts)
-4. [Daffa Ajnak Zuhdi - 2206083243](https://github.com/Daffa2101)
+4. [Daffa Akmal Zuhdii - 2206083243](https://github.com/Daffa2101)
 5. [Muhammad Iqbal - 2206082152](https://github.com/Liqba)
 
 
