@@ -31,16 +31,26 @@ Tema yang kami gunakan adalah **<i>website review</i> buku**
 3. Menjadi referensi masyarakat dalam memilih buku yang tepat untuk dibaca
 
 ## Implementasi Modul
-(sementara diisi fitur)
-- Authentication (Login-Register-Logout)
-- Add/delete book
-- Edit book page
-- Get list buku
-- Filter get
-- Show detail page
-- Add/edit review
-- Add to favorites
-- Show detail page
+modul home:
+- menampilkan list of book
+- menambahkan navigasi ke detail page
+- menambahkan fitur search
+
+modul book_details:
+- menampilkan detail buku beserta reviewnya
+- menambahkan fitur add review
+- menambahkan tombol add to bookmark
+
+modul profile:
+- menampilkan detail info profile user/admin
+- menampilkan review - review user
+
+modul bookmark:
+- menambahkan list buku yang dibookmark user
+
+modul admin:
+- menambahkan fitur add/delete/edit buku
+- menambahkan fitur delete review
 
 ## Sumber <i>dataset</i> katalog buku
 - Kelompok kami menggunakan **Kaggle** sebagai sumber dataset buku-buku yang tersedia di UlasBuku
