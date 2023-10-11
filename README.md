@@ -3,7 +3,6 @@
 - Link *Website* Proyek UTS: (soon)
 
 ## Anggota Kelompok
-### Nama Anggota
 1. [Ghaisan Luqyana Aqila - 22068300460](https://github.com/Ghaisan007)
 2. [Williams - 2206820440](https://github.com/NtapSlur)
 3. [Yasmine Putri Viryadhani - 2206081862](https://github.com/sdikyarts)
