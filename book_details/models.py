@@ -19,14 +19,19 @@ class Book (models.Model):
 
     def __str__(self):
         return self.title
-    
+
+
 class Review(models.Model):
-    user = models.ForeignKey(User)
-    book = models.ForeignKey(Book)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     review = models.TextField()
 
+
 class Bookmark(models.Model):
-    user = models.ForeignKey(User, related_name='bookmarked', on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, related_name='bookmarked', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name='bookmarked', on_delete=models.CASCADE)
+    book = models.ForeignKey(
+        Book, related_name='bookmarked', on_delete=models.CASCADE)
+
     def __str__(self):
         return self.user.username
