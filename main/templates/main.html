@@ -1,193 +1,364 @@
-{% extends 'base.html' %}
-
-{% load static %}
-{% block content %}
-
+{% extends 'base.html' %} {% load static %} {% block content %}
 <style>
-.custom-card {
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    margin-right: 20px;
-    margin-bottom: 20px;
-    background-color: #526D82;
-    color: white;
-    width: 20vw;
-    height: 50vh;
-}
-
-body {
+  body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: black;
-    font-family: 'Poppins', sans-serif;
-}
+    font-family: "Poppins", sans-serif;
+  }
 
-.landing-container {
+  .landing-container {
     width: 100vw;
     height: 100vh;
 
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
     background-color: white;
-}
+  }
 
-        
-.landing-text-container {
+  @media (max-width: 1050px) {
+    .landing-container {
+      flex-direction: column-reverse;
+      justify-content: center;
+    }
+  }
+
+  .landing-text-container {
     max-width: 50%;
+
+    overflow: hidden;
     text-align: justify;
+  }
 
-}
-
-        
-.landing-img-container {
+  .landing-img-container {
     max-width: 50%;
+  }
 
-    height: auto;
+  .top5-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    position: relative;
+    background-color: red;
+  }
 
-}
+  .carousel-button {
+    width: 100vw;
+    height: 75%;
+    background-color: blue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+  }
 
-.card-deck {
+  .carousel-container {
+    width: 10%;
+    height: 75%;
+    background-color: green;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .card-deck {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-}
+    gap: 50px;
+  }
 
-.custom-card .card-img-top {
+  .custom-card {
+    display: flex;
+    border: 1px solid black;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    color: black;
+    width: 200px;
+    height: 300px;
+  }
+
+  .custom-card-top5 {
+    padding: 0;
+    display: flex;
+    border: 1px solid black;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+
+    background-color: white;
+    color: black;
+    overflow: hidden;
+    width: 100%;
+    height: 300px;
+  }
+
+  .custom-card-top5 .card-img-top {
     width: 100%;
     height: 50%;
     object-fit: cover;
-}
+    overflow: hidden;
+  }
 
-.btn-custom {
+  .custom-card .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: fill;
+  }
+
+  .btn-custom {
     background-color: black;
     color: white;
-}
+  }
 
-.btn-custom:hover {
+  .btn-custom:hover {
     background-color: #f0f0f0;
     color: black;
-}
+  }
 
-{% comment %} .btn-primary {
-    background-color: black;
-}
+  .search-group {
+    width: 75vw;
+    display: flex;
+    flex-direction: row;
+  }
+  .form-outline .form-control {
+    background-color: #f0f0f0;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    filter: invert(100%);
+  }
 
-.btn-primary:hover {
-    background-color: white;
-
-    text-color: black;
-}
-
-.btn-primary:focus
-{
-    font-size: 13px;
-    color:orange;
-} {% endcomment %}
-
+  .carousel-inner > .next {
+    display: none;
+  }
+  .carousel-inner > .prev {
+    display: none;
+  }
 </style>
 
-
-
 <nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
-    <a class="navbar-brand" href="#"><b>UlasBuku</b></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active me-4 ">
-          <a class="nav-link" href="#">Home</a>
-        </li>
-        <li class="nav-item me-4">
-          <a class="nav-link" href="#">Books</a>
-        </li>
-        <li class="nav-item me-4">
-          <a class="nav-link" href="#">Profile</a>
-        </li>
-      </ul>
-    </div>
+  <a class="navbar-brand" href="#"><b>UlasBuku</b></a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active me-4">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item me-4">
+        <a class="nav-link" href="#list-book">Books</a>
+      </li>
+      <li class="nav-item me-4">
+        <a class="nav-link" href="#">Profile</a>
+      </li>
+    </ul>
+  </div>
 
-    <ul class="navbar-nav justify-content-end">
-  <li class="nav-item active">
-    <a class="nav-link" href="{% url 'main:logout'%}">
-      Logout <i class="fa fa-sign-in"></i>
-    </a>
-  </li>
-</ul>
-  </nav>
-
-
-
-
+  <ul class="navbar-nav justify-content-end">
+    <li class="nav-item active">
+      <a class="nav-link" href="{% url 'main:logout' %}"
+        >Logout <i class="fa fa-sign-in"></i
+      ></a>
+    </li>
+  </ul>
+</nav>
 
 <div class="landing-container">
-        <div class="landing-text-container">
-            <h1>Selamat Datang di <b>UlasBuku</b>!</h1>
-            <p style=" overflow: hidden;  text-overflow: ellipsis; ">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna 
-                sed do eiusmod tempor incididunt ut labore et dolore magna 
-                sed do eiusmod tempor incididunt ut labore et dolore magna 
-
-            </p>
-            <a class="btn btn-custom" href="#" role="button">Mulai Eksplor</a>
-
-        </div>
-        <div class="landing-img-container">
-    <img src="{% static 'img/book.png' %}" alt="book" style="mix-blend-mode: multiply; max-width: 100%;">
-        </div>
+  <div class="landing-text-container">
+    <h1>Selamat Datang di <b>UlasBuku</b>!</h1>
+    <p style="overflow: hidden; text-overflow: ellipsis">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna sed do eiusmod tempor
+      incididunt ut labore et dolore magna sed do eiusmod tempor incididunt ut
+      labore et dolore magna
+    </p>
+    <a class="btn btn-custom" href="#list-book" role="button">Mulai Eksplor</a>
+  </div>
+  <div class="landing-img-container">
+    <img
+      src="{% static 'img/book.png' %}"
+      alt="book"
+      style="mix-blend-mode: multiply; max-width: 100%"
+    />
+  </div>
 </div>
 
-<div style="display: flex; align-items: center;">
-    {% if books.has_previous %}
-        <a href="?page=1" class="btn btn-custom" style="margin-right: 10px;">
-            &laquo; First
-        </a>
-        <a href="?page={{books.previous_page_number}}" class="btn btn-custom">
-            Previous
-        </a>
-    {% endif %}
-</div>
+<div class="top5-container">
+  <h2><b>Most Reviewed Books</b></h2>
+  <div class="carousel-button">
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleControls"
+      data-bs-slide="prev"
+    >
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="carousel-container">
+      <div
+        id="carouselExampleControls"
+        class="carousel slide"
+        data-ride="carousel"
+      >
+        <div class="carousel-inner">
+          {% for top in top5 %}
+          <!-- active -->
 
-<hr>
-<h5>Page {{ books.number }} of {{ books.paginator.num_pages }}</h5>
-<hr>
-
-<div style="display: flex; align-items: center;">
-        {% if books.has_next %}
-            <a href="?page={{books.next_page_number}}" class="btn btn-custom" style="margin-right: 10px;">
-                Next
-            </a>
-            <a href="?page={{books.paginator.num_pages}}" class="btn btn-custom">
-                Last &raquo;
-            </a>
-        {% endif %}
-</div>
-
-
-
-
-   <br/>
-    <div  id="item_card_deck" class="card-deck">
-        {% for book in books %}
-
-            <div class="card card-sm custom-card">
-                <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-M.jpg" class="card-img-top" alt="{{book.title}}">
-                <div class="card-body">
-
-                    <h5 class="card-title">{{book.title}}</h5>
-                    <p class="card-text">Author: {{book.author}}</p>
-                    <p class="card-text">Rating: {{book.average_rating}}/10</p>
-                    <p class="card-text">Language: {{book.language_code}}</p>
-                </div>
+          <div
+            class="carousel-item img-fluid {% if forloop.counter == 1 %}active{% endif %}"
+            style="overflow: hidden"
+          >
+            <div class="card card-sm custom-card-top5">
+              <img
+                src="https://covers.openlibrary.org/b/isbn/{{ top.isbn }}-M.jpg"
+                class="card-img-top"
+                style="border-bottom: 2px solid black"
+                alt="{{ top.title }}"
+              />
+              <div class="card-body" style="max-height: 100%; overflow-y: auto">
+                <a href="#" style="text-decoration: none; color: black"
+                  ><b
+                    ><h5 class="card-title" style="font-weight: bold">
+                      {{ top.title }}
+                    </h5></b
+                  ></a
+                >
+                <br />
+                <p class="card-text">Author: {{ top.author }}</p>
+                <p class="card-text">Rating: {{ top.average_rating }}/10</p>
+                <p class="card-text">Language: {{ top.language_code }}</p>
+              </div>
             </div>
-        {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
     </div>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleControls"
+      data-bs-slide="next"
+    >
+      <i class="fas fa-arrow-right"></i>
+    </button>
+  </div>
+</div>
+<div id="list-book" class="search-group">
+  <form id="search-form" class="form-outline">
+    <input id="search-focus" type="text" class="form-control" name="q" />
+    <label class="form-label" for="search">Search</label>
+  </form>
+  <button type="button" class="btn btn-custom">
+    <i class="fas fa-search"></i>
+  </button>
+</div>
+<br /><br />
 
-    <hr><br/><br/>
+<br />
+<div id="search-results" class="card-deck">
+  {% for book in books %}
+  <div class="card card-sm custom-card">
+    <img
+      src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
+      class="card-img-top"
+      style="border-bottom: 2px solid black"
+      alt="{{ book.title }}"
+    />
+    <div class="card-body" style="max-height: 100%; overflow-y: auto">
+      <a href="#" style="text-decoration: none; color: black"
+        ><b
+          ><h5 class="card-title" style="font-weight: bold">
+            {{ book.title }}
+          </h5></b
+        ></a
+      >
+      <br />
+      <p class="card-text">Author: {{ book.author }}</p>
+      <p class="card-text">Rating: {{ book.average_rating }}/10</p>
+      <p class="card-text">Language: {{ book.language_code }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<br /><br />
+<ul
+  class="pagination"
+  style="
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  "
+>
+  <li class="page-item">
+    <a class="page-link btn-custom" href="#" aria-label="Previous"
+      ><span aria-hidden="true">&laquo;</span></a
+    >
+  </li>
+  {% for page in books.paginator.page_range %}
+  <li class="page-item">
+    <a class="page-link btn-custom" href="?page={{ page }}">{{ page }}</a>
+  </li>
+  {% endfor %}
+  <li class="page-item">
+    <a class="page-link btn-custom" href="#" aria-label="Next"
+      ><span aria-hidden="true">&raquo;</span></a
+    >
+  </li>
+</ul>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#search-form").submit(function (e) {
+      e.preventDefault();
+      var query = $("#search-focus").val();
 
-{% endblock content %}
+      $.ajax({
+        url: "/search/",
+        data: { q: query },
+        success: function (data) {
+          $("#search-results").html("");
+          data.forEach(function (book) {
+            $("#search-results").append(`<div class="card card-sm custom-card">
+                                                                        <img src="https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg" class="card-img-top" style="border-bottom: 2px solid black;" alt="{{ book.title }}" />
+                                                                        <div class="card-body" style="max-height: 100%; overflow-y: auto;">
+                                                                          <a href="#" style="text-decoration: none; color: black;"><b><h5 class="card-title" style="font-weight: bold;">${book.title}</h5></b></a>
+                                                                          <br />
+                                                                          <p class="card-text">Author: ${book.author}</p>
+                                                                          <p class="card-text">Rating: ${book.average_rating}/10</p>
+                                                                          <p class="card-text">Language: ${book.language_code}</p>
+                                                                        </div>
+                                                                </div>`);
+          });
+        },
+      });
+    });
+  });
+</script>
+{% endblock %}

@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
 from .forms import LoginForm, SignUpForm
 # Create your views here.
 
@@ -11,12 +12,15 @@ from .forms import LoginForm, SignUpForm
 def show_main(request):
 
     # set pagination 50/page
-    p = Paginator(Book.objects.all(), 50)
+    p = Paginator(Book.objects.all(), 20)
     page = request.GET.get('page')
 
+    top5 = Book.objects.all()[:5]
     books = p.get_page(page)
+    print(top5)
     context = {
         'books': books,
+        'top5': top5,
     }
 
     return render(request, "main.html", context)
@@ -59,3 +63,13 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('main:login')
+
+
+def search(request):
+    query = request.GET.get('q')
+    # Misalnya mencari produk berdasarkan nama
+    results = Book.objects.filter(title__icontains=query)
+    data = [{'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
+             'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code, } for books in results]
+    print(data)
+    return JsonResponse(data, safe=False)
