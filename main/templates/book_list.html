@@ -47,10 +47,13 @@
     background-color: #f0f0f0;
     color: black;
   }
-  .search-group {
-    width: 75vw;
+
+  #search-form {
     display: flex;
     flex-direction: row;
+  }
+  .search-group {
+    width: 75vw;
   }
   .form-outline .form-control {
     background-color: #f0f0f0;
@@ -96,10 +99,10 @@
   <form id="search-form" class="form-outline">
     <input id="search-focus" type="text" class="form-control" name="q" />
     <label class="form-label" for="button">Search</label>
+    <button type="submit" class="btn btn-custom">
+      <i class="fas fa-search"></i>
+    </button>
   </form>
-  <button type="button" class="btn btn-custom">
-    <i class="fas fa-search"></i>
-  </button>
 </div>
 
 <br /><br />
