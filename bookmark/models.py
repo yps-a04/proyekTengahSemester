@@ -10,3 +10,7 @@ class Bookmark(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+    @classmethod
+    def is_bookmarked(cls, user, book):
+        return cls.objects.filter(user=user, book=book).exists()

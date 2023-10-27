@@ -148,15 +148,15 @@
             <th width="10%">Language</th>
             <th width="5%">Bookmark</th>
         </tr>
-        {% for book in books %}
+        {% for bookmark in books %}
         <tr>
             <td>
-                <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-M.jpg" class="card-img-top" alt="{{book.title}}">
+                <img src="https://covers.openlibrary.org/b/isbn/{{bookmark.book.isbn}}-M.jpg" class="card-img-top" alt="{{book.title}}">
             </td>
-            <td>{{book.title}}</td>
-            <td>{{book.author}}</td>
-            <td style="text-align: center;">{{book.average_rating}}/10</td>
-            <td style="text-align: center;">{{book.language_code}}</td>
+            <td>{{bookmark.book.title}}</td>
+            <td>{{bookmark.book.author}}</td>
+            <td style="text-align: center;">{{bookmark.book.average_rating}}/10</td>
+            <td style="text-align: center;">{{bookmark.book.language_code}}</td>
             <td style="text-align: center;">
                 <a class="btn bookmark-button">
                     <i class="fa fa-bookmark"></i>

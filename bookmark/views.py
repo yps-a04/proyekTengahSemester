@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 def show_bookmark(request, key):
     username = key
     user = User.objects.get(username=username)
-    book = user.bookmarked.values('book')
+    book = user.bookmarked.select_related('book')
+
     p = Paginator(book, 50)
     page = request.GET.get('page')
 

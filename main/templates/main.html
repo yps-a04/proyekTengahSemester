@@ -66,7 +66,13 @@ body {
   right: 16px;
 }
 
-.btn-custom, .bookmark-button {
+.bookmark-button.bookmarked {
+  /* style untuk tombol bookmark yang ditekan */
+  color: orange;
+  background-color: #f0f0f0;
+}
+
+.btn-custom {
     background-color: black;
     color: white;
 }
@@ -213,7 +219,7 @@ body {
       <form method="POST" action="{% url 'main:bookmark' book.pk %}">
         {% csrf_token %}
         <input type='hidden' name='bookmarked' value='{{ book.pk }}'>
-        <button class="btn bookmark-button" type="submit">
+        <button class="btn bookmark-button {% if Bookmark.is_bookmarked %}bookmarked{% endif %}" type="submit">
           <i class="fa fa-bookmark"></i>
         </button>
       </form>

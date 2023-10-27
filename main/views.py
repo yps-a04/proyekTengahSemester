@@ -34,11 +34,16 @@ def bookmark(request, key):
     book = get_object_or_404(Book, pk=key)
     if request.method == 'POST':
         user = request.user
-        new_bookmark = Bookmark()
-        new_bookmark.user = user
-        new_bookmark.book = book
-        new_bookmark.save()
+        try:
+            existing_bookmark = Bookmark.objects.get(user=user, book=book)
+            existing_bookmark.delete()
+        except Bookmark.DoesNotExist:
+            new_bookmark = Bookmark()
+            new_bookmark.user = user
+            new_bookmark.book = book
+            new_bookmark.save()
     return HttpResponseRedirect(reverse('main:show_main'))
+
 
 def register(request):
     form = SignUpForm()
