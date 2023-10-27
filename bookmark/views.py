@@ -3,7 +3,7 @@ from main.models import Book
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from book_details.models import Bookmark
+from bookmark.models import Bookmark
 from django.contrib.auth.models import User
 
 def show_bookmark(request, key):

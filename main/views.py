@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from .forms import LoginForm, SignUpForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from book_details.models import Bookmark, Review
+from bookmark.models import Bookmark
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 # Create your views here.
