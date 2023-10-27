@@ -6,6 +6,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from .forms import LoginForm, SignUpForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from book_details.models import Bookmark, Review
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -25,6 +30,15 @@ def show_main(request):
 
     return render(request, "main.html", context)
 
+def bookmark(request, key):
+    book = get_object_or_404(Book, pk=key)
+    if request.method == 'POST':
+        user = request.user
+        new_bookmark = Bookmark()
+        new_bookmark.user = user
+        new_bookmark.book = book
+        new_bookmark.save()
+    return HttpResponseRedirect(reverse('main:show_main'))
 
 def register(request):
     form = SignUpForm()
