@@ -78,6 +78,6 @@ def search(request):
     results = Book.objects.filter(title__icontains=query)
 
     data = [{'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
-             'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code, 'page': page} for books in results]
+             'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code} for books in results]
 
     return JsonResponse(data, safe=False)

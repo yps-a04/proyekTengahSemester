@@ -57,7 +57,7 @@
   }
 </style>
 <nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
-  <a class="navbar-brand" href="#"><b>UlasBuku</b></a>
+  <a class="navbar-brand" href="{% url 'main:show_main'%}"><b>UlasBuku</b></a>
   <button
     class="navbar-toggler"
     type="button"
@@ -213,21 +213,6 @@
                 </div>`);
           });
           $(".pagination").html("");
-          $(".pagination").append(`<ul
-                class="pagination"
-                style="
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: center;
-                "
-                >
-                <li class="page-item">
-                    <a class="page-link btn-custom" href="#" aria-label="Previous"
-                    ><span aria-hidden="true">&laquo;</span></a
-                    >
-                </li>`);
-            for
         },
       });
     });

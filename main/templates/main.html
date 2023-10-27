@@ -36,10 +36,20 @@
     max-width: 50%;
     height: auto;
   }
+
+  .btn-custom {
+    background-color: black;
+    color: white;
+  }
+
+  .btn-custom:hover {
+    background-color: #f0f0f0;
+    color: black;
+  }
 </style>
 
 <nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
-  <a class="navbar-brand" href="#"><b>UlasBuku</b></a>
+  <a class="navbar-brand" href="{% url 'main:show_main'%}"><b>UlasBuku</b></a>
   <button
     class="navbar-toggler"
     type="button"
@@ -83,7 +93,12 @@
       incididunt ut labore et dolore magna sed do eiusmod tempor incididunt ut
       labore et dolore magna
     </p>
-    <a class="btn btn-custom" href="#" role="button">Mulai Eksplor</a>
+    <a
+      class="btn btn-custom"
+      href="{% url 'main:show_book_list'%}"
+      role="button"
+      >Mulai Eksplor</a
+    >
   </div>
   <div class="landing-img-container">
     <img
