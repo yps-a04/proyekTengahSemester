@@ -12,6 +12,12 @@ from .forms import LoginForm, SignUpForm
 def show_main(request):
 
     # set pagination 50/page
+    context = {}
+
+    return render(request, "main.html", context)
+
+
+def show_book_list(request):
     p = Paginator(Book.objects.all(), 20)
     page = request.GET.get('page')
 
@@ -23,7 +29,7 @@ def show_main(request):
         'top5': top5,
     }
 
-    return render(request, "main.html", context)
+    return render(request, "book_list.html", context)
 
 
 def register(request):
@@ -67,9 +73,11 @@ def logout_user(request):
 
 def search(request):
     query = request.GET.get('q')
+
     # Misalnya mencari produk berdasarkan nama
     results = Book.objects.filter(title__icontains=query)
+
     data = [{'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
-             'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code, } for books in results]
-    print(data)
+             'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code} for books in results]
+
     return JsonResponse(data, safe=False)
