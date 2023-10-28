@@ -38,12 +38,23 @@
     object-fit: cover;
   }
 
-  .btn-custom {
+  .bookmark-button {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+  }
+
+  .bookmark-button.bookmarked {
+    color: orange;
+    background-color: black;
+  }
+
+  .btn-custom, .bookmark-button {
     background-color: black;
     color: white;
   }
 
-  .btn-custom:hover {
+  .btn-custom:hover, .bookmark-button:hover {
     background-color: #f0f0f0;
     color: black;
   }
@@ -83,6 +94,11 @@
       <li class="nav-item me-4">
         <a class="nav-link" href="#">Profile</a>
       </li>
+      {% if user.is_authenticated %}
+      <li class="nav-item me-4">
+        <a class="nav-link" href="{% url 'bookmark:show_bookmark' request.user%}">Bookmark</a>
+      </li>
+      {% endif %}
     </ul>
   </div>
 
@@ -157,6 +173,15 @@
       <p class="card-text">Author: {{book.author}}</p>
       <p class="card-text">Rating: {{book.average_rating}}/10</p>
       <p class="card-text">Language: {{book.language_code}}</p>
+      {% if user.is_authenticated %}  
+      <form class="bookmark_form" method="POST" action="{% url 'main:bookmark' book.pk %}">
+        {% csrf_token %}
+        <input type='hidden' name='bookmarked' value='{{ book.pk }}'>
+        <button class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}" type="submit">
+          <i class="fa fa-bookmark"></i>
+        </button>
+      </form>
+      {% endif %}
     </div>
   </div>
   {% endfor %}
@@ -220,5 +245,30 @@
       });
     });
   });
+
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll('.bookmark_form').forEach(form => {
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      fetch(this.action, {
+        method: this.method,
+        body: new FormData(this),
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',  // NEEDED FOR DJANGO TO TREAT THIS AS AJAX
+          'X-CSRFToken': this.querySelector('input[name=csrfmiddlewaretoken]').value,  // CSRF TOKEN
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'bookmarked') {
+          this.querySelector('.bookmark-button').classList.add('bookmarked');
+        } else {
+          this.querySelector('.bookmark-button').classList.remove('bookmarked');
+        }
+      });
+    });
+  });
+});
 </script>
 {% endblock content %}

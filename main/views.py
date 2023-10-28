@@ -6,6 +6,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from .forms import LoginForm, SignUpForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from bookmark.models import Bookmark
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -24,12 +29,35 @@ def show_book_list(request):
     top5 = Book.objects.all()[:5]
     books = p.get_page(page)
     print(top5)
+
+    bookmarks = None
+    b = [] 
+    if request.user.is_authenticated:
+        bookmarks = request.user.bookmarked.select_related('book')
+        for book in bookmarks:
+            b.append(book.book)
+
+
     context = {
         'books': books,
         'top5': top5,
+        'bookmarks' : b
     }
 
     return render(request, "book_list.html", context)
+
+def bookmark(request, key):
+    book = get_object_or_404(Book, pk=key)
+    if request.method == 'POST':
+        user = request.user
+        try:
+            existing_bookmark = Bookmark.objects.get(user=user, book=book)
+            existing_bookmark.delete()
+            return JsonResponse({'status': 'unbookmarked'})
+        except Bookmark.DoesNotExist:
+            new_bookmark = Bookmark(user=user, book=book)
+            new_bookmark.save()
+            return JsonResponse({'status': 'bookmarked'})
 
 
 def register(request):
