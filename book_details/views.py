@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Book
+from main.models import Book
 from .forms import Review
 from django.contrib.auth.decorators import login_required
 import datetime
