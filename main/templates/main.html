@@ -67,17 +67,16 @@ body {
 }
 
 .bookmark-button.bookmarked {
-  /* style untuk tombol bookmark yang ditekan */
   color: orange;
-  background-color: #f0f0f0;
+  background-color: black;
 }
 
-.btn-custom {
+.btn-custom, .bookmark-button{
     background-color: black;
     color: white;
 }
 
-.btn-custom:hover {
+.btn-custom:hover, .bookmark-button:hover{
     background-color: #f0f0f0;
     color: black;
 }
@@ -215,11 +214,11 @@ body {
       <p class="card-text">Author: {{book.author}}</p>
       <p class="card-text">Rating: {{book.average_rating}}/10</p>
       <p class="card-text">Language: {{book.language_code}}</p>
-      {% if user.is_authenticated %}
+      {% if user.is_authenticated %}  
       <form method="POST" action="{% url 'main:bookmark' book.pk %}">
         {% csrf_token %}
         <input type='hidden' name='bookmarked' value='{{ book.pk }}'>
-        <button class="btn bookmark-button {% if Bookmark.is_bookmarked %}bookmarked{% endif %}" type="submit">
+        <button class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}" type="submit">
           <i class="fa fa-bookmark"></i>
         </button>
       </form>
@@ -231,5 +230,9 @@ body {
 
 <hr />
 <br /><br />
+
+<script>
+  
+</script>
 
 {% endblock content %}

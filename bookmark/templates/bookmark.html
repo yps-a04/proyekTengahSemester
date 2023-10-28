@@ -56,7 +56,7 @@
 
     .bookmark-button {
         background-color: black;
-        color: white;
+        color: orange;
         position: relative;
     }
 
@@ -158,9 +158,13 @@
             <td style="text-align: center;">{{bookmark.book.average_rating}}/10</td>
             <td style="text-align: center;">{{bookmark.book.language_code}}</td>
             <td style="text-align: center;">
-                <a class="btn bookmark-button">
-                    <i class="fa fa-bookmark"></i>
-                </a>
+                <form method="POST" action="{% url 'bookmark:delete_bookmark' bookmark.book.pk %}">
+                    {% csrf_token %}
+                    <input type='hidden' name='bookmarked' value='{{ bookmark.book.pk }}'>
+                    <button class="btn bookmark-button" type="submit">
+                      <i class="fa fa-bookmark"></i>
+                    </button>
+                </form>
             </td>
         </tr>
         {% endfor %}

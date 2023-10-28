@@ -23,9 +23,19 @@ def show_main(request):
     top5 = Book.objects.all()[:5]
     books = p.get_page(page)
     print(top5)
+
+    bookmarks = None
+    if request.user.is_authenticated:
+        bookmarks = request.user.bookmarked.select_related('book')
+
+    b = [] 
+    for book in bookmarks:
+        b.append(book.book)
+
     context = {
         'books': books,
         'top5': top5,
+        'bookmarks' : b
     }
 
     return render(request, "main.html", context)
@@ -38,9 +48,7 @@ def bookmark(request, key):
             existing_bookmark = Bookmark.objects.get(user=user, book=book)
             existing_bookmark.delete()
         except Bookmark.DoesNotExist:
-            new_bookmark = Bookmark()
-            new_bookmark.user = user
-            new_bookmark.book = book
+            new_bookmark = Bookmark(user=user, book=book)
             new_bookmark.save()
     return HttpResponseRedirect(reverse('main:show_main'))
 
