@@ -115,6 +115,8 @@
 
 <h1>BOOKMARK</h1>
 
+{% if books %}
+
 <p>{{username}} bookmarked books</p>
 
 <div style="display: flex; align-items: center;">
@@ -209,4 +211,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 });
 </script>
+{% else %}
+<p>bookmark kosong</p>
+
+{% endif %}
 {% endblock content %}
