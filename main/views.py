@@ -31,12 +31,12 @@ def show_book_list(request):
     print(top5)
 
     bookmarks = None
+    b = [] 
     if request.user.is_authenticated:
         bookmarks = request.user.bookmarked.select_related('book')
+        for book in bookmarks:
+            b.append(book.book)
 
-    b = [] 
-    for book in bookmarks:
-        b.append(book.book)
 
     context = {
         'books': books,
