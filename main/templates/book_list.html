@@ -97,7 +97,13 @@
 
 <div id="list-book" class="search-group">
   <form id="search-form" class="form-outline">
-    <input id="search-focus" type="text" class="form-control" name="q" />
+    <input
+      id="search-focus"
+      type="text"
+      class="form-control"
+      name="q"
+      placeholder="Masukkan judul/isbn/author . . ."
+    />
     <label class="form-label" for="button">Search</label>
     <button type="submit" class="btn btn-custom">
       <i class="fas fa-search"></i>
@@ -132,6 +138,36 @@
     >
   </li>
 </ul>
+
+<br />
+
+<div id="sort-by" class="dropdown">
+  <button
+    class="btn btn-custom dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Sort by
+  </button>
+  <ul class="dropdown-menu" id="sort-options">
+    <li>
+      <a class="dropdown-item" href="#" data-sort="alphabet-asc"
+        >Alphabet (A-Z)</a
+      >
+    </li>
+    <li>
+      <a class="dropdown-item" href="#" data-sort="alphabet-desc"
+        >Alphabet (Z-A)</a
+      >
+    </li>
+    <li>
+      <a class="dropdown-item" href="#" data-sort="reviews-count"
+        >Reviews Count</a
+      >
+    </li>
+  </ul>
+</div>
 
 <br />
 
@@ -202,12 +238,76 @@
         url: "/search/",
         data: { q: query },
         success: function (data) {
+          console.log(data);
+          $("#search-results").html("");
+          if (data.length === 0) {
+            $("#search-results").append(
+              `<p style="color:black;">Buku tidak ditemukan</p>`
+            );
+          } else {
+            data.forEach(function (book) {
+              var url = "{% url 'book_details:show_book_detail' 0 %}".replace(
+                "0",
+                book.pk
+              );
+              $(
+                "#search-results"
+              ).append(`<div class="card card-sm custom-card">
+                <img src="https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg" class="card-img-top" style="border-bottom: 2px solid black;" alt="{{ book.title }}" />
+                <div class="card-body" style="max-height: 100%; overflow-y: auto;">
+                <a
+        href= ${url}
+        style="text-decoration: none; color: black"
+        ><b
+          ><h5 class="card-title" style="font-weight: bold">
+            ${book.title}
+          </h5></b
+        ></a
+      >
+                <br />
+                <p class="card-text">Author: ${book.author}</p>
+                <p class="card-text">Rating: ${book.average_rating}/10</p>
+                <p class="card-text">Language: ${book.language_code}</p>
+                    </div>
+                </div>`);
+            });
+          }
+
+          $(".pagination").html("");
+          $("#sort-by").html("");
+        },
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#sort-options a").click(function (e) {
+      e.preventDefault();
+      var selectedSort = $(this).data("sort");
+
+      $.ajax({
+        type: "GET",
+        url: "{% url 'main:sort_books' %}",
+        data: { sort_by: selectedSort },
+        success: function (data) {
           $("#search-results").html("");
           data.forEach(function (book) {
+            var url = "{% url 'book_details:show_book_detail' 0 %}".replace(
+              "0",
+              book.pk
+            );
             $("#search-results").append(`<div class="card card-sm custom-card">
                 <img src="https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg" class="card-img-top" style="border-bottom: 2px solid black;" alt="{{ book.title }}" />
                 <div class="card-body" style="max-height: 100%; overflow-y: auto;">
-                <a href="#" style="text-decoration: none; color: black;"><b><h5 class="card-title" style="font-weight: bold;">${book.title}</h5></b></a>
+                <a
+        href= ${url}
+        style="text-decoration: none; color: black"
+        ><b
+          ><h5 class="card-title" style="font-weight: bold">
+            ${book.title}
+          </h5></b
+        ></a
+      >
                 <br />
                 <p class="card-text">Author: ${book.author}</p>
                 <p class="card-text">Rating: ${book.average_rating}/10</p>
@@ -215,7 +315,16 @@
                     </div>
                 </div>`);
           });
-          $(".pagination").html("");
+
+          var currentPage = new URLSearchParams(window.location.search).get(
+            "page"
+          );
+
+          $(".pagination a").each(function () {
+            var href = $(this).attr("href");
+            var separator = href.includes("?") ? "&" : "?"; // Check if there are existing parameters
+            $(this).attr("href", href + separator + "sort_by=" + selectedSort);
+          });
         },
       });
     });

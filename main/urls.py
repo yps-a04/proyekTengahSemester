@@ -9,6 +9,9 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
     path('search/', search, name='search'),
+    path('sort-books/', sort_books, name='sort_books'),
+
+
 
 
 ]

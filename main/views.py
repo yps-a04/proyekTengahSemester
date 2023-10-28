@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
+from django.db.models import Q
+
 from .forms import LoginForm, SignUpForm
 # Create your views here.
 
@@ -18,15 +20,35 @@ def show_main(request):
 
 
 def show_book_list(request):
-    p = Paginator(Book.objects.all(), 20)
-    page = request.GET.get('page')
 
-    top5 = Book.objects.all()[:5]
+    page = request.GET.get('page')
+    sort_param = request.GET.get('sort_by')  # Dapatkan parameter sort
+
+    if sort_param is None:
+        sort_param = ""
+
+    if page is None:
+        page = 1
+
+    print("sort-param ===" + sort_param)
+
+    if sort_param == 'alphabet-asc':
+        books = Book.objects.order_by('title')
+    elif sort_param == 'alphabet-desc':
+        books = Book.objects.order_by('-title')
+    elif sort_param == 'reviews-count':
+        books = Book.objects.order_by('-text_review_count')
+    else:
+        books = Book.objects.all()
+
+    p = Paginator(books, 20)
     books = p.get_page(page)
-    print(top5)
+
+    print('books === ' + str(books))
+
     context = {
         'books': books,
-        'top5': top5,
+        'sort_param': sort_param,  # Kirim sort_param kembali ke template
     }
 
     return render(request, "book_list.html", context)
@@ -76,8 +98,32 @@ def search(request):
 
     # Misalnya mencari produk berdasarkan nama
     results = Book.objects.filter(title__icontains=query)
+    results = Book.objects.filter(
+        Q(title__icontains=query) | Q(
+            isbn__icontains=query) | Q(author__icontains=query)
+    )
 
-    data = [{'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
-             'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code} for books in results]
+    if results is not None:
+        data = [{'pk': books.pk, 'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
+                 'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code} for books in results]
+    else:
+        data = 0
 
     return JsonResponse(data, safe=False)
+
+
+def sort_books(request):
+    sort_by = request.GET.get('sort_by')
+    if sort_by == 'alphabet-asc':
+        books = Book.objects.order_by('title')
+    elif sort_by == 'alphabet-desc':
+        books = Book.objects.order_by('-title')
+    elif sort_by == 'reviews-count':
+        books = Book.objects.order_by('-text_review_count')
+    else:
+        books = Book.objects.all()
+
+    book_list = [{'pk': book.pk, 'title': book.title, 'author': book.author, 'average_rating': book.average_rating,
+                  'isbn': book.isbn, 'isbn13': book.isbn13, 'language_code': book.language_code} for book in books[:20]]
+
+    return JsonResponse(book_list, safe=False)
