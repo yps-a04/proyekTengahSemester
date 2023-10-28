@@ -99,7 +99,10 @@ def login_user(request):
 
         if user is not None:
             login(request, user)
-            return redirect('main:show_main')
+            if user.is_staff:
+                return redirect('admin_section:show_admin')
+            else:
+                return redirect('main:show_main')
         else:
             messages.info(
                 request, 'Sorry, incorrect username or password. Please try again.')

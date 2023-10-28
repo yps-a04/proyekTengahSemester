@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'book_details',
     'bookmark',
     'profiles',
+    'admin_section'
 ]
 
 MIDDLEWARE = [
