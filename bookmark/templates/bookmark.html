@@ -49,23 +49,21 @@
         text-align: left;
     }
 
-    .btn-custom {
+    .btn-custom, .bookmark-button {
         background-color: black;
         color: white;
     }
 
     .bookmark-button {
-        background-color: black;
-        color: orange;
         position: relative;
     }
 
-    .bookmark-button:hover {
-        background-color: #f0f0f0;
-        color: black;
+    .bookmark-button.bookmarked {
+        color: orange;
+        background-color: black;
     }
 
-    .btn-custom:hover {
+    .btn-custom:hover, .bookmark-button:hover {
         background-color: #f0f0f0;
         color: black;
     }
@@ -158,10 +156,10 @@
             <td style="text-align: center;">{{bookmark.book.average_rating}}/10</td>
             <td style="text-align: center;">{{bookmark.book.language_code}}</td>
             <td style="text-align: center;">
-                <form method="POST" action="{% url 'bookmark:delete_bookmark' bookmark.book.pk %}">
+                <form class="bookmark_form" method="POST" action="{% url 'bookmark:delete_bookmark' bookmark.book.pk %}">
                     {% csrf_token %}
                     <input type='hidden' name='bookmarked' value='{{ bookmark.book.pk }}'>
-                    <button class="btn bookmark-button" type="submit">
+                    <button class="btn bookmark-button bookmarked" type="submit">
                       <i class="fa fa-bookmark"></i>
                     </button>
                 </form>
@@ -173,5 +171,29 @@
 
 <hr><br/><br/>
     
-
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll('.bookmark_form').forEach(form => {
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      fetch(this.action, {
+        method: this.method,
+        body: new FormData(this),
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',  // NEEDED FOR DJANGO TO TREAT THIS AS AJAX
+          'X-CSRFToken': this.querySelector('input[name=csrfmiddlewaretoken]').value,  // CSRF TOKEN
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'bookmarked') {
+          this.querySelector('.bookmark-button').classList.add('bookmarked');
+        } else {
+          this.querySelector('.bookmark-button').classList.remove('bookmarked');
+        }
+      });
+    });
+  });
+});
+</script>
 {% endblock content %}

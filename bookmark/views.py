@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from main.models import Book
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.urls import reverse
 from bookmark.models import Bookmark
 from django.contrib.auth.models import User
@@ -25,7 +25,14 @@ def show_bookmark(request, key):
 
 def delete_bookmark(request, key):
     book = get_object_or_404(Book, pk=key)
-    existing_bookmark = Bookmark.objects.get(user=request.user, book=book)
-    existing_bookmark.delete()
-    return HttpResponseRedirect(reverse('bookmark:show_bookmark', args=[request.user.username]))
+    if request.method == 'POST':
+        user = request.user
+        try:
+            existing_bookmark = Bookmark.objects.get(user=user, book=book)
+            existing_bookmark.delete()
+            return JsonResponse({'status': 'unbookmarked'})
+        except Bookmark.DoesNotExist:
+            new_bookmark = Bookmark(user=user, book=book)
+            new_bookmark.save()
+            return JsonResponse({'status': 'bookmarked'})
 # Create your views here.
