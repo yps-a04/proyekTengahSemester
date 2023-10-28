@@ -13,5 +13,6 @@ urlpatterns = [
 
 
 
+    path('b/<str:key>', bookmark, name='bookmark'),
 
 ]

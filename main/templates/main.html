@@ -72,6 +72,11 @@
       <li class="nav-item me-4">
         <a class="nav-link" href="#">Profile</a>
       </li>
+      {% if user.is_authenticated %}
+      <li class="nav-item me-4">
+        <a class="nav-link" href="{% url 'bookmark:show_bookmark' request.user%}">Bookmark</a>
+      </li>
+      {% endif %}
     </ul>
   </div>
 

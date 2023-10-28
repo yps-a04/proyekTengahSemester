@@ -8,6 +8,11 @@ from django.http import JsonResponse
 from django.db.models import Q
 
 from .forms import LoginForm, SignUpForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from bookmark.models import Bookmark
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -52,6 +57,19 @@ def show_book_list(request):
     }
 
     return render(request, "book_list.html", context)
+
+def bookmark(request, key):
+    book = get_object_or_404(Book, pk=key)
+    if request.method == 'POST':
+        user = request.user
+        try:
+            existing_bookmark = Bookmark.objects.get(user=user, book=book)
+            existing_bookmark.delete()
+            return JsonResponse({'status': 'unbookmarked'})
+        except Bookmark.DoesNotExist:
+            new_bookmark = Bookmark(user=user, book=book)
+            new_bookmark.save()
+            return JsonResponse({'status': 'bookmarked'})
 
 
 def register(request):
