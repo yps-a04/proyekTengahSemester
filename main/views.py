@@ -58,6 +58,7 @@ def show_book_list(request):
 
     return render(request, "book_list.html", context)
 
+
 def bookmark(request, key):
     book = get_object_or_404(Book, pk=key)
     if request.method == 'POST':
