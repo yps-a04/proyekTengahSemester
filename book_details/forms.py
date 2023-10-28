@@ -1,5 +1,5 @@
 from django.forms import ModelForm, Textarea
-from .models import Review
+from admin_section.models import Review
 
 class Review(ModelForm):
     class Meta:
