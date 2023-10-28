@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      font-family: "Poppins", sans-serif;
+      padding-top: 100px;
+    }
+  
+    .card-deck {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+  
+    .custom-card {
+      display: flex;
+      border: 1px solid black;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      margin-right: 20px;
+      margin-bottom: 20px;
+      background-color: white;
+      color: black;
+      width: 300px;
+      height: 400px;
+      overflow: auto;
+    }
+  
+    .custom-card .card-img-top {
+      width: 100%;
+      height: 50%;
+      object-fit: cover;
+    }
+  
+    .btn-custom {
+      background-color: black;
+      color: white;
+    }
+  
+    .btn-custom:hover {
+      background-color: #f0f0f0;
+      color: black;
+    }
+  
+    #search-form {
+      display: flex;
+      flex-direction: row;
+    }
+    .search-group {
+      width: 75vw;
+    }
+    .form-outline .form-control {
+      background-color: #f0f0f0;
+    }
+  </style>
+  <nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
+    <a class="navbar-brand" href="{% url 'admin_section:show_admin' %}"><b>UlasBuku</b></a>   <!-- TODO: MASIH BLOM BISA -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active me-4">
+          <a class="nav-link" href="{% url 'admin_section:show_admin'%}">Home</a>
+        </li>
+        <li class="nav-item me-4">
+          <a class="nav-link" href="{% url 'admin_section:show_book_list_admin'%}">Books</a>
+        </li>
+        <li class="nav-item me-4">
+          <a class="nav-link" href="#">Profile</a>
+        </li>
+        <li class="nav-item me-4">
+          <a class="nav-link" href="{% url 'admin_section:user_list' %}">List User</a>
+        </li>
+      </ul>
+    </div>
+  
+    <ul class="navbar-nav justify-content-end">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'main:logout'%}">
+          Logout <i class="fa fa-sign-in"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+<h1 style="text-align: center;">Edit Book</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Edit Book"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}

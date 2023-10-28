@@ -1,5 +1,7 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
 
+{% block content %}
 <style>
   body {
     display: flex;
@@ -10,7 +12,7 @@
     font-family: "Poppins", sans-serif;
   }
 
-  .landing-container {
+  .detail-container {
     width: 100vw;
     height: 100vh;
 
@@ -20,21 +22,30 @@
     background-color: white;
   }
 
-  @media (max-width: 1050px) {
-    .landing-container {
+  @media (max-width: 800px) {
+    .detail-container {
       flex-direction: column-reverse;
       justify-content: center;
     }
   }
 
-  .landing-text-container {
+  .detail-text-container {
     max-width: 50%;
     text-align: justify;
   }
 
-  .landing-img-container {
+  .detail-img-container {
     max-width: 50%;
     height: auto;
+  }
+
+  .detail-container {
+    width: 100vw;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
   }
 
   .btn-custom {
@@ -46,6 +57,19 @@
     background-color: #f0f0f0;
     color: black;
   }
+
+    .review-container {
+        width: 100vw;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: white;
+    }
+
+    .review-text-container {
+        max-width: 50%;
+        text-align: justify;
+    }
 </style>
 
 <nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
@@ -72,11 +96,6 @@
       <li class="nav-item me-4">
         <a class="nav-link" href="#">Profile</a>
       </li>
-      {% if user.is_authenticated %}
-      <li class="nav-item me-4">
-        <a class="nav-link" href="{% url 'bookmark:show_bookmark' request.user%}">Bookmark</a>
-      </li>
-      {% endif %}
     </ul>
   </div>
 
@@ -89,29 +108,33 @@
   </ul>
 </nav>
 
-<div class="landing-container">
-  <div class="landing-text-container">
-    <h1>Selamat Datang di <b>UlasBuku</b>!</h1>
-    <p style="overflow: hidden; text-overflow: ellipsis">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna sed do eiusmod tempor
-      incididunt ut labore et dolore magna sed do eiusmod tempor incididunt ut
-      labore et dolore magna
-    </p>
-    <a
-      class="btn btn-custom"
-      href="{% url 'main:show_book_list'%}"
-      role="button"
-      >Mulai Eksplor</a
-    >
-  </div>
-  <div class="landing-img-container">
+<div class="detail-container">
+  <div class="detail-img-container">
     <img
       src="{% static 'img/book.png' %}"
-      alt="Designed by pikisuperstar / Freepik"
+      alt="book"
       style="mix-blend-mode: multiply; max-width: 100%"
     />
   </div>
+  <div class="detail-text-container">
+    <h1><b>{{ book.name }}</b></h1>
+    <h2><b>{{ book.author }}</b></h2>
+    <br>
+    <p><b><i>Rating</i> Rata-Rata:</b> {{ book.average_rating }}</p>
+    <p><b>ISBN:</b> {{ book.isbn }}</p>
+    <p><b>ISBN 13:</b> {{ book.isbn13 }}</p>
+    <p><b>Kode Bahasa:</b> {{ book.language_code }}</p>
+    <p><b>Jumlah Halaman:</b> {{ book.num_pages }}</p>
+    <p><b>Jumlah <i>Rating</i>:</b> {{ book.rating_count }}</p>
+    <p><b>Tanggal Terbit:</b> {{ book.publication_date }}</p>
+    <p><b>Penerbit:</b> {{ book.publisher }}</p>
+  </div>
+</div>
+
+<div class="review-container">
+    <div class="review-text-container">
+        <h2><b>Tambahkan Ulasan Anda:</b></h2>
+    </div>
 </div>
 
 {% endblock content %}
