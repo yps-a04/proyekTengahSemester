@@ -1,27 +1,16 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
 <style>
-    .custom-card {
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    margin-right: 20px;
-    margin-bottom: 20px;
-    background-color: white;
-    color: black;
-    width: 20vw;
-    height: 50vh;
-    border: 1px solid black;
-}
-
-body {
+  body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: black;
-    font-family: 'Poppins', sans-serif;
-}
+    font-family: "Poppins", sans-serif;
+  }
 
-.landing-container {
+  .landing-container {
     width: 100vw;
     height: 100vh;
 
@@ -29,78 +18,38 @@ body {
     justify-content: space-evenly;
     align-items: center;
     background-color: white;
-}
+  }
 
-        
-.landing-text-container {
+  @media (max-width: 1050px) {
+    .landing-container {
+      flex-direction: column-reverse;
+      justify-content: center;
+    }
+  }
+
+  .landing-text-container {
     max-width: 50%;
     text-align: justify;
+  }
 
-}
-
-        
-.landing-img-container {
+  .landing-img-container {
     max-width: 50%;
-
     height: auto;
+  }
 
-}
-
-.card-deck {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.custom-card .card-img-top {
-    width: 100%;
-    height: 50%;
-    object-fit: cover;
-}
-
-.bookmark-button {
-  position: absolute;
-  top: 8px;
-  right: 16px;
-}
-
-.bookmark-button.bookmarked {
-  color: orange;
-  background-color: black;
-}
-
-.btn-custom, .bookmark-button{
+  .btn-custom {
     background-color: black;
     color: white;
-}
+  }
 
-.btn-custom:hover, .bookmark-button:hover{
+  .btn-custom:hover {
     background-color: #f0f0f0;
     color: black;
-}
-
-/* {% comment %} .btn-primary {
-    background-color: black;
-}
-
-.btn-primary:hover {
-    background-color: white;
-
-    text-color: black;
-}
-
-.btn-primary:focus
-{
-    font-size: 13px;
-    color:orange;
-} {% endcomment %} */
-
+  }
 </style>
 
 <nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
-  <a class="navbar-brand" href="#"><b>UlasBuku</b></a>
+  <a class="navbar-brand" href="{% url 'main:show_main'%}"><b>UlasBuku</b></a>
   <button
     class="navbar-toggler"
     type="button"
@@ -118,7 +67,7 @@ body {
         <a class="nav-link" href="#">Home</a>
       </li>
       <li class="nav-item me-4">
-        <a class="nav-link" href="#">Books</a>
+        <a class="nav-link" href="{% url 'main:show_book_list'%}">Books</a>
       </li>
       <li class="nav-item me-4">
         <a class="nav-link" href="#">Profile</a>
@@ -144,7 +93,12 @@ body {
       incididunt ut labore et dolore magna sed do eiusmod tempor incididunt ut
       labore et dolore magna
     </p>
-    <a class="btn btn-custom" href="#" role="button">Mulai Eksplor</a>
+    <a
+      class="btn btn-custom"
+      href="{% url 'main:show_book_list'%}"
+      role="button"
+      >Mulai Eksplor</a
+    >
   </div>
   <div class="landing-img-container">
     <img
@@ -154,107 +108,5 @@ body {
     />
   </div>
 </div>
-
-{% if user.is_authenticated %}
-  <a href="{% url 'bookmark:show_bookmark' key=user.username %}" style="text-decoration: none; color: black">
-    <button class="btn btn-custom">{{ user.username }} bookmark</button>
-  </a>
-{% endif %}
-
-<div style="display: flex; align-items: center">
-  {% if books.has_previous %}
-  <a href="?page=1" class="btn btn-custom" style="margin-right: 10px">
-    &laquo; First
-  </a>
-  <a href="?page={{books.previous_page_number}}" class="btn btn-custom">
-    Previous
-  </a>
-  {% endif %}
-</div>
-
-<hr />
-<h5>Page {{ books.number }} of {{ books.paginator.num_pages }}</h5>
-<hr />
-
-<div style="display: flex; align-items: center">
-  {% if books.has_next %}
-  <a
-    href="?page={{books.next_page_number}}"
-    class="btn btn-custom"
-    style="margin-right: 10px"
-  >
-    Next
-  </a>
-  <a href="?page={{books.paginator.num_pages}}" class="btn btn-custom">
-    Last &raquo;
-  </a>
-  {% endif %}
-</div>
-
-<br />
-<div id="item_card_deck" class="card-deck">
-  {% for book in books %}
-
-  <div class="card card-sm custom-card">
-    <img
-      src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-M.jpg"
-      class="card-img-top"
-      alt="{{book.title}}"
-    />
-    <div class="card-body">
-      <a
-        href="{% url 'book_details:show_book_detail' key=book.pk %}"
-        style="text-decoration: none; color: black"
-        ><b
-          ><h5 class="card-title" style="font-weight: bold">
-            {{ book.title }}
-          </h5></b
-        ></a
-      >
-      <p class="card-text">Author: {{book.author}}</p>
-      <p class="card-text">Rating: {{book.average_rating}}/10</p>
-      <p class="card-text">Language: {{book.language_code}}</p>
-      {% if user.is_authenticated %}  
-      <form class="bookmark_form" method="POST" action="{% url 'main:bookmark' book.pk %}">
-        {% csrf_token %}
-        <input type='hidden' name='bookmarked' value='{{ book.pk }}'>
-        <button class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}" type="submit">
-          <i class="fa fa-bookmark"></i>
-        </button>
-      </form>
-      {% endif %}
-    </div>
-  </div>
-  {% endfor %}
-</div>
-
-<hr />
-<br /><br />
-
-<script>
-document.addEventListener('DOMContentLoaded', (event) => {
-  document.querySelectorAll('.bookmark_form').forEach(form => {
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      fetch(this.action, {
-        method: this.method,
-        body: new FormData(this),
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',  // NEEDED FOR DJANGO TO TREAT THIS AS AJAX
-          'X-CSRFToken': this.querySelector('input[name=csrfmiddlewaretoken]').value,  // CSRF TOKEN
-        },
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === 'bookmarked') {
-          this.querySelector('.bookmark-button').classList.add('bookmarked');
-        } else {
-          this.querySelector('.bookmark-button').classList.remove('bookmarked');
-        }
-      });
-    });
-  });
-});
-</script>
 
 {% endblock content %}
