@@ -157,7 +157,7 @@ body {
 
 {% if user.is_authenticated %}
   <a href="{% url 'bookmark:show_bookmark' key=user.username %}" style="text-decoration: none; color: black">
-    <b>ini button buat bookmark</b>
+    <button class="btn btn-custom">{{ user.username }} bookmark</button>
   </a>
 {% endif %}
 
