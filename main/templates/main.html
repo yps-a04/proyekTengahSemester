@@ -215,7 +215,7 @@ body {
       <p class="card-text">Rating: {{book.average_rating}}/10</p>
       <p class="card-text">Language: {{book.language_code}}</p>
       {% if user.is_authenticated %}  
-      <form method="POST" action="{% url 'main:bookmark' book.pk %}">
+      <form class="bookmark_form" method="POST" action="{% url 'main:bookmark' book.pk %}">
         {% csrf_token %}
         <input type='hidden' name='bookmarked' value='{{ book.pk }}'>
         <button class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}" type="submit">
@@ -232,7 +232,29 @@ body {
 <br /><br />
 
 <script>
-  
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll('.bookmark_form').forEach(form => {
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      fetch(this.action, {
+        method: this.method,
+        body: new FormData(this),
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',  // NEEDED FOR DJANGO TO TREAT THIS AS AJAX
+          'X-CSRFToken': this.querySelector('input[name=csrfmiddlewaretoken]').value,  // CSRF TOKEN
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'bookmarked') {
+          this.querySelector('.bookmark-button').classList.add('bookmarked');
+        } else {
+          this.querySelector('.bookmark-button').classList.remove('bookmarked');
+        }
+      });
+    });
+  });
+});
 </script>
 
 {% endblock content %}

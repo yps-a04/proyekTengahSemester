@@ -47,10 +47,11 @@ def bookmark(request, key):
         try:
             existing_bookmark = Bookmark.objects.get(user=user, book=book)
             existing_bookmark.delete()
+            return JsonResponse({'status': 'unbookmarked'})
         except Bookmark.DoesNotExist:
             new_bookmark = Bookmark(user=user, book=book)
             new_bookmark.save()
-    return HttpResponseRedirect(reverse('main:show_main'))
+            return JsonResponse({'status': 'bookmarked'})
 
 
 def register(request):
