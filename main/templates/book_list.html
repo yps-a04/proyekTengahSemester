@@ -49,12 +49,14 @@
     background-color: black;
   }
 
-  .btn-custom, .bookmark-button {
+  .btn-custom,
+  .bookmark-button {
     background-color: black;
     color: white;
   }
 
-  .btn-custom:hover, .bookmark-button:hover {
+  .btn-custom:hover,
+  .bookmark-button:hover {
     background-color: #f0f0f0;
     color: black;
   }
@@ -96,7 +98,11 @@
       </li>
       {% if user.is_authenticated %}
       <li class="nav-item me-4">
-        <a class="nav-link" href="{% url 'bookmark:show_bookmark' request.user%}">Bookmark</a>
+        <a
+          class="nav-link"
+          href="{% url 'bookmark:show_bookmark' request.user%}"
+          >Bookmark</a
+        >
       </li>
       {% endif %}
     </ul>
@@ -113,7 +119,13 @@
 
 <div id="list-book" class="search-group">
   <form id="search-form" class="form-outline">
-    <input id="search-focus" type="text" class="form-control" name="q" />
+    <input
+      id="search-focus"
+      type="text"
+      class="form-control"
+      name="q"
+      placeholder="Masukkan judul/isbn/author . . ."
+    />
     <label class="form-label" for="button">Search</label>
     <button type="submit" class="btn btn-custom">
       <i class="fas fa-search"></i>
@@ -151,6 +163,36 @@
 
 <br />
 
+<div id="sort-by" class="dropdown">
+  <button
+    class="btn btn-custom dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Sort by
+  </button>
+  <ul class="dropdown-menu" id="sort-options">
+    <li>
+      <a class="dropdown-item" href="#" data-sort="alphabet-asc"
+        >Alphabet (A-Z)</a
+      >
+    </li>
+    <li>
+      <a class="dropdown-item" href="#" data-sort="alphabet-desc"
+        >Alphabet (Z-A)</a
+      >
+    </li>
+    <li>
+      <a class="dropdown-item" href="#" data-sort="reviews-count"
+        >Reviews Count</a
+      >
+    </li>
+  </ul>
+</div>
+
+<br />
+
 <div id="search-results" class="card-deck">
   {% for book in books %}
 
@@ -173,11 +215,18 @@
       <p class="card-text">Author: {{book.author}}</p>
       <p class="card-text">Rating: {{book.average_rating}}/10</p>
       <p class="card-text">Language: {{book.language_code}}</p>
-      {% if user.is_authenticated %}  
-      <form class="bookmark_form" method="POST" action="{% url 'main:bookmark' book.pk %}">
+      {% if user.is_authenticated %}
+      <form
+        class="bookmark_form"
+        method="POST"
+        action="{% url 'main:bookmark' book.pk %}"
+      >
         {% csrf_token %}
-        <input type='hidden' name='bookmarked' value='{{ book.pk }}'>
-        <button class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}" type="submit">
+        <input type="hidden" name="bookmarked" value="{{ book.pk }}" />
+        <button
+          class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}"
+          type="submit"
+        >
           <i class="fa fa-bookmark"></i>
         </button>
       </form>
@@ -219,6 +268,97 @@
 
 <script>
   $(document).ready(function () {
+    $("#search-results").on("submit", ".bookmark_form_2", function (e) {
+      e.preventDefault(); // Prevent default form submission
+      var form = $(this);
+      var url = form.attr("action");
+      var formData = form.serialize();
+
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: formData,
+        success: function (data) {
+          // Handle success response, maybe update UI accordingly
+          if (data.status === "bookmarked") {
+            form.find(".bookmark-button").addClass("bookmarked");
+          } else if (data.status === "unbookmarked") {
+            form.find(".bookmark-button").removeClass("bookmarked");
+          }
+        },
+      });
+    });
+
+    $("#sort-options a").click(function (e) {
+      e.preventDefault();
+      var selectedSort = $(this).data("sort");
+
+      $.ajax({
+        type: "GET",
+        url: "{% url 'main:sort_books' %}",
+        data: { sort_by: selectedSort },
+
+        success: function (data) {
+          $("#search-results").html("");
+          data.forEach(function (book) {
+            var urlDetail =
+              "{% url 'book_details:show_book_detail' 0 %}".replace(
+                "0",
+                book.pk
+              );
+            var urlBookmark = "{% url 'main:bookmark' 0 %}".replace(
+              "0",
+              book.pk
+            );
+            $("#search-results").append(`<div class="card card-sm custom-card">
+                <img src="https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg" class="card-img-top" style="border-bottom: 2px solid black;" alt="{{ book.title }}" />
+                <div class="card-body" style="max-height: 100%; overflow-y: auto;">
+                <a
+        href= ${urlDetail}
+        style="text-decoration: none; color: black"
+        ><b
+          ><h5 class="card-title" style="font-weight: bold">
+            ${book.title}
+          </h5></b
+        ></a
+      >
+                <br />
+                <p class="card-text">Author: ${book.author}</p>
+                <p class="card-text">Rating: ${book.average_rating}/10</p>
+                <p class="card-text">Language: ${book.language_code}</p>
+                {% if user.is_authenticated %}
+      <form
+        class="bookmark_form_2"
+        method="POST"
+        action=${urlBookmark}
+      >
+        {% csrf_token %}
+        <input type="hidden" name="bookmarked" value="${book.pk}" />
+        <button
+          class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}"
+          type="submit"
+        >
+          <i class="fa fa-bookmark"></i>
+        </button>
+      </form>
+      {% endif %}
+                    </div>
+                </div>`);
+          });
+
+          var currentPage = new URLSearchParams(window.location.search).get(
+            "page"
+          );
+
+          $(".pagination a").each(function () {
+            var href = $(this).attr("href");
+            var separator = href.includes("?") ? "&" : "?"; // Check if there are existing parameters
+            $(this).attr("href", href + separator + "sort_by=" + selectedSort);
+          });
+        },
+      });
+    });
+
     $("#search-form").submit(function (e) {
       e.preventDefault();
       var query = $("#search-focus").val();
@@ -227,48 +367,96 @@
         url: "/search/",
         data: { q: query },
         success: function (data) {
+          console.log(data);
           $("#search-results").html("");
-          data.forEach(function (book) {
-            $("#search-results").append(`<div class="card card-sm custom-card">
+          if (data.length === 0) {
+            $("#search-results").append(
+              `<p style="color:black;">Buku tidak ditemukan</p>`
+            );
+          } else {
+            data.forEach(function (book) {
+              var urlDetail =
+                "{% url 'book_details:show_book_detail' 0 %}".replace(
+                  "0",
+                  book.pk
+                );
+              var urlBookmark = "{% url 'main:bookmark' 0 %}".replace(
+                "0",
+                book.pk
+              );
+              $(
+                "#search-results"
+              ).append(`<div class="card card-sm custom-card">
                 <img src="https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg" class="card-img-top" style="border-bottom: 2px solid black;" alt="{{ book.title }}" />
                 <div class="card-body" style="max-height: 100%; overflow-y: auto;">
-                <a href="#" style="text-decoration: none; color: black;"><b><h5 class="card-title" style="font-weight: bold;">${book.title}</h5></b></a>
+                <a
+        href= ${urlDetail}
+        style="text-decoration: none; color: black"
+        ><b
+          ><h5 class="card-title" style="font-weight: bold">
+            ${book.title}
+          </h5></b
+        ></a
+      >
                 <br />
                 <p class="card-text">Author: ${book.author}</p>
                 <p class="card-text">Rating: ${book.average_rating}/10</p>
                 <p class="card-text">Language: ${book.language_code}</p>
+                {% if user.is_authenticated %}
+      <form
+        class="bookmark_form_2"
+        method="POST"
+        action=${urlBookmark}
+      >
+        {% csrf_token %}
+        <input type="hidden" name="bookmarked" value="${book.pk}" />
+        <button
+          class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}"
+          type="submit"
+        >
+          <i class="fa fa-bookmark"></i>
+        </button>
+      </form>
+      {% endif %}
                     </div>
                 </div>`);
-          });
+            });
+          }
+
           $(".pagination").html("");
+          $("#sort-by").html("");
         },
       });
     });
   });
 
-
-  document.addEventListener('DOMContentLoaded', (event) => {
-  document.querySelectorAll('.bookmark_form').forEach(form => {
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      fetch(this.action, {
-        method: this.method,
-        body: new FormData(this),
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',  // NEEDED FOR DJANGO TO TREAT THIS AS AJAX
-          'X-CSRFToken': this.querySelector('input[name=csrfmiddlewaretoken]').value,  // CSRF TOKEN
-        },
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === 'bookmarked') {
-          this.querySelector('.bookmark-button').classList.add('bookmarked');
-        } else {
-          this.querySelector('.bookmark-button').classList.remove('bookmarked');
-        }
+  document.addEventListener("DOMContentLoaded", (event) => {
+    document.querySelectorAll(".bookmark_form").forEach((form) => {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        fetch(this.action, {
+          method: this.method,
+          body: new FormData(this),
+          headers: {
+            "X-Requested-With": "XMLHttpRequest", // NEEDED FOR DJANGO TO TREAT THIS AS AJAX
+            "X-CSRFToken": this.querySelector("input[name=csrfmiddlewaretoken]")
+              .value, // CSRF TOKEN
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "bookmarked") {
+              this.querySelector(".bookmark-button").classList.add(
+                "bookmarked"
+              );
+            } else {
+              this.querySelector(".bookmark-button").classList.remove(
+                "bookmarked"
+              );
+            }
+          });
       });
     });
   });
-});
 </script>
 {% endblock content %}
