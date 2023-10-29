@@ -1,24 +1,42 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 from django.urls import reverse
 from main.models import Book
-from .forms import Review
+from .forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.core import serializers
 import datetime
+from admin_section.models import Review
+
 
 # Create your views here.
+
+
 def show_book_detail(request, key):
     # Menunjukkan buku berdasarkan ID
-    book = get_object_or_404(Book, pk=key)
-    form = Review()
+    user = request.user
+    book = Book.objects.get(pk=key)
+    form = ReviewForm()
+    reviews = Review.objects.all().filter(book=book)
+
+    b = None
+    bookmarks = [] 
+    if request.user.is_authenticated:
+        b = request.user.bookmarked.select_related('book')
+        for markbuku in b:
+            bookmarks.append(markbuku.book)
+            
     context = {
         'book': book,
         'form': form,
+        'reviews': reviews,
+        'bookmarks' : bookmarks,
     }
 
-    return render(request, "book_details.html", context)
+    
 
+    return render(request, "book_details.html", context)
 
 @login_required
 def add_review(request, key):
@@ -40,7 +58,7 @@ def add_review(request, key):
         reviews.save()
 
         return HttpResponseRedirect(reverse('book_details.html', args=(key)))
-    
+
     context = {
         'book': book,
         'form': form,
@@ -48,3 +66,35 @@ def add_review(request, key):
 
     return render(request, "book_details.html", context)
 
+# Get JSON dengan HttpResponse serializers
+
+
+def get_reviews_json(request):
+    reviews = Review.objects.all()
+    return HttpResponse(serializers.serialize("json", reviews))
+
+
+@csrf_exempt
+# Add review dengan ajax
+def add_review_ajax(request):
+
+    if request.method == 'POST':
+        user = request.user
+        name = request.POST.get('bookname')
+        print(name)
+        book = Book.objects.all().filter(title=name)
+
+        print(book)
+        title = request.POST.get("title")
+        review = request.POST.get("review")
+
+        new_rev = Review(book=book.first(), user=user,
+                         review=review, title=title)
+        new_rev.save()
+
+        reviews = Review.objects.filter(book=book.first())
+        data = [{'user': review.user.username, 'review': review.review, 'title': review.title}
+                for review in reviews]
+
+        return JsonResponse(data, safe=False)
+    return HttpResponseNotFound()
