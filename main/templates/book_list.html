@@ -94,7 +94,7 @@
         <a class="nav-link" href="{% url 'main:show_book_list'%}">Books</a>
       </li>
       <li class="nav-item me-4">
-        <a class="nav-link" href="#">Profile</a>
+        <a class="nav-link" href="{% url 'profiles:showprofile' %}">Profile</a>
       </li>
       {% if user.is_authenticated %}
       <li class="nav-item me-4">
@@ -186,6 +186,11 @@
     <li>
       <a class="dropdown-item" href="#" data-sort="reviews-count"
         >Reviews Count</a
+      >
+    </li>
+    <li>
+      <a class="dropdown-item" href="#" data-sort="preference"
+        >Preference</a
       >
     </li>
   </ul>
