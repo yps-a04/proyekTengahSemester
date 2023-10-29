@@ -8,6 +8,7 @@ from profiles.models import *
 from bookmark.models import *
 from django.core import serializers
 import random
+from admin_section.models import *
 # Create your views here.
 @login_required(login_url='/login')
 def preference(request):
