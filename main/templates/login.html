@@ -1,35 +1,91 @@
-<div class = "login">
+{% extends 'base.html' %}
+{% load static %}
 
-    <h1>Login</h1>
+{% block meta %}
+  <title>Login</title>
+{% endblock %}
 
-    <form method="POST" action="">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+{% block content %}
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    
+    .login {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Poppins', sans-serif;
+    
+      width: 50vw;
+      height: 70vh;
+      border-radius: 30px;
+      box-shadow:  0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-outline .form-control {
+      background-color: #f0f0f0;
+    }
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
-    </form>
+    .btn-custom {
+    background-color: black;
+    color: white;
+}
 
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}     
-        
-    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+.btn-custom:hover {
+    background-color: #f0f0f0;
+    color: black;
+}
+  </style>
+  <div class="login">
+    <h1 style="margin-top: 20px;"><b>Login</b></h1>
 
-</div>
+    <section class="vh-100">
+      <div class="container py-5 h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+          <div class="col-md-8 col-lg-7 col-xl-6">
+            <img src="{% static 'img/book.png' %}" class="img-fluid" alt="Phone image" />
+          </div>
+          <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+            <form class="user" action="" method="POST">
+              {% csrf_token %}
+
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <label class="form-label" for="username">Username</label>
+                {{ form.username }}
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                <label class="form-label" for="password">Password</label>
+                {{ form.password }}
+              </div>
+
+              {% if messages %}
+                {% for message in messages %}
+                  <p>{{ message }}</p>
+                {% endfor %}
+              {% endif %}
+
+              <!-- Submit button -->
+              <button type="submit" value="login" name="submit" class="btn btn-custom btn-lg btn-block">Sign in</button>
+
+              <div class="divider d-flex align-items-center my-4">
+                <p class="text-center fw mx-3 mb-0 text-muted">
+                  Belum punya akun? <b><a style="color:black" href="{% url 'main:register' %}">Gabung Sekarang</a></b>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock %}
