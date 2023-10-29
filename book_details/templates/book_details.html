@@ -68,17 +68,31 @@
     text-align: justify;
   }
 
-  .review-from-users {
-    width: 100vw;
-    align-items: center;
-    text-align: center;
-    margin-top: 80px;
-    background-color: white;
-  }
-
   .form-input {
     width: 500px;
     height: 100px;
+  }
+
+  .card-deck {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  .custom-card {
+    display: flex;
+    border: 1px solid black;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    color: black;
+    width: 300px;
+    height: 400px;
+    overflow: auto;
   }
 </style>
 
@@ -118,11 +132,6 @@
         <form method="POST" id="form" onsubmit="return false;">
             {% csrf_token %}
             <div class="fields">
-                <label for="user-name" class="form-label">User:</label>
-                <input type="text" class="uname" id="user-name" name="user-name" value="{{ reviews.user }}"/>
-            </div>
-            <br>
-            <div class="fields">
                 <label for="review-form" class="form-label">Ulasan:</label>
                 <textarea class="form-input" id="review-form" name="review-form"></textarea>
             </div>
@@ -133,15 +142,17 @@
     </div>
 </div>
 
-<div class="review-from-users" id="all-reviews">
+<div id="search-results" class="card-deck">
     {% for review in reviews %}
-    <div class="single-user-review">
-        <h3>{{ reviews.user }}</h3>
-        <p>{{ reviews.date }}</p>
-        <div class="review-texts">
-            <p>{{ reviews.review }}</p>
-        </div>
+  
+    <div class="card card-sm custom-card">
+      <div class="card-body">
+        <p class="card-text">{{ username.user }}</p>
+        <p class="card-text">{{ reviews.date }}</p>
+        <p class="card-text">{{ reviews.review }}</p>
+      </div>
     </div>
+    
     {% endfor %}
 </div>
 
@@ -165,27 +176,18 @@
             `
             document.getElementById("all-reviews").appendChild(reviewDiv)
         })
-        refreshReviews()
     }
+
+    refreshReviews()
 
     function addReview() {
         fetch("{% url 'book_details:add_review_ajax' %}", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
-            body: JSON.stringify({
-                user: document.getElementById("user-name").value,
-                review: document.getElementById("review-form").value
-            })
-        }).then((res) => res.json()).then((data) => {
-            if (data.success) {
-                document.getElementById("user-name").value = ""
-                document.getElementById("review-form").value = ""
-                refreshReviews()
-            }
-        })
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshReviews)
+
+        document.getElementById("form").reset()
+        return false
     } 
 </script>
 {% endblock content %}

@@ -58,12 +58,9 @@ def get_reviews_json(request):
 # Add review dengan ajax
 def add_review_ajax(request):
     if request.method == 'POST':
-        book = request.POST.get("book")
-        user = request.POST.get("user")
         review = request.POST.get("review")
-        date = request.POST.get("date")
 
-        new_rev = Review(book=book, user=user, review=review, date=date)
+        new_rev = Review(review=review)
         new_rev.save()
 
         return HttpResponse(b"CREATED", status=201)
