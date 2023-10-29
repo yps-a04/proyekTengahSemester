@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render, redirect
 from main.models import Book
 from django.core.paginator import Paginator
@@ -22,7 +23,9 @@ from django.db.models.query import QuerySet
 def show_main(request):
 
     # set pagination 50/page
-    context = {}
+    context = {
+        'last_login': request.COOKIES['last_login'],
+    }
 
     return render(request, "main.html", context)
 
@@ -116,9 +119,13 @@ def login_user(request):
         if user is not None:
             login(request, user)
             if user.is_staff:
-                return redirect('admin_section:show_admin')
+                response = HttpResponseRedirect(reverse('admin_section:show_admin'))
+                response.set_cookie('last_login', str(datetime.datetime.now()))
+                return response
             else:
-                return redirect('main:show_main')
+                response = HttpResponseRedirect(reverse('main:show_main'))
+                response.set_cookie('last_login', str(datetime.datetime.now()))
+                return response
         else:
             messages.info(
                 request, 'Sorry, incorrect username or password. Please try again.')
@@ -128,7 +135,9 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('main:login')
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
 
 
 def search(request):
