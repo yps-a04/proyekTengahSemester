@@ -67,6 +67,19 @@
     max-width: 50%;
     text-align: justify;
   }
+
+  .review-from-users {
+    width: 100vw;
+    align-items: center;
+    text-align: center;
+    margin-top: 80px;
+    background-color: white;
+  }
+
+  .form-input {
+    width: 500px;
+    height: 100px;
+  }
 </style>
 
 <div class="detail-container">
@@ -96,27 +109,83 @@
   </div>
 </div>
 
+<div class="review-text-container">
+    <h2><b>Tambahkan Ulasan Anda:</b></h2>
+</div>
+
 <div class="review-container">
-    <div class="review-text-container">
-        <h2><b>Tambahkan Ulasan Anda:</b></h2>
-    </div>
     <div class="review-form-container">
-        <form id="form" onsubmit="return false;">
+        <form method="POST" id="form" onsubmit="return false;">
             {% csrf_token %}
             <div class="fields">
                 <label for="user-name" class="form-label">User:</label>
-                <input type="text" class="form-input" id="user-name" name="user-name">{{ reviews.user }}</input>
+                <input type="text" class="uname" id="user-name" name="user-name" value="{{ reviews.user }}"/>
             </div>
+            <br>
             <div class="fields">
                 <label for="review-form" class="form-label">Ulasan:</label>
                 <textarea class="form-input" id="review-form" name="review-form"></textarea>
             </div>
         </form>
+        <div class="button-submit" style="text-align:center;">
+            <button type="submit" form="form" class="btn-custom">Submit Ulasan</button>
+        </div>
     </div>
-    <button type="submit" onclick="addReview()" form="form" class="btn btn-primary">Submit Ulasan</button>
+</div>
+
+<div class="review-from-users" id="all-reviews">
+    {% for review in reviews %}
+    <div class="single-user-review">
+        <h3>{{ reviews.user }}</h3>
+        <p>{{ reviews.date }}</p>
+        <div class="review-texts">
+            <p>{{ reviews.review }}</p>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 
 <script>
-    
+    async function getReviews() {
+        return fetch("{% url 'book_details:get_reviews_json' %}").then((res) => res.json())
+    }
+
+    async function refreshReviews() {
+        document.getElementById("all-reviews").innerHTML = ""
+        const reviews = await getReviews()
+        reviews.forEach((review) => {
+            const reviewDiv = document.createElement("div")
+            reviewDiv.classList.add("single-user-review")
+            reviewDiv.innerHTML = `
+                <h3>${review.user}</h3>
+                <p>${review.date}</p>
+                <div class="review-texts">
+                    <p>${review.review}</p>
+                </div>
+            `
+            document.getElementById("all-reviews").appendChild(reviewDiv)
+        })
+        refreshReviews()
+    }
+
+    function addReview() {
+        fetch("{% url 'book_details:add_review_ajax' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({
+                user: document.getElementById("user-name").value,
+                review: document.getElementById("review-form").value
+            })
+        }).then((res) => res.json()).then((data) => {
+            if (data.success) {
+                document.getElementById("user-name").value = ""
+                document.getElementById("review-form").value = ""
+                refreshReviews()
+            }
+        })
+    } 
 </script>
 {% endblock content %}
