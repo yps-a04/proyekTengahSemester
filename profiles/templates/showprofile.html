@@ -116,9 +116,6 @@
     <h3 style="overflow: hidden; text-overflow: ellipsis">My Preference</h3>
     {% if pref %}
     <table id="preferences"></table>
-    {% for preference in pref %}
-    <p>{{preference.author}}</p>
-    {% endfor %}
     <a
       href="{% url 'profiles:preference' %}"
       class="btn btn-light"
