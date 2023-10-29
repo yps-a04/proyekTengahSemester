@@ -1,117 +1,76 @@
-{% extends 'base.html' %}
-
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 <style>
-    .custom-card {
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-        margin-right: 20px;
-        margin-bottom: 20px;
-        background-color: #526D82;
-        color: white;
-        width: 20vw;
-        height: 50vh;
-    }
+  .custom-card {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: #526d82;
+    color: white;
+    width: 20vw;
+    height: 50vh;
+  }
 
-    body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: black;
-        font-family: 'Poppins', sans-serif;
-    }
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-family: "Poppins", sans-serif;
+  }
 
-    .table-container {
-        width: 50%;
-    }
+  .table-container {
+    width: 50%;
+  }
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
 
-    th {
-        background-color: #000000;
-        color: white;
-    }
+  th {
+    background-color: #000000;
+    color: white;
+  }
 
-    td {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
 
-    tr {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
+  tr {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
 
-    .btn-custom, .bookmark-button {
-        background-color: black;
-        color: white;
-    }
+  .btn-custom,
+  .bookmark-button {
+    background-color: black;
+    color: white;
+  }
 
-    .bookmark-button {
-        position: relative;
-    }
+  .bookmark-button {
+    position: relative;
+  }
 
-    .bookmark-button.bookmarked {
-        color: orange;
-        background-color: black;
-    }
+  .bookmark-button.bookmarked {
+    color: orange;
+    background-color: black;
+  }
 
-    .btn-custom:hover, .bookmark-button:hover {
-        background-color: #f0f0f0;
-        color: black;
-    }
-
+  .btn-custom:hover,
+  .bookmark-button:hover {
+    background-color: #f0f0f0;
+    color: black;
+  }
 </style>
 
-<nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
-    <a class="navbar-brand" href="{% url 'main:show_main'%}"><b>UlasBuku</b></a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active me-4">
-          <a class="nav-link" href="{% url 'main:show_main'%}">Home</a>
-        </li>
-        <li class="nav-item me-4">
-          <a class="nav-link" href="{% url 'main:show_book_list'%}">Books</a>
-        </li>
-        <li class="nav-item me-4">
-          <a class="nav-link" href="#">Profile</a>
-        </li>
-        <li class="nav-item me-4">
-          <a class="nav-link" href="{% url 'bookmark:show_bookmark' request.user%}">Bookmark</a>
-        </li>
-      </ul>
-    </div>
-  
-    <ul class="navbar-nav justify-content-end">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'main:logout'%}">
-          Logout <i class="fa fa-sign-in"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-<h1>    </h1>
-<br>
-<br>
-<br>
+<h1></h1>
+<br />
+<br />
+<br />
 
 <h1>BOOKMARK</h1>
 
@@ -119,100 +78,116 @@
 
 <p>{{username}} bookmarked books</p>
 
-<div style="display: flex; align-items: center;">
-    {% if books.has_previous %}
-        <a href="?page=1" class="btn btn-custom" style="margin-right: 10px;">
-            &laquo; First
-        </a>
-        <a href="?page={{books.previous_page_number}}" class="btn btn-custom">
-            Previous
-        </a>
-    {% endif %}
+<div style="display: flex; align-items: center">
+  {% if books.has_previous %}
+  <a href="?page=1" class="btn btn-custom" style="margin-right: 10px">
+    &laquo; First
+  </a>
+  <a href="?page={{books.previous_page_number}}" class="btn btn-custom">
+    Previous
+  </a>
+  {% endif %}
 </div>
 
-<hr>
+<hr />
 <h5>Page {{ books.number }} of {{ books.paginator.num_pages }}</h5>
-<hr>
+<hr />
 
-<div style="display: flex; align-items: center;">
-        {% if books.has_next %}
-            <a href="?page={{books.next_page_number}}" class="btn btn-custom" style="margin-right: 10px;">
-                Next
-            </a>
-            <a href="?page={{books.paginator.num_pages}}" class="btn btn-custom">
-                Last &raquo;
-            </a>
-        {% endif %}
+<div style="display: flex; align-items: center">
+  {% if books.has_next %}
+  <a
+    href="?page={{books.next_page_number}}"
+    class="btn btn-custom"
+    style="margin-right: 10px"
+  >
+    Next
+  </a>
+  <a href="?page={{books.paginator.num_pages}}" class="btn btn-custom">
+    Last &raquo;
+  </a>
+  {% endif %}
 </div>
 
-
-
-
-<br/>
-<div  id="Item_table_container" class="table-container">
-    <table>
-        <tr>
-            <th width="10%">Cover</th>
-            <th width="50%">Title</th>
-            <th width="10%">Author</th>
-            <th width="10%">Rating</th>
-            <th width="10%">Language</th>
-            <th width="5%">Bookmark</th>
-        </tr>
-        {% for bookmark in books %}
-        <tr>
-            <td>
-                <img src="https://covers.openlibrary.org/b/isbn/{{bookmark.book.isbn}}-M.jpg" class="card-img-top" alt="{{book.title}}">
-            </td>
-            <td>{{bookmark.book.title}}</td>
-            <td>{{bookmark.book.author}}</td>
-            <td style="text-align: center;">{{bookmark.book.average_rating}}/10</td>
-            <td style="text-align: center;">{{bookmark.book.language_code}}</td>
-            <td style="text-align: center;">
-                <form class="bookmark_form" method="POST" action="{% url 'bookmark:delete_bookmark' bookmark.book.pk %}">
-                    {% csrf_token %}
-                    <input type='hidden' name='bookmarked' value='{{ bookmark.book.pk }}'>
-                    <button class="btn bookmark-button bookmarked" type="submit">
-                      <i class="fa fa-bookmark"></i>
-                    </button>
-                </form>
-            </td>
-        </tr>     
-        {% endfor %}
-    </table>
-
-    
+<br />
+<div id="Item_table_container" class="table-container">
+  <table>
+    <tr>
+      <th width="10%">Cover</th>
+      <th width="50%">Title</th>
+      <th width="10%">Author</th>
+      <th width="10%">Rating</th>
+      <th width="10%">Language</th>
+      <th width="5%">Bookmark</th>
+    </tr>
+    {% for bookmark in books %}
+    <tr>
+      <td>
+        <img
+          src="https://covers.openlibrary.org/b/isbn/{{bookmark.book.isbn}}-M.jpg"
+          class="card-img-top"
+          alt="{{book.title}}"
+        />
+      </td>
+      <td>{{bookmark.book.title}}</td>
+      <td>{{bookmark.book.author}}</td>
+      <td style="text-align: center">{{bookmark.book.average_rating}}/10</td>
+      <td style="text-align: center">{{bookmark.book.language_code}}</td>
+      <td style="text-align: center">
+        <form
+          class="bookmark_form"
+          method="POST"
+          action="{% url 'bookmark:delete_bookmark' bookmark.book.pk %}"
+        >
+          {% csrf_token %}
+          <input
+            type="hidden"
+            name="bookmarked"
+            value="{{ bookmark.book.pk }}"
+          />
+          <button class="btn bookmark-button bookmarked" type="submit">
+            <i class="fa fa-bookmark"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
 </div>
 
-<hr><br/><br/>
-    
+<hr />
+<br /><br />
+
 <script>
-document.addEventListener('DOMContentLoaded', (event) => {
-  document.querySelectorAll('.bookmark_form').forEach(form => {
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      fetch(this.action, {
-        method: this.method,
-        body: new FormData(this),
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',  // NEEDED FOR DJANGO TO TREAT THIS AS AJAX
-          'X-CSRFToken': this.querySelector('input[name=csrfmiddlewaretoken]').value,  // CSRF TOKEN
-        },
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === 'bookmarked') {
-          this.querySelector('.bookmark-button').classList.add('bookmarked');
-        } else {
-          this.querySelector('.bookmark-button').classList.remove('bookmarked');
-        }
+  document.addEventListener("DOMContentLoaded", (event) => {
+    document.querySelectorAll(".bookmark_form").forEach((form) => {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        fetch(this.action, {
+          method: this.method,
+          body: new FormData(this),
+          headers: {
+            "X-Requested-With": "XMLHttpRequest", // NEEDED FOR DJANGO TO TREAT THIS AS AJAX
+            "X-CSRFToken": this.querySelector("input[name=csrfmiddlewaretoken]")
+              .value, // CSRF TOKEN
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "bookmarked") {
+              this.querySelector(".bookmark-button").classList.add(
+                "bookmarked"
+              );
+            } else {
+              this.querySelector(".bookmark-button").classList.remove(
+                "bookmarked"
+              );
+            }
+          });
       });
     });
   });
-});
 </script>
 {% else %}
 <p>bookmark kosong</p>
 
-{% endif %}
-{% endblock content %}
+{% endif %} {% endblock content %}
