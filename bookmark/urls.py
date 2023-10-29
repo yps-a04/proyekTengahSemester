@@ -5,6 +5,6 @@ app_name = 'bookmark'
 
 urlpatterns = [
     path('<str:key>/', show_bookmark, name='show_bookmark'),
-    path('delete/<int:key>', delete_bookmark, name="delete_bookmark")
+    path('delete/<int:key>', delete_bookmark, name="delete_bookmark"),
 ]
 
