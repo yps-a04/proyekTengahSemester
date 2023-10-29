@@ -1,9 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
-from book_details.models import Book
+from main.models import Book
 
 # Create your models here.
+
+
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    review = models.TextField()
+    user = models.ForeignKey(
+        User, related_name='reviewed', on_delete=models.CASCADE, default=None)
+    book = models.ForeignKey(
+        Book, related_name='reviewed', on_delete=models.CASCADE, default=None)
+    review = models.TextField(null=True, blank=True, default=None)
+    title = models.TextField(null=True, blank=True, default=None)
