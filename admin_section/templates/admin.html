@@ -48,45 +48,6 @@
   }
 </style>
 
-<nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
-  <a class="navbar-brand" href="{% url 'admin_section:show_admin'%}"><b>UlasBuku</b></a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active me-4">
-        <a class="nav-link" href="#">Home</a>
-      </li>
-      <li class="nav-item me-4">
-        <a class="nav-link" href="{% url 'admin_section:show_book_list_admin'%}">Books</a>
-      </li>
-      <li class="nav-item me-4">
-        <a class="nav-link" href="#">Profile</a>
-      </li>
-      <li class="nav-item me-4">
-        <a class="nav-link" href="{% url 'admin_section:user_list' %}">List User</a>
-      </li>
-    </ul>
-  </div>
-
-  <ul class="navbar-nav justify-content-end">
-    <li class="nav-item active">
-      <a class="nav-link" href="{% url 'main:logout'%}">
-        Logout <i class="fa fa-sign-in"></i>
-      </a>
-    </li>
-  </ul>
-</nav>
-
 <div class="landing-container">
   <div class="landing-text-container">
     <h1>Selamat Datang <b>Admin</b>!</h1>
@@ -100,7 +61,7 @@
       class="btn btn-custom"
       href="{% url 'admin_section:show_book_list_admin'%}"
       role="button"
-      >Lihat List Buku</a
+      >Mulai Eksplor</a
     >
   </div>
   <div class="landing-img-container">

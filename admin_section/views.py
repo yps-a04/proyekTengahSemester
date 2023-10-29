@@ -1,16 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from main.models import Book
+from admin_section.models import Review
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, JsonResponse
 from django.core import serializers
-# from admin_section.forms import BookForm
+from admin_section.forms import BookForm
 from django.urls import reverse
 
 # Create your views here.
 def show_admin(request):
-    context = {}
+    context = {
+        'last_login': request.COOKIES['last_login'],
+    }
 
     return render(request, "admin.html", context)
 
@@ -29,7 +32,7 @@ def show_book_list_admin(request):
     return render(request, "book_list_admin.html", context)
 
 def user_list(request):
-    users = User.objects.all()
+    users = User.objects.all().values('id', 'username', 'last_login')
     return render(request, 'user_list.html', {'users':users})
 
 def delete_user(request, user_id):
@@ -66,23 +69,35 @@ def add_book_ajax(request):
             publication_date=publication_date, publisher=publisher)
         new_book.save()
 
-        return HttpResponse(b"CREATED", status=201)
+        results = Book.objects.all()[:20]
+
+        data = [{'pk': books.pk, 'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
+                 'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code} for books in results]
+
+        return JsonResponse(data, safe=False)
     
     return HttpResponseNotFound()
 
-# def edit_book(request, id):
-#     book = Book.objects.get(pk = id)
+def edit_book(request, id):
+    book = Book.objects.get(pk = id)
 
-#     form = BookForm(request.POST or None, instance=book)
+    form = BookForm(request.POST or None, instance=book)
 
-#     if form.is_valid() and request.method == "POST":
-#         form.save()
-#         return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
 
-#     context = {'form': form}
-#     return render(request, "edit_book.html", context)
+    context = {'form': form}
+    return render(request, "edit_book.html", context)
 
 def delete_book(request, id):
     book = Book.objects.get(pk = id)
     book.delete()
     return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
+
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    if request.method == 'POST':
+        review.delete()
+        return redirect('book_details:show_book_detail')
+    return render(request, 'book_details.html', {'review': review})

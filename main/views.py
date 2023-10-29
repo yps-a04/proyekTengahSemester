@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render, redirect
 from main.models import Book
 from django.core.paginator import Paginator
@@ -13,17 +14,24 @@ from django.urls import reverse
 from bookmark.models import Bookmark
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
+from django.db.models import Case, When, Value, IntegerField
+from profiles.models import Preference
+from django.db.models.query import QuerySet
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
 def show_main(request):
 
     # set pagination 50/page
-    context = {}
+    context = {
+        'last_login': request.COOKIES['last_login'],
+    }
 
     return render(request, "main.html", context)
 
 
+@login_required(login_url='/login')
 def show_book_list(request):
 
     page = request.GET.get('page')
@@ -43,6 +51,19 @@ def show_book_list(request):
         books = Book.objects.order_by('-title')
     elif sort_param == 'reviews-count':
         books = Book.objects.order_by('-text_review_count')
+    elif sort_param == 'preference':
+        author = Preference.objects.filter(user=request.user).values('author')
+        books = Book.objects.none()
+        sisa = Book.objects.none()
+        for elem in author:
+            books_temp = Book.objects.filter(author=elem['author'])
+            for book in books_temp:
+                books = books | books_temp
+                books_all = Book.objects.all()
+                for book2 in books_all:
+                    if book.author in book2.author:
+                        book2_query = Book.objects.filter(pk=book2.pk)
+                        books = books | book2_query
     else:
         books = Book.objects.all()
 
@@ -93,7 +114,7 @@ def register(request):
             return redirect('main:login')
         else:
             messages.info(
-                request, "Register Failed. Make sure your password is strong.")
+                request, "Register Failed.")
 
     return render(request, 'register.html', context)
 
@@ -108,9 +129,13 @@ def login_user(request):
         if user is not None:
             login(request, user)
             if user.is_staff:
-                return redirect('admin_section:show_admin')
+                response = HttpResponseRedirect(reverse('admin_section:show_admin'))
+                response.set_cookie('last_login', str(datetime.datetime.now()))
+                return response
             else:
-                return redirect('main:show_main')
+                response = HttpResponseRedirect(reverse('main:show_main'))
+                response.set_cookie('last_login', str(datetime.datetime.now()))
+                return response
         else:
             messages.info(
                 request, 'Sorry, incorrect username or password. Please try again.')
@@ -120,7 +145,9 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('main:login')
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
 
 
 def search(request):
@@ -150,9 +177,24 @@ def sort_books(request):
         books = Book.objects.order_by('-title')
     elif sort_by == 'reviews-count':
         books = Book.objects.order_by('-text_review_count')
+    elif sort_by == 'preference':
+        author = Preference.objects.filter(user=request.user).values('author')
+        books = Book.objects.none()
+        for book in books:
+            print(book.author)
+        for elem in author:
+            books_temp = Book.objects.filter(author=elem['author'])
+            for book in books_temp:
+                print(book.author)
+                books = books | books_temp
+                books_all = Book.objects.all()
+                for book2 in books_all:
+                    if book.author in book2.author:
+                        book2_query = Book.objects.filter(pk=book2.pk)
+                        books = books | book2_query
     else:
         books = Book.objects.all()
-
+    
     book_list = [{'pk': book.pk, 'title': book.title, 'author': book.author, 'average_rating': book.average_rating,
                   'isbn': book.isbn, 'isbn13': book.isbn13, 'language_code': book.language_code} for book in books[:20]]
 
