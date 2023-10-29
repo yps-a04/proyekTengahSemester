@@ -17,6 +17,7 @@ from django.contrib.auth.models import User
 from django.db.models import Case, When, Value, IntegerField
 from profiles.models import Preference
 from django.db.models.query import QuerySet
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -30,6 +31,7 @@ def show_main(request):
     return render(request, "main.html", context)
 
 
+@login_required(login_url='/login')
 def show_book_list(request):
 
     page = request.GET.get('page')
@@ -104,7 +106,7 @@ def register(request):
             return redirect('main:login')
         else:
             messages.info(
-                request, "Register Failed. Make sure your password is strong.")
+                request, "Register Failed.")
 
     return render(request, 'register.html', context)
 

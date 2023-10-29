@@ -1,7 +1,4 @@
-{% extends 'base.html' %} 
-{% load static %} 
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <style>
   body {
     display: flex;
@@ -58,60 +55,24 @@
     color: black;
   }
 
-    .review-container {
-        width: 100vw;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        background-color: white;
-    }
+  .review-container {
+    width: 100vw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
+  }
 
-    .review-text-container {
-        max-width: 50%;
-        text-align: justify;
-    }
+  .review-text-container {
+    max-width: 50%;
+    text-align: justify;
+  }
 </style>
-
-<nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
-  <a class="navbar-brand" href="{% url 'main:show_main'%}"><b>UlasBuku</b></a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active me-4">
-        <a class="nav-link" href="{% url 'main:show_main' %}">Home</a>
-      </li>
-      <li class="nav-item me-4">
-        <a class="nav-link" href="{% url 'main:show_book_list'%}">Books</a>
-      </li>
-      <li class="nav-item me-4">
-        <a class="nav-link" href="{% url 'profiles:showprofile' %}">Profile</a>
-      </li>
-    </ul>
-  </div>
-
-  <ul class="navbar-nav justify-content-end">
-    <li class="nav-item active">
-      <a class="nav-link" href="{% url 'main:logout'%}">
-        Logout <i class="fa fa-sign-in"></i>
-      </a>
-    </li>
-  </ul>
-</nav>
 
 <div class="detail-container">
   <div class="detail-img-container">
     <img
-      src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
+      src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-L.jpg"
       class="card-img-top"
       alt="{{ book.name }}"
     />
@@ -119,13 +80,17 @@
   <div class="detail-text-container">
     <h1><b>{{ book.name }}</b></h1>
     <h2><b>{{ book.author }}</b></h2>
-    <br>
-    <p><b><i>Rating</i> Rata-Rata:</b> {{ book.average_rating }}</p>
+    <br />
+    <p>
+      <b><i>Rating</i> Rata-Rata:</b> {{ book.average_rating }}
+    </p>
     <p><b>ISBN:</b> {{ book.isbn }}</p>
     <p><b>ISBN 13:</b> {{ book.isbn13 }}</p>
     <p><b>Kode Bahasa:</b> {{ book.language_code }}</p>
     <p><b>Jumlah Halaman:</b> {{ book.num_pages }}</p>
-    <p><b>Jumlah <i>Rating</i>:</b> {{ book.rating_count }}</p>
+    <p>
+      <b>Jumlah <i>Rating</i>:</b> {{ book.rating_count }}
+    </p>
     <p><b>Tanggal Terbit:</b> {{ book.publication_date }}</p>
     <p><b>Penerbit:</b> {{ book.publisher }}</p>
   </div>
