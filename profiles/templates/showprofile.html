@@ -1,0 +1,225 @@
+{% extends 'base.html' %} {% load static %} {% block content %} {% block meta %}
+<title>Profile</title>
+{% endblock %}
+<style>
+      .custom-card {
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      margin-right: 20px;
+      margin-bottom: 20px;
+      background-color: white;
+      color: black;
+      width: 20vw;
+
+      border: 1px solid black;
+  }
+
+  body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      font-family: 'Poppins', sans-serif;
+  }
+
+  .landing-container {
+      width: 100vw;
+      height: auto;
+
+      display: flex;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      background-color: white;
+  }
+
+
+  .landing-text-container {
+      max-width: 50%;
+      text-align: justify;
+
+  }
+
+
+  .landing-img-container {
+      max-width: 50%;
+
+
+  }
+
+  .card-deck {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+  }
+
+  .custom-card .card-img-top {
+      width: 100%;
+      height: 50%;
+      object-fit: cover;
+  }
+
+  .btn-custom {
+      background-color: black;
+      color: white;
+  }
+
+  .btn-custom:hover {
+      background-color: #f0f0f0;
+      color: black;
+  }
+
+  {% comment %} .btn-primary {
+      background-color: black;
+  }
+
+  .btn-primary:hover {
+      background-color: white;
+
+      text-color: black;
+  }
+
+  .btn-primary:focus
+  {
+      font-size: 13px;
+      color:orange;
+  } {% endcomment %}
+</style>
+<title>Profile</title>
+
+<div class="landing-container" style="margin-top: 70px">
+  <div class="landing-text-container">
+    <h1>Profile Information</h1>
+    <hr />
+    <h3 style="overflow: hidden; text-overflow: ellipsis">User</h3>
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="{{ user }}"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+        disabled
+      />
+    </div>
+
+    <br />
+    <h3 style="overflow: hidden; text-overflow: ellipsis">Role</h3>
+    {% if user.is_superuser %}
+    <p>Admin</p>
+    {% else %}
+    <p>User</p>
+    {% endif %}
+    <br />
+
+    <h3 style="overflow: hidden; text-overflow: ellipsis">My Preference</h3>
+    {% if pref %}
+    <table id="preferences"></table>
+    <a
+      href="{% url 'profiles:preference' %}"
+      class="btn btn-light"
+      tabindex="-1"
+      role="button"
+      aria-disabled="true"
+      >Ubah Preference</a
+    ><br />
+    {% else %}
+    <p>Anda belum menambahkan Preference :(</p>
+    <a
+      href="{% url 'profiles:preference' %}"
+      class="btn btn-light"
+      tabindex="-1"
+      role="button"
+      aria-disabled="true"
+      >Tambah Preference</a
+    ><br />
+
+    {% endif %}
+
+    <br />
+
+    <h3 style="overflow: hidden; text-overflow: ellipsis">Last Bookmarked</h3>
+
+    <p>Cek Bookmark Anda disini!</p>
+    <a
+      href="{% url 'bookmark:show_bookmark' request.user%}"
+      class="btn btn-light"
+      tabindex="-1"
+      role="button"
+      aria-disabled="true"
+      >BookMark</a
+    ><br />
+
+    <br />
+
+    <h3 style="overflow: hidden; text-overflow: ellipsis">Last Reviewed</h3>
+    {% if review %}
+    <div id="container">
+      {% for rev in review %}
+      <div class="element">
+        "{{rev.review}}"<br />{{rev.book.title}} by {{rev.book.author}}"<br /><br />
+      </div>
+      {% endfor %}
+      <br />
+    </div>
+
+    <button id="toggleButton" class="btn btn-light">Show More</button>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      async function getPref() {
+        return fetch("{% url 'profiles:pref_json' %}").then((res) =>
+          res.json()
+        );
+      }
+      async function refreshPreference() {
+        document.getElementById("preferences").innerHTML = "";
+        const products = await getPref();
+        let htmlString = ``;
+        products.forEach((item) => {
+          htmlString += `\n<tr>
+                <td>${item.fields.author}</td>
+            </tr>`;
+        });
+
+        document.getElementById("preferences").innerHTML = htmlString;
+      }
+
+      refreshPreference();
+
+      $(document).ready(function () {
+        $("#container .element:gt(0)").hide();
+
+        var areElementsShown = false;
+
+        $("#toggleButton").click(function () {
+          if (areElementsShown) {
+            $("#container .element:gt(0)").slideUp();
+            $(this).text("Show More");
+            areElementsShown = false;
+          } else {
+            $("#container .element").slideDown();
+            $(this).text("Hide");
+            areElementsShown = true;
+          }
+        });
+      });
+    </script>
+    {% else %}
+    <p>Review Anda masih kosong :(</p>
+    {% endif %}
+  </div>
+  <div class="landing-img-container">
+    <img
+      src="{% static 'img/book.png' %}"
+      alt="book"
+      style="mix-blend-mode: multiply; max-width: 100%"
+    />
+  </div>
+</div>
+
+<br />
+
+<hr />
+<br /><br />
+{% endblock content %}

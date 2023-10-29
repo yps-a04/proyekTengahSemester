@@ -1,5 +1,5 @@
 from django.urls import path
-from admin_section.views import show_admin, show_book_list_admin , user_list, delete_user, get_book_json, add_book_ajax, delete_book
+from admin_section.views import show_admin, show_book_list_admin , user_list, delete_user, get_book_json, add_book_ajax, delete_book, edit_book
 from book_details.views import show_book_detail
 app_name = 'admin_section'
 
@@ -11,6 +11,6 @@ urlpatterns = [
     path('get-book/', get_book_json, name='get_book_json'),
     path('create-book-ajax/', add_book_ajax, name='add_book_ajax'),
     path('book-detail/<int:key>', show_book_detail, name='show_book_detail'),
-    # path('edit-book/<int:id>', edit_book, name='edit_book'),
+    path('edit-book/<int:id>', edit_book, name='edit_book'),
     path('delete/<int:id>', delete_book, name='delete_book'),
 ]
