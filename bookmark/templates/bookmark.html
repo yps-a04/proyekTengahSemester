@@ -92,7 +92,7 @@
           <a class="nav-link" href="{% url 'main:show_book_list'%}">Books</a>
         </li>
         <li class="nav-item me-4">
-          <a class="nav-link" href="#">Profile</a>
+          <a class="nav-link" href="{% url 'profiles:showprofile' %}">Profile</a>
         </li>
         <li class="nav-item me-4">
           <a class="nav-link" href="{% url 'bookmark:show_bookmark' request.user%}">Bookmark</a>
