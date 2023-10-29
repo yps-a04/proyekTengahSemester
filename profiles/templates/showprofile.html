@@ -153,6 +153,7 @@ body {
         My Preference
     </h3>
     {% if pref %}
+      <table id="preferences"></table>
       {% for preference in pref %}
       <p>{{preference.author}}</p>
       {% endfor %}
@@ -179,10 +180,11 @@ body {
         Last Reviewed
     </h3>
     {% if review %}
-    <div id="container">
-      {% for rev in review %}
-        <div class="element">"{{rev.review}}"<br>{{rev.book.title}} by {{rev.book.author}}"</div>
-      {% endfor %}
+      <div id="container">
+        {% for rev in review %}
+          <div class="element">"{{rev.review}}"<br>{{rev.book.title}} by {{rev.book.author}}"</div>
+          <br>
+        {% endfor %}
       </div>
       
       <button id="toggleButton" class="btn btn-light">Show More</button>
@@ -190,6 +192,20 @@ body {
         async function getPref() {
             return fetch("{% url 'profiles:pref_json' %}").then((res) => res.json())
         }
+        async function refreshPreference() {
+            document.getElementById("preferences").innerHTML = ""
+            const products = await getPref()
+            let htmlString = ``
+            products.forEach((item) => {
+                htmlString += `\n<tr>
+                <td>${item.fields.author}</td>
+            </tr>` 
+            })
+            
+            document.getElementById("preferences").innerHTML = htmlString
+        }
+
+        refreshPreference()
 
 
         $(document).ready(function(){

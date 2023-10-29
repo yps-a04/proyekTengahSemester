@@ -62,3 +62,4 @@ def pref_json(request):
     return HttpResponse(serializers.serialize('json', preferences))
 
 
+
