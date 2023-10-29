@@ -13,6 +13,9 @@ from django.urls import reverse
 from bookmark.models import Bookmark
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
+from django.db.models import Case, When, Value, IntegerField
+from profiles.models import Preference
+from django.db.models.query import QuerySet
 # Create your views here.
 
 
@@ -43,6 +46,19 @@ def show_book_list(request):
         books = Book.objects.order_by('-title')
     elif sort_param == 'reviews-count':
         books = Book.objects.order_by('-text_review_count')
+    elif sort_param == 'preference':
+        author = Preference.objects.filter(user=request.user).values('author')
+        books = Book.objects.none()
+        sisa = Book.objects.none()
+        for elem in author:
+            books_temp = Book.objects.filter(author=elem['author'])
+            for book in books_temp:
+                books = books | books_temp
+                books_all = Book.objects.all()
+                for book2 in books_all:
+                    if book.author in book2.author:
+                        book2_query = Book.objects.filter(pk=book2.pk)
+                        books = books | book2_query
     else:
         books = Book.objects.all()
 
@@ -142,9 +158,24 @@ def sort_books(request):
         books = Book.objects.order_by('-title')
     elif sort_by == 'reviews-count':
         books = Book.objects.order_by('-text_review_count')
+    elif sort_by == 'preference':
+        author = Preference.objects.filter(user=request.user).values('author')
+        books = Book.objects.none()
+        for book in books:
+            print(book.author)
+        for elem in author:
+            books_temp = Book.objects.filter(author=elem['author'])
+            for book in books_temp:
+                print(book.author)
+                books = books | books_temp
+                books_all = Book.objects.all()
+                for book2 in books_all:
+                    if book.author in book2.author:
+                        book2_query = Book.objects.filter(pk=book2.pk)
+                        books = books | book2_query
     else:
         books = Book.objects.all()
-
+    
     book_list = [{'pk': book.pk, 'title': book.title, 'author': book.author, 'average_rating': book.average_rating,
                   'isbn': book.isbn, 'isbn13': book.isbn13, 'language_code': book.language_code} for book in books[:20]]
 
