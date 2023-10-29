@@ -45,6 +45,11 @@
     background-color: white;
   }
 
+  .bookmark-button.bookmarked {
+      color: orange;
+      background-color: black;
+  }
+
   .btn-custom {
     background-color: black;
     color: white;
@@ -83,12 +88,32 @@
 </style>
 
 <div class="detail-container">
-  <div class="detail-img-container">
-    <img
-      src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-L.jpg"
-      class="card-img-top"
-      alt="{{ book.name }}"
-    />
+  <div>
+    <div class="detail-img-container">
+      <img
+        src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-L.jpg"
+        class="card-img-top"
+        alt="{{ book.name }}"
+      />
+    </div>
+    <div>
+      {% if user.is_authenticated %}
+      <form
+        class="bookmark_form"
+        method="POST"
+        action="{% url 'main:bookmark' book.pk %}"
+      >
+        {% csrf_token %}
+        <input type="hidden" name="bookmarked" value="{{ book.pk }}" />
+        <button
+          class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}"
+          type="submit"
+        >
+          <i class="fa fa-bookmark"></i>
+        </button>
+      </form>
+      {% endif %}
+    </div>
   </div>
   <div class="detail-text-container">
     <h1><b>{{ book.name }}</b></h1>
@@ -108,6 +133,7 @@
     <p><b>Penerbit:</b> {{ book.publisher }}</p>
   </div>
 </div>
+
 
 <div class="review-text-container">
     <h2><b>Tambahkan Ulasan Anda:</b></h2>
@@ -187,5 +213,34 @@
             }
         })
     } 
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+    document.querySelectorAll(".bookmark_form").forEach((form) => {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        fetch(this.action, {
+          method: this.method,
+          body: new FormData(this),
+          headers: {
+            "X-Requested-With": "XMLHttpRequest", // NEEDED FOR DJANGO TO TREAT THIS AS AJAX
+            "X-CSRFToken": this.querySelector("input[name=csrfmiddlewaretoken]")
+              .value, // CSRF TOKEN
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "bookmarked") {
+              this.querySelector(".bookmark-button").classList.add(
+                "bookmarked"
+              );
+            } else {
+              this.querySelector(".bookmark-button").classList.remove(
+                "bookmarked"
+              );
+            }
+          });
+      });
+    });
+  });
 </script>
 {% endblock content %}
