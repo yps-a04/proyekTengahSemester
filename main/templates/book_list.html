@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %} {% block meta %}
+<title>Books</title>
+{% endblock %}
 <style>
   body {
     display: flex;
@@ -145,9 +147,7 @@
       >
     </li>
     <li>
-      <a class="dropdown-item" href="#" data-sort="preference"
-        >Preference</a
-      >
+      <a class="dropdown-item" href="#" data-sort="preference">Preference</a>
     </li>
   </ul>
 </div>
