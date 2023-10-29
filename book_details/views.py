@@ -13,10 +13,21 @@ def show_book_detail(request, key):
     # Menunjukkan buku berdasarkan ID
     book = get_object_or_404(Book, pk=key)
     form = Review()
+
+    b = None
+    bookmarks = [] 
+    if request.user.is_authenticated:
+        b = request.user.bookmarked.select_related('book')
+        for markbuku in b:
+            bookmarks.append(markbuku.book)
+            
     context = {
         'book': book,
         'form': form,
+        'bookmarks' : bookmarks,
     }
+
+    
 
     return render(request, "book_details.html", context)
 

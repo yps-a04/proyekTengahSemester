@@ -130,7 +130,17 @@
           alt="{{book.title}}"
         />
       </td>
-      <td>{{bookmark.book.title}}</td>
+      <td> 
+        <a
+          href="{% url 'book_details:show_book_detail' key=bookmark.book.pk %}"
+          style="text-decoration: none; color: black"
+          ><b
+            ><h5 class="card-title" style="font-weight: bold">
+              {{bookmark.book.title}}
+            </h5></b
+          ></a
+        >
+      </td>
       <td>{{bookmark.book.author}}</td>
       <td style="text-align: center">{{bookmark.book.average_rating}}/10</td>
       <td style="text-align: center">{{bookmark.book.language_code}}</td>
@@ -190,6 +200,6 @@
   });
 </script>
 {% else %}
-<p>bookmark kosong</p>
+<p>Review Anda masih kosong :(</p>
 
 {% endif %} {% endblock content %}

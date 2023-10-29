@@ -24,8 +24,9 @@ from django.contrib.auth.decorators import login_required
 def show_main(request):
 
     # set pagination 50/page
+    last_login = request.COOKIES.get('last_login', 'Tidak ada data login terakhir.')
     context = {
-        'last_login': request.COOKIES['last_login'],
+        'last_login': last_login,
     }
 
     return render(request, "main.html", context)
@@ -72,17 +73,17 @@ def show_book_list(request):
 
     print('books === ' + str(books))
 
-    bookmarks = None
-    b = [] 
+    b = None
+    bookmarks = [] 
     if request.user.is_authenticated:
-        bookmarks = request.user.bookmarked.select_related('book')
-        for book in bookmarks:
-            b.append(book.book)
+        b = request.user.bookmarked.select_related('book')
+        for book in b:
+            bookmarks.append(book.book)
 
     context = {
         'books': books,
         'sort_param': sort_param,  # Kirim sort_param kembali ke template
-        'bookmarks' : b,
+        'bookmarks' : bookmarks,
     }
 
     return render(request, "book_list.html", context)
