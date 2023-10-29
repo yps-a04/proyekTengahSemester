@@ -1,9 +1,10 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from main.models import Book
 from .forms import Review
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 import datetime
 
 # Create your views here.
@@ -17,6 +18,7 @@ def show_book_detail(request, key):
     }
 
     return render(request, "book_details.html", context)
+
 
 @login_required
 def add_review(request, key):
@@ -45,3 +47,4 @@ def add_review(request, key):
     }
 
     return render(request, "book_details.html", context)
+
