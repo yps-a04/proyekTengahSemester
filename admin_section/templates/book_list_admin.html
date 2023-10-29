@@ -1,0 +1,365 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-family: "Poppins", sans-serif;
+    padding-top: 100px;
+  }
+
+  .card-deck {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  .custom-card {
+    display: flex;
+    border: 1px solid black;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    color: black;
+    width: 300px;
+    height: 400px;
+    overflow: auto;
+  }
+
+  .custom-card .card-img-top {
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+  }
+
+  .btn-custom {
+    background-color: black;
+    color: white;
+  }
+
+  .btn-custom:hover {
+    background-color: #f0f0f0;
+    color: black;
+  }
+
+  .btn-add-book {
+    background-color: rgb(212, 206, 196);
+    color: black;
+  }
+
+  .btn-add-book:hover {
+    background-color: #f0f0f0;
+    color: black;
+  }
+
+  #search-form {
+    display: flex;
+    flex-direction: row;
+  }
+  .search-group {
+    width: 75vw;
+  }
+  .form-outline .form-control {
+    background-color: #f0f0f0;
+  }
+</style>
+<nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="{% url 'admin_section:show_admin' %}"><b>UlasBuku</b></a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active me-4">
+        <a class="nav-link" href="{% url 'admin_section:show_admin'%}">Home</a>
+      </li>
+      <li class="nav-item me-4">
+        <a class="nav-link" href="{% url 'admin_section:show_book_list_admin'%}">Books</a>
+      </li>
+      <li class="nav-item me-4">
+        <a class="nav-link" href="{% url 'profiles:showprofile' %}">Profile</a>
+      </li>
+      <li class="nav-item me-4">
+        <a class="nav-link" href="{% url 'admin_section:user_list' %}">List User</a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="navbar-nav justify-content-end">
+    <li class="nav-item active">
+      <a class="nav-link" href="{% url 'main:logout'%}">
+        Logout <i class="fa fa-sign-in"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div id="list-book" class="search-group">
+  <form id="search-form" class="form-outline">
+    <input id="search-focus" type="text" class="form-control" name="q" />
+    <label class="form-label" for="button">Search</label>
+    <button type="submit" class="btn btn-custom">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
+</div>
+
+<br /><br />
+
+<ul
+  class="pagination"
+  style="
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  "
+>
+  <li class="page-item">
+    <a class="page-link btn-custom" href="#" aria-label="Previous"
+      ><span aria-hidden="true">&laquo;</span></a
+    >
+  </li>
+  {% for page in books.paginator.page_range %}
+  <li class="page-item">
+    <a class="page-link btn-custom" href="?page={{ page }}">{{ page }}</a>
+  </li>
+  {% endfor %}
+  <li class="page-item">
+    <a class="page-link btn-custom" href="#" aria-label="Next"
+      ><span aria-hidden="true">&raquo;</span></a
+    >
+  </li>
+</ul>
+
+<button class="btn btn-add-book btn-outline-dark" type="button"
+    data-bs-toggle="modal" data-bs-target="#exampleModal"
+    >Add Book</button
+>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Book</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="title" class="col-form-label">Title:</label>
+                        <textarea class="form-control" id="title" name="title"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="author" class="col-form-label">Author:</label>
+                        <textarea class="form-control" id="author" name="author"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Average Rating (dalam float):</label>
+                        <input type="number" class="form-control" id="average_rating" name="average_rating"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">ISBN:</label>
+                        <input type="text" class="form-control" id="isbn" name="isbn"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">ISBN13:</label>
+                        <input type="text" class="form-control" id="isbn13" name="isbn13"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Language Code (max 10 char):</label>
+                        <input type="text" class="form-control" id="language_code" name="language_code"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Num Pages:</label>
+                        <input type="number" class="form-control" id="num_pages" name="num_pages"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Rating Count:</label>
+                        <input type="number" class="form-control" id="rating_count" name="rating_count" value="0"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Text Review Count:</label>
+                        <input type="number" class="form-control" id="text_review_count" name="text_review_count" value="0"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Publication Date:</label>
+                        <input type="date" class="form-control" id="publication_date" name="publication_date"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Publisher:</label>
+                        <textarea class="form-control" id="publisher" name="publisher"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Book</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div id="search-results" class="card-deck">
+  <!-- {% for book in books %}
+
+  <div class="card card-sm custom-card">
+    <img
+      src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-M.jpg"
+      class="card-img-top"
+      alt="{{book.title}}"
+    />
+    <div class="card-body">
+      <a
+        href="{% url 'book_details:show_book_detail' key=book.pk %}"
+        style="text-decoration: none; color: black"
+        ><b
+          ><h5 class="card-title" style="font-weight: bold">
+            {{ book.title }}
+          </h5></b
+        ></a
+      >
+      <p class="card-text">Author: {{book.author}}</p>
+      <p class="card-text">Rating: {{book.average_rating}}/10</p>
+      <p class="card-text">Language: {{book.language_code}}</p>
+      <a class="btn btn-custom" href="#" role="button" style="margin-left: 62px;">Edit</a>
+      <a class="btn btn-custom" href="{% url 'admin_section:delete_book' book.pk %}" 
+            onclick="return confirm('Apakah Anda yakin ingin menghapus buku ini?')" role="button">Delete</a>
+    </div>
+  </div>
+  {% endfor %} -->
+</div>
+
+<br />
+
+<ul
+  class="pagination"
+  style="
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  "
+>
+  <li class="page-item">
+    <a class="page-link btn-custom" href="#" aria-label="Previous"
+      ><span aria-hidden="true">&laquo;</span></a
+    >
+  </li>
+  {% for page in books.paginator.page_range %}
+  <li class="page-item">
+    <a class="page-link btn-custom" href="?page={{ page }}">{{ page }}</a>
+  </li>
+  {% endfor %}
+  <li class="page-item">
+    <a class="page-link btn-custom" href="#" aria-label="Next"
+      ><span aria-hidden="true">&raquo;</span></a
+    >
+  </li>
+</ul>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#search-form").submit(function (e) {
+      e.preventDefault();
+      var query = $("#search-focus").val();
+
+      $.ajax({
+        url: "/search/",
+        data: { q: query },
+        success: function (data) {
+          $("#search-results").html("");
+          data.forEach(function (book) {
+            var url = "{% url 'book_details:show_book_detail' 0 %}".replace("0", book.pk);
+            $("#search-results").append(`<div class="card card-sm custom-card">
+                <img src="https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg" class="card-img-top" style="border-bottom: 2px solid black;" alt="{{ book.title }}" />
+                <div class="card-body" style="max-height: 100%; overflow-y: auto;">
+                    <a href=${url} style="text-decoration: none; color: black;"><b><h5 class="card-title" style="font-weight: bold;">${book.title}</h5></b></a>
+                    <br />
+                    <p class="card-text">Author: ${book.author}</p>
+                    <p class="card-text">Rating: ${book.average_rating}/10</p>
+                    <p class="card-text">Language: ${book.language_code}</p>
+                </div>
+                </div>`);
+          });
+          $(".pagination").html("");
+        },
+      });
+    });
+  });
+
+  async function getBooks(){
+    return fetch("{% url 'admin_section:get_book_json' %}").then((res) => res.json())
+  }
+
+  async function refreshBooks(){
+    const books = await getBooks();
+    let htmlString = ``;
+    books.forEach((book) => {
+      var url_detail = "{% url 'book_details:show_book_detail' 0 %}".replace("0", book.pk);
+      var url_delete = "{% url 'admin_section:delete_book' 0 %}".replace("0", book.pk);
+      htmlString += `\n
+      <div class="card card-sm custom-card">
+        <img
+          src="https://covers.openlibrary.org/b/isbn/${book.fields.isbn}-M.jpg"
+          class="card-img-top"
+          alt="${book.fields.title}"
+        />
+        <div class="card-body">
+          <a
+            href="${url_detail}"
+            style="text-decoration: none; color: black"
+            ><b
+              ><h5 class="card-title" style="font-weight: bold">
+                ${book.fields.title}
+              </h5></b
+            ></a
+          >
+          <p class="card-text">Author: ${book.fields.author}</p>
+          <p class="card-text">Rating: ${book.fields.average_rating}/10</p>
+          <p class="card-text">Language: ${book.fields.language_code}</p>
+          <a class="btn btn-custom" href="#" role="button" style="margin-left: 62px;">Edit</a>
+          <a class="btn btn-custom" href="${url_delete}" 
+                onclick="return confirm('Apakah Anda yakin ingin menghapus buku ini?')" role="button">Delete</a>
+        </div>
+      </div>`
+    })
+
+    document.getElementById("search-results").innerHTML = htmlString
+  }
+
+  refreshBooks();
+
+  function addBook() {
+        fetch("{% url 'admin_section:add_book_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshBooks)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    document.getElementById("button_add").onclick = addBook
+
+</script>
+{% endblock content %}
