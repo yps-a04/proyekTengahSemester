@@ -51,9 +51,17 @@ def show_book_list(request):
 
     print('books === ' + str(books))
 
+    bookmarks = None
+    b = [] 
+    if request.user.is_authenticated:
+        bookmarks = request.user.bookmarked.select_related('book')
+        for book in bookmarks:
+            b.append(book.book)
+
     context = {
         'books': books,
         'sort_param': sort_param,  # Kirim sort_param kembali ke template
+        'bookmarks' : b,
     }
 
     return render(request, "book_list.html", context)
