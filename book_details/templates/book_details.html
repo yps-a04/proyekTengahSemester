@@ -61,11 +61,14 @@
   }
 
   .review-container {
-    width: 100vw;
+    width: 40vw;
+    height: 50vh;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
   }
 
   .review-text-container {
@@ -84,6 +87,28 @@
   .form-input {
     width: 500px;
     height: 100px;
+  }
+
+  .form-outline .form-control {
+    background-color: #f0f0f0;
+    width: 20vw;
+    height: 20vh;
+  }
+
+  .single-user-review {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin-left: 30vw;
+    color: black;
+    width: 40vw;
+    height: 20vh;
+    border-radius: 30px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+    overflow: auto;
   }
 </style>
 
@@ -116,7 +141,7 @@
     </div>
   </div>
   <div class="detail-text-container">
-    <h1><b>{{ book.name }}</b></h1>
+    <h1 style="color: black"><b id="book-name">{{ book.title }}</b></h1>
     <h2><b>{{ book.author }}</b></h2>
     <br />
     <p>
@@ -134,113 +159,132 @@
   </div>
 </div>
 
-
 <div class="review-text-container">
-    <h2><b>Tambahkan Ulasan Anda:</b></h2>
+  <h2><b>Tambahkan Ulasan Anda:</b></h2>
 </div>
 
 <div class="review-container">
-    <div class="review-form-container">
-        <form method="POST" id="form" onsubmit="return false;">
-            {% csrf_token %}
-            <div class="fields">
-                <label for="user-name" class="form-label">User:</label>
-                <input type="text" class="uname" id="user-name" name="user-name" value="{{ reviews.user }}"/>
-            </div>
-            <br>
-            <div class="fields">
-                <label for="review-form" class="form-label">Ulasan:</label>
-                <textarea class="form-input" id="review-form" name="review-form"></textarea>
-            </div>
-        </form>
-        <div class="button-submit" style="text-align:center;">
-            <button type="submit" form="form" class="btn-custom">Submit Ulasan</button>
-        </div>
-    </div>
+  <div class="review-form-container">
+    <form method="POST" id="form" onsubmit="return false;">
+      {% csrf_token %}
+      <div class="form-outline mb-4">
+        <label class="form-label" for="title">Judul</label>
+        {{ form.title }}
+      </div>
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="review">Ulasan</label>
+        {{ form.review }}
+      </div>
+    </form>
+    <button
+      id="add-review"
+      type="submit"
+      value="review"
+      name="submit"
+      class="btn btn-custom btn-lg btn-block"
+    >
+      Submit Ulasan
+    </button>
+  </div>
 </div>
 
 <div class="review-from-users" id="all-reviews">
-    {% for review in reviews %}
-    <div class="single-user-review">
-        <h3>{{ reviews.user }}</h3>
-        <p>{{ reviews.date }}</p>
-        <div class="review-texts">
-            <p>{{ reviews.review }}</p>
-        </div>
+  {% for review in reviews %}
+  <div class="single-user-review">
+    <h3>{{ review.user.username }}</h3>
+
+    <h5>{{review.title}}</h5>
+    <div class="review-texts">
+      <p>{{ review.review }}</p>
     </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
 </div>
 
-<script>
-    async function getReviews() {
-        return fetch("{% url 'book_details:get_reviews_json' %}").then((res) => res.json())
-    }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    async function refreshReviews() {
-        document.getElementById("all-reviews").innerHTML = ""
-        const reviews = await getReviews()
-        reviews.forEach((review) => {
-            const reviewDiv = document.createElement("div")
-            reviewDiv.classList.add("single-user-review")
-            reviewDiv.innerHTML = `
+<script>
+  {% comment %} async function getReviews() {
+    return fetch("{% url 'book_details:get_reviews_json' %}").then((res) =>
+      res.json()
+    );
+  }
+
+  async function refreshReviews() {
+    document.getElementById("all-reviews").innerHTML = "";
+    const reviews = await getReviews();
+    reviews.forEach((review) => {
+      const reviewDiv = document.createElement("div");
+      reviewDiv.classList.add("single-user-review");
+      reviewDiv.innerHTML = `
                 <h3>${review.user}</h3>
                 <p>${review.date}</p>
                 <div class="review-texts">
                     <p>${review.review}</p>
                 </div>
-            `
-            document.getElementById("all-reviews").appendChild(reviewDiv)
-        })
-        refreshReviews()
-    }
+            `;
+      document.getElementById("all-reviews").appendChild(reviewDiv);
+    });
+    refreshReviews();
+  }
 
-    function addReview() {
-        fetch("{% url 'book_details:add_review_ajax' %}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
-            body: JSON.stringify({
-                user: document.getElementById("user-name").value,
-                review: document.getElementById("review-form").value
-            })
-        }).then((res) => res.json()).then((data) => {
-            if (data.success) {
-                document.getElementById("user-name").value = ""
-                document.getElementById("review-form").value = ""
-                refreshReviews()
-            }
-        })
-    } 
+  function addReview() {
+    fetch("{% url 'book_details:add_review_ajax' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}",
+      },
+      body: JSON.stringify({
+        user: document.getElementById("user-name").value,
+        review: document.getElementById("review-form").value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          document.getElementById("user-name").value = "";
+          document.getElementById("review-form").value = "";
+          refreshReviews();
+        }
+      });
+  } {% endcomment %}
 
-    document.addEventListener("DOMContentLoaded", (event) => {
-    document.querySelectorAll(".bookmark_form").forEach((form) => {
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        fetch(this.action, {
-          method: this.method,
-          body: new FormData(this),
-          headers: {
-            "X-Requested-With": "XMLHttpRequest", // NEEDED FOR DJANGO TO TREAT THIS AS AJAX
-            "X-CSRFToken": this.querySelector("input[name=csrfmiddlewaretoken]")
-              .value, // CSRF TOKEN
-          },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.status === "bookmarked") {
-              this.querySelector(".bookmark-button").classList.add(
-                "bookmarked"
-              );
-            } else {
-              this.querySelector(".bookmark-button").classList.remove(
-                "bookmarked"
-              );
-            }
+  $(document).ready(function () {
+
+    $("#add-review").click(function (e) {
+      e.preventDefault();
+      var formData = {
+        'title': document.getElementById('title').value,
+        'review': document.getElementById('review_input').value,
+        'bookname': $('#book-name').text()
+    };
+
+    console.log(document.getElementById('title').value)
+     console.log(document.getElementById('review_input').value)
+      $.ajax({
+        type: "POST",
+        url: "{% url 'book_details:add_review_ajax' %}",
+        data: formData,
+
+        success: function (data) {
+          $("#all-reviews").html("");
+          data.forEach(function (review) {
+            $("#all-reviews").append(`<div class="single-user-review">
+    <h3>${review.user}</h3>
+    <h5><${review.title}</h5>
+    <p>ini tanggal</p>
+    <div class="review-texts">
+      <p>${review.review}</p>
+    </div>
+  </div>`);
           });
+
+        },
       });
     });
+
   });
 </script>
 {% endblock content %}
