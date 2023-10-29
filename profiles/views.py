@@ -55,6 +55,8 @@ def showprofile(request):
     user_now = request.user
     review = Review.objects.filter(user=user_now)
     preference = Preference.objects.filter(user=user_now)
+    for pref in preference:
+        print(pref.author)
     context = {'user':user_now, 'review':review, 'pref':preference}
     return render(request, "showprofile.html", context)
 

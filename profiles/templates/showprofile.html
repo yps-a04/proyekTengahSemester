@@ -116,9 +116,6 @@
     <h3 style="overflow: hidden; text-overflow: ellipsis">My Preference</h3>
     {% if pref %}
     <table id="preferences"></table>
-    {% for preference in pref %}
-    <p>{{preference.author}}</p>
-    {% endfor %}
     <a
       href="{% url 'profiles:preference' %}"
       class="btn btn-light"
@@ -161,13 +158,14 @@
     <div id="container">
       {% for rev in review %}
       <div class="element">
-        "{{rev.review}}"<br />{{rev.book.title}} by {{rev.book.author}}"
+        "{{rev.review}}"<br />{{rev.book.title}} by {{rev.book.author}}"<br /><br />
       </div>
-      <br />
       {% endfor %}
+      <br />
     </div>
 
     <button id="toggleButton" class="btn btn-light">Show More</button>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       async function getPref() {
         return fetch("{% url 'profiles:pref_json' %}").then((res) =>
@@ -190,7 +188,7 @@
       refreshPreference();
 
       $(document).ready(function () {
-        $("#container .element:gt(3)").hide();
+        $("#container .element:gt(0)").hide();
 
         var areElementsShown = false;
 
