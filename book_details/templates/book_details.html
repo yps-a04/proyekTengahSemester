@@ -72,9 +72,9 @@
 <div class="detail-container">
   <div class="detail-img-container">
     <img
-      src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-L.jpg"
-      alt="book"
-      style="mix-blend-mode: multiply; max-width: 100%"
+      src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
+      class="card-img-top"
+      alt="{{ book.name }}"
     />
   </div>
   <div class="detail-text-container">
@@ -97,9 +97,26 @@
 </div>
 
 <div class="review-container">
-  <div class="review-text-container">
-    <h2><b>Tambahkan Ulasan Anda:</b></h2>
-  </div>
+    <div class="review-text-container">
+        <h2><b>Tambahkan Ulasan Anda:</b></h2>
+    </div>
+    <div class="review-form-container">
+        <form id="form" onsubmit="return false;">
+            {% csrf_token %}
+            <div class="fields">
+                <label for="user-name" class="form-label">User:</label>
+                <input type="text" class="form-input" id="user-name" name="user-name">{{ reviews.user }}</input>
+            </div>
+            <div class="fields">
+                <label for="review-form" class="form-label">Ulasan:</label>
+                <textarea class="form-input" id="review-form" name="review-form"></textarea>
+            </div>
+        </form>
+    </div>
+    <button type="submit" onclick="addReview()" form="form" class="btn btn-primary">Submit Ulasan</button>
 </div>
 
+<script>
+    
+</script>
 {% endblock content %}
