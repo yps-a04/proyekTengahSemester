@@ -52,11 +52,12 @@ def preference(request):
 @login_required(login_url='/login')
 def showprofile(request):
     user_now = request.user
-    review = user_now.review_set.all()
+    review = Review.objects.filter(user=user_now)
     preference = Preference.objects.filter(user=user_now)
     context = {'user':user_now, 'review':review, 'pref':preference}
     return render(request, "showprofile.html", context)
 
+@login_required(login_url='/login')
 def pref_json(request):
     preferences = Preference.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', preferences))
