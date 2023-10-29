@@ -161,10 +161,10 @@
     <div id="container">
       {% for rev in review %}
       <div class="element">
-        "{{rev.review}}"<br />{{rev.book.title}} by {{rev.book.author}}"
+        "{{rev.review}}"<br />{{rev.book.title}} by {{rev.book.author}}"<br /><br />
       </div>
-      <br />
       {% endfor %}
+      <br />
     </div>
 
     <button id="toggleButton" class="btn btn-light">Show More</button>
