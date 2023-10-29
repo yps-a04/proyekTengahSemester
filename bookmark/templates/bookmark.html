@@ -117,7 +117,7 @@
 
 {% if books %}
 
-<p>{{username}} bookmarked books</p>
+<p>{{username}}'s bookmarked books</p>
 
 <div style="display: flex; align-items: center;">
     {% if books.has_previous %}
@@ -146,10 +146,7 @@
 </div>
 
 
-
-
-<br/>
-<div  id="Item_table_container" class="table-container">
+<div  id="table_container" class="table-container">
     <table>
         <tr>
             <th width="10%">Cover</th>
@@ -197,6 +194,7 @@
 <hr><br/><br/>
     
 <script>
+
 document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelectorAll('.bookmark_form').forEach(form => {
     form.addEventListener('submit', function(event) {
@@ -219,7 +217,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
       });
     });
   });
+
 });
+
 </script>
 {% else %}
 <p>bookmark kosong</p>
