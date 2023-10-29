@@ -4,6 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'img/book.png' %}" type="image/x-icon" />
     {% block meta %} {% endblock %}
     <link
       rel="stylesheet"
@@ -45,6 +46,6 @@
   </head>
 
   <body>
-    {% block content %} {% endblock %}
+    {% include "navbar.html" %} {% block content %} {% endblock %}
   </body>
 </html>

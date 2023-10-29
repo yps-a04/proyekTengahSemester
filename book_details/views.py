@@ -1,9 +1,11 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse
 from main.models import Book
 from .forms import Review
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.core import serializers
 import datetime
 
 # Create your views here.
@@ -45,3 +47,25 @@ def add_review(request, key):
     }
 
     return render(request, "book_details.html", context)
+
+# Get JSON dengan HttpResponse serializers
+def get_reviews_json(request):
+    reviews = Review.objects.all()
+    return HttpResponse(serializers.serialize("json", reviews))
+
+
+@csrf_exempt
+# Add review dengan ajax
+def add_review_ajax(request):
+    if request.method == 'POST':
+        book = request.POST.get("book")
+        user = request.POST.get("user")
+        review = request.POST.get("review")
+        date = request.POST.get("date")
+
+        new_rev = Review(book=book, user=user, review=review, date=date)
+        new_rev.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    
+    return HttpResponseNotFound()

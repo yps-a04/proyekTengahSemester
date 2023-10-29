@@ -1,0 +1,93 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top bg-transparent">
+  <div class="container-fluid px-5">
+    {% if user.is_staff %}
+    <a class="navbar-brand fs-5" href="{% url 'admin_section:show_admin' %}"><b>UlasBuku</b></a>
+    {% else %}
+    <a class="navbar-brand fs-5" href="{% url 'main:show_main' %}"><b>UlasBuku</b></a>
+    {% endif %}
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="sidebar offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+          <b>UlasBuku</b>
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+          {% if user.is_staff %}
+          <li class="nav-item active mx-3">
+            <a class="nav-link" href="{% url 'admin_section:show_admin'%}">Home</a>
+          </li>
+          {% else %}
+          <li class="nav-item active mx-3">
+            <a class="nav-link" href="{% url 'main:show_main'%}">Home</a>
+          </li>
+          {% endif %}
+          {% if user.is_staff %}
+          <li class="nav-item mx-3">
+            <a class="nav-link" href="{% url 'admin_section:show_book_list_admin'%}">Books</a>
+          </li>
+          {% else %}
+          <li class="nav-item mx-3">
+            <a class="nav-link" href="{% url 'main:show_book_list'%}">Books</a>
+          </li>
+          {% endif %}
+          <li class="nav-item mx-3">
+            <a class="nav-link" href="{% url 'profiles:showprofile' %}"
+              >Profile</a
+            >
+          </li>
+          {% if user.is_authenticated %}
+            {% if user.is_staff %}
+            <li class="nav-item mx-3">
+              <a
+                class="nav-link"
+                href="{% url 'admin_section:user_list'%}"
+                >List User</a
+              >
+            </li>
+            {% else %}
+            <li class="nav-item mx-3">
+              <a
+                class="nav-link"
+                href="{% url 'bookmark:show_bookmark' request.user%}"
+                >Bookmark</a
+              >
+            </li>
+            {% endif %}
+          {% endif %}
+        </ul>
+
+        <div class="d-flex justify-content-center align-items-center gap-3">
+          <a
+            class="nav-item"
+            href="{% url 'main:logout'%}"
+            style="text-decoration: none; color: black"
+          >
+            Logout <i class="fa fa-sign-in"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
