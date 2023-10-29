@@ -1,7 +1,5 @@
-{% extends 'base.html' %} 
-{% load static %} 
+{% extends 'base.html' %} {% load static %} {% block content %}
 
-{% block content %}
 <style>
   body {
     display: flex;
@@ -12,7 +10,7 @@
     font-family: "Poppins", sans-serif;
   }
 
-  .detail-container {
+  .landing-container {
     width: 100vw;
     height: 100vh;
 
@@ -22,30 +20,21 @@
     background-color: white;
   }
 
-  @media (max-width: 800px) {
-    .detail-container {
+  @media (max-width: 1050px) {
+    .landing-container {
       flex-direction: column-reverse;
       justify-content: center;
     }
   }
 
-  .detail-text-container {
+  .landing-text-container {
     max-width: 50%;
     text-align: justify;
   }
 
-  .detail-img-container {
+  .landing-img-container {
     max-width: 50%;
     height: auto;
-  }
-
-  .detail-container {
-    width: 100vw;
-
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    background-color: white;
   }
 
   .btn-custom {
@@ -57,23 +46,10 @@
     background-color: #f0f0f0;
     color: black;
   }
-
-    .review-container {
-        width: 100vw;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        background-color: white;
-    }
-
-    .review-text-container {
-        max-width: 50%;
-        text-align: justify;
-    }
 </style>
 
 <nav class="navbar px-4 fixed-top navbar-expand-lg navbar-light bg-white">
-  <a class="navbar-brand" href="{% url 'main:show_main'%}"><b>UlasBuku</b></a>
+  <a class="navbar-brand" href="{% url 'admin_section:show_admin'%}"><b>UlasBuku</b></a>
   <button
     class="navbar-toggler"
     type="button"
@@ -91,10 +67,13 @@
         <a class="nav-link" href="#">Home</a>
       </li>
       <li class="nav-item me-4">
-        <a class="nav-link" href="{% url 'main:show_book_list'%}">Books</a>
+        <a class="nav-link" href="{% url 'admin_section:show_book_list_admin'%}">Books</a>
       </li>
       <li class="nav-item me-4">
         <a class="nav-link" href="#">Profile</a>
+      </li>
+      <li class="nav-item me-4">
+        <a class="nav-link" href="{% url 'admin_section:user_list' %}">List User</a>
       </li>
     </ul>
   </div>
@@ -108,33 +87,29 @@
   </ul>
 </nav>
 
-<div class="detail-container">
-  <div class="detail-img-container">
+<div class="landing-container">
+  <div class="landing-text-container">
+    <h1>Selamat Datang <b>Admin</b>!</h1>
+    <p style="overflow: hidden; text-overflow: ellipsis">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna sed do eiusmod tempor
+      incididunt ut labore et dolore magna sed do eiusmod tempor incididunt ut
+      labore et dolore magna
+    </p>
+    <a
+      class="btn btn-custom"
+      href="{% url 'admin_section:show_book_list_admin'%}"
+      role="button"
+      >Lihat List Buku</a
+    >
+  </div>
+  <div class="landing-img-container">
     <img
       src="{% static 'img/book.png' %}"
       alt="book"
       style="mix-blend-mode: multiply; max-width: 100%"
     />
   </div>
-  <div class="detail-text-container">
-    <h1><b>{{ book.name }}</b></h1>
-    <h2><b>{{ book.author }}</b></h2>
-    <br>
-    <p><b><i>Rating</i> Rata-Rata:</b> {{ book.average_rating }}</p>
-    <p><b>ISBN:</b> {{ book.isbn }}</p>
-    <p><b>ISBN 13:</b> {{ book.isbn13 }}</p>
-    <p><b>Kode Bahasa:</b> {{ book.language_code }}</p>
-    <p><b>Jumlah Halaman:</b> {{ book.num_pages }}</p>
-    <p><b>Jumlah <i>Rating</i>:</b> {{ book.rating_count }}</p>
-    <p><b>Tanggal Terbit:</b> {{ book.publication_date }}</p>
-    <p><b>Penerbit:</b> {{ book.publisher }}</p>
-  </div>
-</div>
-
-<div class="review-container">
-    <div class="review-text-container">
-        <h2><b>Tambahkan Ulasan Anda:</b></h2>
-    </div>
 </div>
 
 {% endblock content %}
