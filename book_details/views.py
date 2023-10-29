@@ -19,14 +19,24 @@ def show_book_detail(request, key):
     book = Book.objects.get(pk=key)
     form = ReviewForm()
     reviews = Review.objects.all().filter(book=book)
+
+    b = None
+    bookmarks = [] 
+    if request.user.is_authenticated:
+        b = request.user.bookmarked.select_related('book')
+        for markbuku in b:
+            bookmarks.append(markbuku.book)
+            
     context = {
         'book': book,
         'form': form,
         'reviews': reviews,
+        'bookmarks' : bookmarks,
     }
 
-    return render(request, "book_details.html", context)
+    
 
+    return render(request, "book_details.html", context)
 
 @login_required
 def add_review(request, key):

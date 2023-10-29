@@ -45,6 +45,11 @@
     background-color: white;
   }
 
+  .bookmark-button.bookmarked {
+      color: orange;
+      background-color: black;
+  }
+
   .btn-custom {
     background-color: black;
     color: white;
@@ -108,12 +113,32 @@
 </style>
 
 <div class="detail-container">
-  <div class="detail-img-container">
-    <img
-      src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-L.jpg"
-      class="card-img-top"
-      alt="{{ book.name }}"
-    />
+  <div>
+    <div class="detail-img-container">
+      <img
+        src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-L.jpg"
+        class="card-img-top"
+        alt="{{ book.name }}"
+      />
+    </div>
+    <div>
+      {% if user.is_authenticated %}
+      <form
+        class="bookmark_form"
+        method="POST"
+        action="{% url 'main:bookmark' book.pk %}"
+      >
+        {% csrf_token %}
+        <input type="hidden" name="bookmarked" value="{{ book.pk }}" />
+        <button
+          class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}"
+          type="submit"
+        >
+          <i class="fa fa-bookmark"></i>
+        </button>
+      </form>
+      {% endif %}
+    </div>
   </div>
   <div class="detail-text-container">
     <h1 style="color: black"><b id="book-name">{{ book.title }}</b></h1>
