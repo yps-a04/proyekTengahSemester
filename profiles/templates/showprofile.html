@@ -168,6 +168,9 @@
     </div>
 
     <button id="toggleButton" class="btn btn-light">Show More</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
       async function getPref() {
         return fetch("{% url 'profiles:pref_json' %}").then((res) =>
