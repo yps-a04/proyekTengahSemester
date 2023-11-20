@@ -1,6 +1,6 @@
 # UlasBuku: Project Tugas Kelompok A04 PBP
 - Link Repository: [Click](https://github.com/yps-a04/proyekTengahSemester.git)
-- Link *Website* Proyek UTS: (soon)
+- Link *Website* Proyek UTS: [Click](http://ulasbuku-a04-tk.pbp.cs.ui.ac.id/)
 
 # Anggota Kelompok
 1. [Ghaisan Luqyana Aqila - 2206830460](https://github.com/Ghaisan007)
