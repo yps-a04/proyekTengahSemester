@@ -8,6 +8,7 @@ from profiles.models import *
 from bookmark.models import *
 from django.core import serializers
 import random
+from admin_section.models import *
 from admin_section.models import Review
 # Create your views here.
 
@@ -59,10 +60,12 @@ def showprofile(request):
     user_now = request.user
     review = Review.objects.filter(user=user_now)
     preference = Preference.objects.filter(user=user_now)
-    context = {'user': user_now, 'review': review, 'pref': preference}
+    for pref in preference:
+        print(pref.author)
+    context = {'user':user_now, 'review':review, 'pref':preference}
     return render(request, "showprofile.html", context)
 
-
+@login_required(login_url='/login')
 def pref_json(request):
     preferences = Preference.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', preferences))
