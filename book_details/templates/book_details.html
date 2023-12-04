@@ -46,8 +46,8 @@
   }
 
   .bookmark-button.bookmarked {
-      color: orange;
-      background-color: black;
+    color: orange;
+    background-color: black;
   }
 
   .btn-custom {
@@ -131,6 +131,7 @@
         {% csrf_token %}
         <input type="hidden" name="bookmarked" value="{{ book.pk }}" />
         <button
+          method="GET"
           class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}"
           type="submit"
         >
@@ -159,6 +160,7 @@
   </div>
 </div>
 
+{% if not user.is_staff %}
 <div class="review-text-container">
   <h2><b>Tambahkan Ulasan Anda:</b></h2>
 </div>
@@ -188,6 +190,7 @@
     </button>
   </div>
 </div>
+{% endif %}
 
 <div class="review-from-users" id="all-reviews">
   {% for review in reviews %}
@@ -205,52 +208,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-  {% comment %} async function getReviews() {
-    return fetch("{% url 'book_details:get_reviews_json' %}").then((res) =>
-      res.json()
-    );
-  }
-
-  async function refreshReviews() {
-    document.getElementById("all-reviews").innerHTML = "";
-    const reviews = await getReviews();
-    reviews.forEach((review) => {
-      const reviewDiv = document.createElement("div");
-      reviewDiv.classList.add("single-user-review");
-      reviewDiv.innerHTML = `
-                <h3>${review.user}</h3>
-                <p>${review.date}</p>
-                <div class="review-texts">
-                    <p>${review.review}</p>
-                </div>
-            `;
-      document.getElementById("all-reviews").appendChild(reviewDiv);
-    });
-    refreshReviews();
-  }
-
-  function addReview() {
-    fetch("{% url 'book_details:add_review_ajax' %}", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": "{{ csrf_token }}",
-      },
-      body: JSON.stringify({
-        user: document.getElementById("user-name").value,
-        review: document.getElementById("review-form").value,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          document.getElementById("user-name").value = "";
-          document.getElementById("review-form").value = "";
-          refreshReviews();
-        }
-      });
-  } {% endcomment %}
-
   $(document).ready(function () {
 
     $("#add-review").click(function (e) {
@@ -274,7 +231,6 @@
             $("#all-reviews").append(`<div class="single-user-review">
     <h3>${review.user}</h3>
     <h5><${review.title}</h5>
-    <p>ini tanggal</p>
     <div class="review-texts">
       <p>${review.review}</p>
     </div>

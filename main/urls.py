@@ -10,7 +10,7 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
     path('search/', search, name='search'),
     path('sort-books/', sort_books, name='sort_books'),
-
+    path('books-json/', get_book_json, name='get_book_json'),
 
 
     path('b/<str:key>', bookmark, name='bookmark'),

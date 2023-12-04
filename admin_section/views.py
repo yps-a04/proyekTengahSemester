@@ -94,10 +94,3 @@ def delete_book(request, id):
     book = Book.objects.get(pk = id)
     book.delete()
     return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
-
-def delete_review(request, review_id):
-    review = get_object_or_404(Review, pk=review_id)
-    if request.method == 'POST':
-        review.delete()
-        return redirect('book_details:show_book_detail')
-    return render(request, 'book_details.html', {'review': review})
