@@ -72,7 +72,9 @@ def add_book_ajax(request):
         results = Book.objects.all()[:20]
 
         data = [{'pk': books.pk, 'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
-                 'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code} for books in results]
+                 'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code, 'num_pages': books.num_pages,
+                 'rating_count': books.rating_count, 'text_review_count': books.text_review_count, 'publication_date': books.publication_date,
+                 'publisher': books.publisher} for books in results]
 
         return JsonResponse(data, safe=False)
     
