@@ -8,6 +8,9 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.core import serializers
 from admin_section.forms import BookForm
 from django.urls import reverse
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 # Create your views here.
 def show_admin(request):
@@ -96,3 +99,9 @@ def delete_book(request, id):
     book = Book.objects.get(pk = id)
     book.delete()
     return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
+
+class UserListView(APIView):
+    def get(self, request, *args, **kwargs):
+        users = User.objects.all()
+        user_data = [{'id': user.id, 'username': user.username} for user in users]
+        return Response(user_data)
