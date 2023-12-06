@@ -39,6 +39,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = ['https://ulasbuku-a04-tk.pbp.cs.ui.ac.id']
 
 # Application definition
 
