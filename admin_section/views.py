@@ -103,5 +103,6 @@ def delete_book(request, id):
 class UserListView(APIView):
     def get(self, request, *args, **kwargs):
         users = User.objects.all()
-        user_data = [{'id': user.id, 'username': user.username} for user in users]
-        return Response(user_data)
+        user_data = [{'id': user.id, 'username': user.username, 'date_joined': user.date_joined,'last_login': user.last_login} for user in users]
+        
+        return JsonResponse(user_data, safe=False)
