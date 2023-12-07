@@ -38,12 +38,15 @@ def user_list(request):
     users = User.objects.all().values('id', 'username', 'last_login')
     return render(request, 'user_list.html', {'users':users})
 
+@csrf_exempt
 def delete_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
         user.delete()
-        return redirect('admin_section:user_list')
-    return render(request, 'user_list.html', {'user': user})
+        data = {'status': True}
+
+        return JsonResponse(data, safe=False)
+    return JsonResponse({'status': False}, safe=False)
 
 def get_book_json(request):
     book_item = Book.objects.all()
