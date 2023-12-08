@@ -13,5 +13,5 @@ urlpatterns = [
     path('book-detail/<int:key>', show_book_detail, name='show_book_detail'),
     path('edit-book/<int:id>', edit_book, name='edit_book'),
     path('delete/<int:id>', delete_book, name='delete_book'),
-    path('api/users/', UserListView.as_view(), name='user-list'),
+    path('api/users/', get_user, name='user-list'),
 ]

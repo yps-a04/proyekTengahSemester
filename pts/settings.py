@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'admin_section',
     'authentication',
     'corsheaders',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
