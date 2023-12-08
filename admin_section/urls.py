@@ -1,5 +1,5 @@
 from django.urls import path
-from admin_section.views import show_admin, show_book_list_admin , user_list, delete_user, get_book_json, add_book_ajax, delete_book, edit_book, UserListView
+from admin_section.views import show_admin, show_book_list_admin , user_list, delete_user, get_book_json, add_book_ajax, delete_book, edit_book, UserListView, create_book_flutter
 from book_details.views import show_book_detail
 app_name = 'admin_section'
 
@@ -14,4 +14,5 @@ urlpatterns = [
     path('edit-book/<int:id>', edit_book, name='edit_book'),
     path('delete/<int:id>', delete_book, name='delete_book'),
     path('api/users/', UserListView.as_view(), name='user-list'),
+    path('create-flutter/', create_book_flutter, name='create_book_flutter'),
 ]

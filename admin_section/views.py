@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, get_object_or_404, redirect
 from main.models import Book
 from admin_section.models import Review
@@ -100,8 +101,14 @@ def edit_book(request, id):
 
 def delete_book(request, id):
     book = Book.objects.get(pk = id)
-    book.delete()
-    return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
+    if request.method == 'POST':
+        book.delete()
+        data = {'status': True}
+
+        return JsonResponse(data, safe=False)
+    return JsonResponse({'status': False}, safe=False)
+    # book.delete()
+    # return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
 
 class UserListView(APIView):
     def get(self, request, *args, **kwargs):
@@ -109,3 +116,30 @@ class UserListView(APIView):
         user_data = [{'id': user.id, 'username': user.username, 'date_joined': user.date_joined,'last_login': user.last_login} for user in users]
         
         return JsonResponse(user_data, safe=False)
+
+@csrf_exempt
+def create_book_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_product = Book.objects.create(
+            user = request.user,
+            title = data["title"],
+            author = data["author"],
+            average_rating = float(data["averageRating"]),
+            isbn = data["isbn"],
+            isbn13 = data["isbn13"],
+            language_code = data["languageCode"],
+            num_pages = int(data["numPages"]),
+            rating_count = int(data["ratingCount"]),
+            text_review_count = int(data["textReviewCount"]),
+            publication_date = data["publicationDate"],
+            publisher = data["publisher"],
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
