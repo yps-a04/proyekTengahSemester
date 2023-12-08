@@ -1,4 +1,11 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"
+></script>
+
 <style>
   body {
     display: flex;
@@ -205,21 +212,18 @@
   {% endfor %}
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
   $(document).ready(function () {
-
     $("#add-review").click(function (e) {
       e.preventDefault();
       var formData = {
-        'title': document.getElementById('title').value,
-        'review': document.getElementById('review_input').value,
-        'bookname': $('#book-name').text()
-    };
+        title: document.getElementById("title").value,
+        review: document.getElementById("review_input").value,
+        bookname: $("#book-name").text(),
+      };
 
-    console.log(document.getElementById('title').value)
-     console.log(document.getElementById('review_input').value)
+      console.log(document.getElementById("title").value);
+      console.log(document.getElementById("review_input").value);
       $.ajax({
         type: "POST",
         url: "{% url 'book_details:add_review_ajax' %}",
@@ -236,11 +240,9 @@
     </div>
   </div>`);
           });
-
         },
       });
     });
-
   });
 </script>
 {% endblock content %}
