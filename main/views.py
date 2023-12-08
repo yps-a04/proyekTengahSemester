@@ -207,6 +207,8 @@ def sort_books(request):
         books = Book.objects.all()
 
     book_list = [{'pk': book.pk, 'title': book.title, 'author': book.author, 'average_rating': book.average_rating,
-                  'isbn': book.isbn, 'isbn13': book.isbn13, 'language_code': book.language_code} for book in books[:20]]
+                 'isbn': book.isbn, 'isbn13': book.isbn13, 'language_code': book.language_code, 'num_pages': book.num_pages,
+                  'rating_count': book.rating_count, 'text_review_count': book.text_review_count, 'publication_date': book.publication_date,
+                  'publisher': book.publisher} for book in books[:20]]
 
     return JsonResponse(book_list, safe=False)
