@@ -110,12 +110,11 @@ def delete_book(request, id):
     # book.delete()
     # return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
 
-class UserListView(APIView):
-    def get(self, request, *args, **kwargs):
-        users = User.objects.all()
-        user_data = [{'id': user.id, 'username': user.username, 'date_joined': user.date_joined,'last_login': user.last_login} for user in users]
-        
-        return JsonResponse(user_data, safe=False)
+def get_user_flutter(request):
+    users = User.objects.all()
+    user_data = [{'id': user.id, 'username': user.username, 'date_joined': user.date_joined,'last_login': user.last_login} for user in users]
+    
+    return JsonResponse(user_data, safe=False)
 
 @csrf_exempt
 def create_book_flutter(request):
