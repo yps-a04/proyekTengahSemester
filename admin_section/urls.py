@@ -1,5 +1,5 @@
 from django.urls import path
-from admin_section.views import show_admin, show_book_list_admin , user_list, delete_user, get_book_json, add_book_ajax, delete_book, edit_book, UserListView
+from admin_section.views import *
 from book_details.views import show_book_detail
 app_name = 'admin_section'
 
