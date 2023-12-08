@@ -8,6 +8,9 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.core import serializers
 from admin_section.forms import BookForm
 from django.urls import reverse
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 # Create your views here.
 def show_admin(request):
@@ -35,12 +38,15 @@ def user_list(request):
     users = User.objects.all().values('id', 'username', 'last_login')
     return render(request, 'user_list.html', {'users':users})
 
+@csrf_exempt
 def delete_user(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     if request.method == 'POST':
         user.delete()
-        return redirect('admin_section:user_list')
-    return render(request, 'user_list.html', {'user': user})
+        data = {'status': True}
+
+        return JsonResponse(data, safe=False)
+    return JsonResponse({'status': False}, safe=False)
 
 def get_book_json(request):
     book_item = Book.objects.all()
@@ -72,7 +78,9 @@ def add_book_ajax(request):
         results = Book.objects.all()[:20]
 
         data = [{'pk': books.pk, 'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
-                 'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code} for books in results]
+                 'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code, 'num_pages': books.num_pages,
+                 'rating_count': books.rating_count, 'text_review_count': books.text_review_count, 'publication_date': books.publication_date,
+                 'publisher': books.publisher} for books in results]
 
         return JsonResponse(data, safe=False)
     
@@ -94,3 +102,10 @@ def delete_book(request, id):
     book = Book.objects.get(pk = id)
     book.delete()
     return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
+
+class UserListView(APIView):
+    def get(self, request, *args, **kwargs):
+        users = User.objects.all()
+        user_data = [{'id': user.id, 'username': user.username, 'date_joined': user.date_joined,'last_login': user.last_login} for user in users]
+        
+        return JsonResponse(user_data, safe=False)

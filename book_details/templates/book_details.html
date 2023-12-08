@@ -46,8 +46,8 @@
   }
 
   .bookmark-button.bookmarked {
-      color: orange;
-      background-color: black;
+    color: orange;
+    background-color: black;
   }
 
   .btn-custom {
@@ -131,6 +131,7 @@
         {% csrf_token %}
         <input type="hidden" name="bookmarked" value="{{ book.pk }}" />
         <button
+          method="GET"
           class="btn bookmark-button {% if book in bookmarks %}bookmarked{% endif %}"
           type="submit"
         >
