@@ -205,21 +205,24 @@
   {% endfor %}
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+  crossorigin="anonymous"
+></script>
 
 <script>
   $(document).ready(function () {
-
     $("#add-review").click(function (e) {
       e.preventDefault();
       var formData = {
-        'title': document.getElementById('title').value,
-        'review': document.getElementById('review_input').value,
-        'bookname': $('#book-name').text()
-    };
+        title: document.getElementById("title").value,
+        review: document.getElementById("review_input").value,
+        bookname: $("#book-name").text(),
+      };
 
-    console.log(document.getElementById('title').value)
-     console.log(document.getElementById('review_input').value)
+      console.log(document.getElementById("title").value);
+      console.log(document.getElementById("review_input").value);
       $.ajax({
         type: "POST",
         url: "{% url 'book_details:add_review_ajax' %}",
@@ -236,11 +239,9 @@
     </div>
   </div>`);
           });
-
         },
       });
     });
-
   });
 </script>
 {% endblock content %}
