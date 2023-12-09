@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from main.models import Book
+from book.models import Book
 
 class BookForm(ModelForm):
     class Meta:

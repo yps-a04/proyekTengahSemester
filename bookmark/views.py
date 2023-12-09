@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from main.models import Book
+from book.models import Book
 from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponse
 from django.urls import reverse

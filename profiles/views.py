@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from main.models import Book
+from book.models import Book
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -62,8 +62,9 @@ def showprofile(request):
     preference = Preference.objects.filter(user=user_now)
     for pref in preference:
         print(pref.author)
-    context = {'user':user_now, 'review':review, 'pref':preference}
+    context = {'user': user_now, 'review': review, 'pref': preference}
     return render(request, "showprofile.html", context)
+
 
 @login_required(login_url='/login')
 def pref_json(request):
