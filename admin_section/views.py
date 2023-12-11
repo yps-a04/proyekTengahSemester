@@ -124,3 +124,30 @@ def get_user(request):
                   'date_joined': user.date_joined, 'last_login': user.last_login} for user in users]
 
     return JsonResponse(user_data, safe=False)
+
+@csrf_exempt
+def create_book_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_product = Book.objects.create(
+            user = request.user,
+            title = data["title"],
+            author = data["author"],
+            average_rating = float(data["averageRating"]),
+            isbn = data["isbn"],
+            isbn13 = data["isbn13"],
+            language_code = data["languageCode"],
+            num_pages = int(data["numPages"]),
+            rating_count = int(data["ratingCount"]),
+            text_review_count = int(data["textReviewCount"]),
+            publication_date = data["publicationDate"],
+            publisher = data["publisher"],
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
