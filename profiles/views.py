@@ -111,13 +111,12 @@ def change_pref(request):
 
 def set_pref(request):
     Preference.objects.filter(user=get_user(request)).delete()
-    data = json.loads(request.body)
     if request.method == 'POST':
         data = json.loads(request.body)
         for item in data["valid"]:
             new_pref = Preference.objects.create(user=get_user(request), author=item)
             new_pref.save()
 
-        return JsonResponse({"status": "success", "data":data['valid']}, status=200)
+        return JsonResponse({"status": "success"}, status=200)
     else:
         return JsonResponse({"status": "error"}, status=401)
