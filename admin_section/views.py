@@ -107,28 +107,42 @@ def edit_book(request, id):
 
 @csrf_exempt
 def edit_book_flutter(request, id):
-    book = get_object_or_404(Book, pk=id)
+    book = Book.objects.get(pk = id)
     response_data = {'status': False}
 
     if request.method == 'POST':
         data = json.loads(request.body)
+        print(data["averageRating"])
 
-        book.title = data["title"],
-        book.author = data["author"],
-        book.average_rating = float(data["averageRating"]),
-        book.isbn = data["isbn"],
-        book.isbn13 = data["isbn13"],
-        book.language_code = data["languageCode"],
-        book.num_pages = int(data["numPages"]),
-        book.rating_count = int(data["ratingCount"]),
-        book.text_review_count = int(data["textReviewCount"]),
-        book.publication_date = data["publicationDate"],
-        book.publisher = data["publisher"],
+        book.title = data["title"]
+        book.author = data["author"]
+        book.average_rating = float((data["averageRating"]))
+        book.isbn = data["isbn"]
+        book.isbn13 = data["isbn13"]
+        book.language_code = data["languageCode"]
+        book.num_pages = int(data["numPages"])
+        book.rating_count = int(data["ratingCount"])
+        book.text_review_count = int(data["textReviewCount"])
+        book.publication_date = data["publicationDate"]
+        book.publisher = data["publisher"]
 
         book.save()
         response_data['status'] = True
 
     return JsonResponse(response_data)
+
+def remove_parentheses(input_str):
+    # Menghapus "('" di awal string
+    if input_str.startswith("('"):
+        input_str = input_str[2:]
+    elif input_str.startswith("("):
+        input_str = input_str[1:]
+
+    # Menghapus "',')" di akhir string
+    if input_str.endswith("',)"):
+        input_str = input_str[:-4]
+
+    return input_str
 
 def delete_book(request, id):
     book = Book.objects.get(pk = id)
