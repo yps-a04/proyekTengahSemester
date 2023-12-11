@@ -10,6 +10,7 @@ from django.core import serializers
 import random
 from admin_section.models import *
 from admin_section.models import Review
+from django.contrib.auth import get_user
 # Create your views here.
 
 
@@ -36,7 +37,7 @@ def preference(request):
                     flag = True
                     break
             if flag == True:
-                Preference.objects.filter(user=request.user).delete()
+                Preference.objects.filter(user=get_user(request)).delete()
             else:
                 return redirect('profiles:showprofile')
             for field in form.cleaned_data:
@@ -44,12 +45,12 @@ def preference(request):
                     # Assuming the field name is the author's name
                     author_name = form.fields[str(field)].label
                     preference, created = Preference.objects.get_or_create(
-                        user=request.user, author=author_name)
+                        user=get_user(request), author=author_name)
                     if created:
                         counter += 1
                         preference.save()
                     preferences = Preference.objects.filter(
-                        user=request.user).values('author')
+                        user=get_user(request)).values('author')
             return redirect('profiles:showprofile')
 
     return render(request, "preference.html", context)
@@ -57,7 +58,7 @@ def preference(request):
 
 @login_required(login_url='/login')
 def showprofile(request):
-    user_now = request.user
+    user_now = get_user(request)
     review = Review.objects.filter(user=user_now)
     preference = Preference.objects.filter(user=user_now)
     for pref in preference:
@@ -71,9 +72,9 @@ def pref_json(request):
     preferences = Preference.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', preferences))
 
-#@login_required(login_url='/login')
+@login_required(login_url='/login')
 def ret_profile(request):
-    user = request.user
+    user = get_user(request)
     if (user.is_superuser):
         role = "Admin"
     else:
@@ -91,7 +92,7 @@ def ret_review(request):
     title = []
     reviewnya = []
     author = []
-    reviews = review = Review.objects.filter(user=request.user)
+    reviews = review = Review.objects.filter(user=get_user(request))
     for elem in reviews:
         title.append(elem.title)
         reviewnya.append(elem.review)
