@@ -14,4 +14,5 @@ urlpatterns = [
     path('edit-book/<int:id>', edit_book, name='edit_book'),
     path('delete/<int:id>', delete_book, name='delete_book'),
     path('api/users/', get_user, name='user-list'),
+    path('create-flutter/', create_book_flutter, name='create_book_flutter'),
 ]
