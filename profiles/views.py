@@ -12,6 +12,7 @@ import json
 from admin_section.models import *
 from admin_section.models import Review
 from django.contrib.auth import get_user
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -109,6 +110,7 @@ def change_pref(request):
     random_authors = random.sample(author_list, 8)  # Get 8 random elements
     return JsonResponse({'author':random_authors})
 
+@csrf_exempt
 def set_pref(request):
     Preference.objects.filter(user=get_user(request)).delete()
     if request.method == 'POST':
