@@ -91,7 +91,7 @@ def ret_review(request):
     title = []
     reviewnya = []
     author = []
-    reviews = review = Review.objects.filter(request.user)
+    reviews = review = Review.objects.filter(user=request.user)
     for elem in reviews:
         title.append(elem.title)
         reviewnya.append(elem.review)
