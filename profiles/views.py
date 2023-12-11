@@ -70,3 +70,37 @@ def showprofile(request):
 def pref_json(request):
     preferences = Preference.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', preferences))
+
+#@login_required(login_url='/login')
+def ret_profile(request):
+    user = request.user
+    if (user.is_superuser):
+        role = "Admin"
+    else:
+        role = "User"
+
+    data = {
+        'user': user.username,
+        'role': role,
+    }
+
+    # Return it as JSON
+    return JsonResponse(data)
+
+def ret_review(request):
+    title = []
+    reviewnya = []
+    author = []
+    reviews = review = Review.objects.filter(request.user)
+    for elem in reviews:
+        title.append(elem.title)
+        reviewnya.append(elem.review)
+        author.append(elem.book.author)
+    return JsonResponse({'title': title, 'reviewnya': reviewnya, 'author':author})
+
+def change_pref(request):
+    author = Book.objects.all().values('author').exclude(
+        author__icontains='/').distinct()
+    author_list = list(author)  # Convert queryset to list
+    random_authors = random.sample(author_list, 8)  # Get 8 random elements
+    return JsonResponse(random_authors)
