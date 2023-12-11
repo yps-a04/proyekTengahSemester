@@ -1,6 +1,6 @@
 # UlasBuku: Project Tugas Kelompok A04 PBP
 - Link Repository: [Click](https://github.com/yps-a04/proyekTengahSemester.git)
-- Link *Website* Proyek UTS: (soon)
+- Link *Website* Proyek UTS: [Click](http://ulasbuku-a04-tk.pbp.cs.ui.ac.id/)
 
 # Anggota Kelompok
 1. [Ghaisan Luqyana Aqila - 2206830460](https://github.com/Ghaisan007)
@@ -35,22 +35,24 @@ Tema yang kami gunakan adalah **<i>website review</i> buku**
 - Menampilkan *list* daftar buku
 - Menambahkan navigasi ke *detail page*
 - Menambahkan fitur search
+- Menambahkan fitur sort
 
 #### Modul <code>book_details</code>:
 - Menampilkan detail buku beserta reviewnya
 - Menambahkan fitur *add review*
-- Menambahkan tombol *add to bookmark*
 
 #### Modul <code>profile</code>:
 - Menampilkan detail profil user/admin
 - Menampilkan review-review yang telah ditambahkan oleh user tersebut
+- Menambahkan fitur sort by reference
 
 #### Modul <code>bookmark</code>:
 - Menambahkan list buku yang telah dibookmark user
+- Menambahkan tombol *add to bookmark*
 
 #### Modul <code>admin</code>:
 - Menambahkan fitur add/delete/edit buku
-- Menambahkan fitur delete review
+- Menambahkan fitur delete user
 
 ## Sumber <i>dataset</i> katalog buku
 - Kelompok kami menggunakan **Kaggle** sebagai sumber dataset buku-buku yang tersedia di UlasBuku

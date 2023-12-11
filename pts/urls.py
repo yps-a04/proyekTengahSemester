@@ -24,4 +24,6 @@ urlpatterns = [
     path('', include('profiles.urls')),
     path('show-admin/', include('admin_section.urls')),
     path('b/', include('bookmark.urls')),
+    path('auth/', include('authentication.urls')),
+    path('api/books/', include("book.urls")),
 ]

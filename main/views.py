@@ -1,11 +1,13 @@
+import datetime
 from django.shortcuts import render, redirect
-from main.models import Book
+from book.models import Book
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
+from django.core import serializers
 
 from .forms import LoginForm, SignUpForm
 from django.http import HttpResponseRedirect
@@ -23,7 +25,11 @@ from django.contrib.auth.decorators import login_required
 def show_main(request):
 
     # set pagination 50/page
-    context = {}
+    last_login = request.COOKIES.get(
+        'last_login', 'Tidak ada data login terakhir.')
+    context = {
+        'last_login': last_login,
+    }
 
     return render(request, "main.html", context)
 
@@ -69,12 +75,25 @@ def show_book_list(request):
 
     print('books === ' + str(books))
 
+    b = None
+    bookmarks = []
+    if request.user.is_authenticated:
+        b = request.user.bookmarked.select_related('book')
+        for book in b:
+            bookmarks.append(book.book)
+
     context = {
         'books': books,
         'sort_param': sort_param,  # Kirim sort_param kembali ke template
+        'bookmarks': bookmarks,
     }
 
     return render(request, "book_list.html", context)
+
+
+def get_book_json(request):
+    data = Book.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 
 def bookmark(request, key):
@@ -118,9 +137,14 @@ def login_user(request):
         if user is not None:
             login(request, user)
             if user.is_staff:
-                return redirect('admin_section:show_admin')
+                response = HttpResponseRedirect(
+                    reverse('admin_section:show_admin'))
+                response.set_cookie('last_login', str(datetime.datetime.now()))
+                return response
             else:
-                return redirect('main:show_main')
+                response = HttpResponseRedirect(reverse('main:show_main'))
+                response.set_cookie('last_login', str(datetime.datetime.now()))
+                return response
         else:
             messages.info(
                 request, 'Sorry, incorrect username or password. Please try again.')
@@ -130,7 +154,9 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('main:login')
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
 
 
 def search(request):
@@ -145,7 +171,9 @@ def search(request):
 
     if results is not None:
         data = [{'pk': books.pk, 'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
-                 'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code} for books in results]
+                 'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code, 'num_pages': books.num_pages,
+                 'rating_count': books.rating_count, 'text_review_count': books.text_review_count, 'publication_date': books.publication_date,
+                 'publisher': books.publisher} for books in results]
     else:
         data = 0
 
@@ -177,8 +205,10 @@ def sort_books(request):
                         books = books | book2_query
     else:
         books = Book.objects.all()
-    
+
     book_list = [{'pk': book.pk, 'title': book.title, 'author': book.author, 'average_rating': book.average_rating,
-                  'isbn': book.isbn, 'isbn13': book.isbn13, 'language_code': book.language_code} for book in books[:20]]
+                 'isbn': book.isbn, 'isbn13': book.isbn13, 'language_code': book.language_code, 'num_pages': book.num_pages,
+                  'rating_count': book.rating_count, 'text_review_count': book.text_review_count, 'publication_date': book.publication_date,
+                  'publisher': book.publisher} for book in books[:20]]
 
     return JsonResponse(book_list, safe=False)
