@@ -1,6 +1,6 @@
 import datetime
 from django.shortcuts import render, redirect
-from main.models import Book
+from book.models import Book
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages

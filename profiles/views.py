@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from main.models import Book
+from book.models import Book
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -62,10 +62,45 @@ def showprofile(request):
     preference = Preference.objects.filter(user=user_now)
     for pref in preference:
         print(pref.author)
-    context = {'user':user_now, 'review':review, 'pref':preference}
+    context = {'user': user_now, 'review': review, 'pref': preference}
     return render(request, "showprofile.html", context)
+
 
 @login_required(login_url='/login')
 def pref_json(request):
     preferences = Preference.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', preferences))
+
+#@login_required(login_url='/login')
+def ret_profile(request):
+    user = request.user
+    if (user.is_superuser):
+        role = "Admin"
+    else:
+        role = "User"
+
+    data = {
+        'user': user.username,
+        'role': role,
+    }
+
+    # Return it as JSON
+    return JsonResponse(data)
+
+def ret_review(request):
+    title = []
+    reviewnya = []
+    author = []
+    reviews = review = Review.objects.filter(request.user)
+    for elem in reviews:
+        title.append(elem.title)
+        reviewnya.append(elem.review)
+        author.append(elem.book.author)
+    return JsonResponse({'title': title, 'reviewnya': reviewnya, 'author':author})
+
+def change_pref(request):
+    author = Book.objects.all().values('author').exclude(
+        author__icontains='/').distinct()
+    author_list = list(author)  # Convert queryset to list
+    random_authors = random.sample(author_list, 8)  # Get 8 random elements
+    return JsonResponse(random_authors)

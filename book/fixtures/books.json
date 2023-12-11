@@ -1,0 +1,1702 @@
+[
+  {
+    "pk": 1,
+    "model": "book.book",
+    "fields": {
+      "title": "Red River  Vol. 15 (Red River  #15)",
+      "author": "Chie Shinohara",
+      "average_rating": 4.45,
+      "isbn": "1421505576",
+      "isbn13": "9781421505572",
+      "language_code": "eng",
+      "num_pages": 191,
+      "rating_count": 1007,
+      "text_review_count": 13,
+      "publication_date": null,
+      "publisher": "Viz Media;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "book.book",
+    "fields": {
+      "title": "Red River  Vol. 16 (Red River  #16)",
+      "author": "Chie Shinohara",
+      "average_rating": 4.45,
+      "isbn": "1421505584",
+      "isbn13": "9781421505589",
+      "language_code": "eng",
+      "num_pages": 191,
+      "rating_count": 999,
+      "text_review_count": 13,
+      "publication_date": null,
+      "publisher": "Viz Media;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "book.book",
+    "fields": {
+      "title": "Red River  Vol. 17 (Red River  #17)",
+      "author": "Chie Shinohara",
+      "average_rating": 4.44,
+      "isbn": "1421509970",
+      "isbn13": "9781421509976",
+      "language_code": "eng",
+      "num_pages": 189,
+      "rating_count": 984,
+      "text_review_count": 10,
+      "publication_date": null,
+      "publisher": "VIZ Media LLC;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "book.book",
+    "fields": {
+      "title": "Tramps Like Us  Volume 8",
+      "author": "Yayoi Ogawa",
+      "average_rating": 4.3,
+      "isbn": "1595324380",
+      "isbn13": "9781595324382",
+      "language_code": "en-US",
+      "num_pages": 192,
+      "rating_count": 611,
+      "text_review_count": 14,
+      "publication_date": null,
+      "publisher": "TokyoPop;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "book.book",
+    "fields": {
+      "title": "Tramps Like Us  Volume 9",
+      "author": "Yayoi Ogawa",
+      "average_rating": 4.32,
+      "isbn": "1595324399",
+      "isbn13": "9781595324399",
+      "language_code": "en-GB",
+      "num_pages": 185,
+      "rating_count": 562,
+      "text_review_count": 11,
+      "publication_date": null,
+      "publisher": "TokyoPop;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "book.book",
+    "fields": {
+      "title": "Tramps Like Us  Volume 11",
+      "author": "Yayoi Ogawa",
+      "average_rating": 4.28,
+      "isbn": "1598161989",
+      "isbn13": "9781598161984",
+      "language_code": "eng",
+      "num_pages": 182,
+      "rating_count": 478,
+      "text_review_count": 12,
+      "publication_date": null,
+      "publisher": "TokyoPop;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "book.book",
+    "fields": {
+      "title": "Tramps Like Us  Volume 12",
+      "author": "Yayoi Ogawa",
+      "average_rating": 4.37,
+      "isbn": "1598161997",
+      "isbn13": "9781598161991",
+      "language_code": "en-US",
+      "num_pages": 179,
+      "rating_count": 497,
+      "text_review_count": 9,
+      "publication_date": null,
+      "publisher": "TokyoPop;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "book.book",
+    "fields": {
+      "title": "きみはペット 11 [Kimi wa Petto 11]",
+      "author": "Yayoi Ogawa/小川 彌生",
+      "average_rating": 4.28,
+      "isbn": "4063405141",
+      "isbn13": "9784063405149",
+      "language_code": "jpn",
+      "num_pages": 184,
+      "rating_count": 6,
+      "text_review_count": 0,
+      "publication_date": null,
+      "publisher": "講談社;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "book.book",
+    "fields": {
+      "title": "Suki's Kimono",
+      "author": "Chieri Uegaki/Stéphane Jorisch",
+      "average_rating": 4.19,
+      "isbn": "1553377524",
+      "isbn13": "9781553377528",
+      "language_code": "eng",
+      "num_pages": 32,
+      "rating_count": 645,
+      "text_review_count": 123,
+      "publication_date": null,
+      "publisher": "Kids Can Press;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "book.book",
+    "fields": {
+      "title": "The Interpreter",
+      "author": "Suki Kim",
+      "average_rating": 3.56,
+      "isbn": "0312422245",
+      "isbn13": "9780312422240",
+      "language_code": "eng",
+      "num_pages": 304,
+      "rating_count": 976,
+      "text_review_count": 106,
+      "publication_date": null,
+      "publisher": "St. Martins Press;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "book.book",
+    "fields": {
+      "title": "The Thousandfold Thought (The Prince of Nothing  #3)",
+      "author": "R. Scott Bakker",
+      "average_rating": 3.93,
+      "isbn": "158567883X",
+      "isbn13": "9781585678839",
+      "language_code": "eng",
+      "num_pages": 560,
+      "rating_count": 8716,
+      "text_review_count": 228,
+      "publication_date": null,
+      "publisher": "Harry N. Abrams;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "book.book",
+    "fields": {
+      "title": "Flight of the Nighthawks (The Darkwar Saga  #1)",
+      "author": "Raymond E. Feist",
+      "average_rating": 3.96,
+      "isbn": "0060792787",
+      "isbn13": "9780060792787",
+      "language_code": "en-US",
+      "num_pages": 368,
+      "rating_count": 9698,
+      "text_review_count": 110,
+      "publication_date": null,
+      "publisher": "Harper Voyager;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "book.book",
+    "fields": {
+      "title": "Magician: Apprentice (The Riftwar Saga  #1)",
+      "author": "Raymond E. Feist",
+      "average_rating": 4.17,
+      "isbn": "0553564943",
+      "isbn13": "9780553564945",
+      "language_code": "eng",
+      "num_pages": 485,
+      "rating_count": 73396,
+      "text_review_count": 1367,
+      "publication_date": null,
+      "publisher": "Bantam Spectra;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "book.book",
+    "fields": {
+      "title": "Into a Dark Realm (The Darkwar Saga  #2)",
+      "author": "Raymond E. Feist",
+      "average_rating": 4,
+      "isbn": "0060792809",
+      "isbn13": "9780060792800",
+      "language_code": "eng",
+      "num_pages": 319,
+      "rating_count": 9291,
+      "text_review_count": 97,
+      "publication_date": null,
+      "publisher": "EOS;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "book.book",
+    "fields": {
+      "title": "Manna from Heaven",
+      "author": "Roger Zelazny/Scott Zrubeck/Steven Brust",
+      "average_rating": 3.95,
+      "isbn": "0809530953",
+      "isbn13": "9780809530953",
+      "language_code": "en-US",
+      "num_pages": 255,
+      "rating_count": 337,
+      "text_review_count": 10,
+      "publication_date": null,
+      "publisher": "Wildside Press;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "book.book",
+    "fields": {
+      "title": "Lord of Light",
+      "author": "Roger Zelazny",
+      "average_rating": 4.1,
+      "isbn": "0060567236",
+      "isbn13": "9780060567231",
+      "language_code": "eng",
+      "num_pages": 296,
+      "rating_count": 23392,
+      "text_review_count": 1104,
+      "publication_date": null,
+      "publisher": "Harper Voyager;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 17,
+    "model": "book.book",
+    "fields": {
+      "title": "Roger Zelazny's To Rule in Amber (The Dawn of Amber  #3)",
+      "author": "John Gregory Betancourt/Roger Zelazny",
+      "average_rating": 3.77,
+      "isbn": "1596871326",
+      "isbn13": "9781596871328",
+      "language_code": "eng",
+      "num_pages": 310,
+      "rating_count": 753,
+      "text_review_count": 13,
+      "publication_date": null,
+      "publisher": "iBooks;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 18,
+    "model": "book.book",
+    "fields": {
+      "title": "Terrier (Beka Cooper  #1)",
+      "author": "Tamora Pierce",
+      "average_rating": 4.15,
+      "isbn": "037581468X",
+      "isbn13": "9780375814686",
+      "language_code": "eng",
+      "num_pages": 581,
+      "rating_count": 56973,
+      "text_review_count": 1623,
+      "publication_date": null,
+      "publisher": "Random House;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 19,
+    "model": "book.book",
+    "fields": {
+      "title": "Alanna: The First Adventure (Song of the Lioness  #1)",
+      "author": "Tamora Pierce",
+      "average_rating": 4.26,
+      "isbn": "0689878559",
+      "isbn13": "9780689878558",
+      "language_code": "eng",
+      "num_pages": 274,
+      "rating_count": 101059,
+      "text_review_count": 3815,
+      "publication_date": null,
+      "publisher": "Simon Pulse;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 20,
+    "model": "book.book",
+    "fields": {
+      "title": "Young Warriors: Stories of Strength",
+      "author": "Tamora Pierce/Josepha Sherman/Margaret Mahy/Lesley McBain/Mike Resnick/Bruce Rogers/Pamela F. Service/Jan Stirling/Holly Black/Doranna Durgin/India Edghill/Rosemary Edghill/Esther M. Friesner/Laura Anne Gilman/Janis Ian/Brett Hartinge",
+      "average_rating": 3.91,
+      "isbn": "0375829636",
+      "isbn13": "9780375829635",
+      "language_code": "eng",
+      "num_pages": 312,
+      "rating_count": 3643,
+      "text_review_count": 74,
+      "publication_date": null,
+      "publisher": "Random House;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 21,
+    "model": "book.book",
+    "fields": {
+      "title": "Emperor Mage (Immortals  #3)",
+      "author": "Tamora Pierce",
+      "average_rating": 4.29,
+      "isbn": "1416903372",
+      "isbn13": "9781416903376",
+      "language_code": "eng",
+      "num_pages": 358,
+      "rating_count": 49912,
+      "text_review_count": 615,
+      "publication_date": null,
+      "publisher": "Simon Pulse;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 22,
+    "model": "book.book",
+    "fields": {
+      "title": "The Realms of the Gods (Immortals  #4)",
+      "author": "Tamora Pierce",
+      "average_rating": 4.32,
+      "isbn": "141690817X",
+      "isbn13": "9781416908173",
+      "language_code": "eng",
+      "num_pages": 347,
+      "rating_count": 46937,
+      "text_review_count": 665,
+      "publication_date": null,
+      "publisher": "Simon Pulse;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 23,
+    "model": "book.book",
+    "fields": {
+      "title": "In the Hand of the Goddess (Song of the Lioness  #2)",
+      "author": "Tamora Pierce",
+      "average_rating": 4.24,
+      "isbn": "0689878567",
+      "isbn13": "9780689878565",
+      "language_code": "eng",
+      "num_pages": 264,
+      "rating_count": 77540,
+      "text_review_count": 1396,
+      "publication_date": null,
+      "publisher": "Simon Pulse;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 24,
+    "model": "book.book",
+    "fields": {
+      "title": "Wild Magic (Immortals  #1)",
+      "author": "Tamora Pierce",
+      "average_rating": 4.32,
+      "isbn": "1416903437",
+      "isbn13": "9781416903437",
+      "language_code": "eng",
+      "num_pages": 362,
+      "rating_count": 61677,
+      "text_review_count": 1448,
+      "publication_date": null,
+      "publisher": "Simon Pulse;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 25,
+    "model": "book.book",
+    "fields": {
+      "title": "Lioness Rampant (Song of the Lioness  #4)",
+      "author": "Tamora Pierce",
+      "average_rating": 4.28,
+      "isbn": "0689878575",
+      "isbn13": "9780689878572",
+      "language_code": "en-US",
+      "num_pages": 384,
+      "rating_count": 72386,
+      "text_review_count": 1230,
+      "publication_date": null,
+      "publisher": "Simon Pulse;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 26,
+    "model": "book.book",
+    "fields": {
+      "title": "The Botany of Desire: A Plant's-Eye View of the World",
+      "author": "Michael Pollan",
+      "average_rating": 4.06,
+      "isbn": "0375760393",
+      "isbn13": "9780375760396",
+      "language_code": "eng",
+      "num_pages": 297,
+      "rating_count": 39680,
+      "text_review_count": 2780,
+      "publication_date": null,
+      "publisher": "Random House Trade Paperbacks;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 27,
+    "model": "book.book",
+    "fields": {
+      "title": "The Botany of Desire: A Plant's-Eye View of the World",
+      "author": "Michael Pollan/Scott Brick",
+      "average_rating": 4.06,
+      "isbn": "1596590939",
+      "isbn13": "9781596590939",
+      "language_code": "eng",
+      "num_pages": 0,
+      "rating_count": 117,
+      "text_review_count": 36,
+      "publication_date": null,
+      "publisher": "Your Coach Digital;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 28,
+    "model": "book.book",
+    "fields": {
+      "title": "More Milly Molly Mandy",
+      "author": "Joyce Lankester Brisley",
+      "average_rating": 4.12,
+      "isbn": "0753453347",
+      "isbn13": "9780753453346",
+      "language_code": "eng",
+      "num_pages": 224,
+      "rating_count": 846,
+      "text_review_count": 17,
+      "publication_date": null,
+      "publisher": "Kingfisher;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 29,
+    "model": "book.book",
+    "fields": {
+      "title": "Essence and Alchemy: A Natural History of Perfume",
+      "author": "Mandy Aftel",
+      "average_rating": 4.09,
+      "isbn": "1586857029",
+      "isbn13": "9781586857028",
+      "language_code": "eng",
+      "num_pages": 256,
+      "rating_count": 459,
+      "text_review_count": 37,
+      "publication_date": null,
+      "publisher": "Gibbs Smith;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 30,
+    "model": "book.book",
+    "fields": {
+      "title": "The Lion  the Witch and the Wardrobe",
+      "author": "C.S. Lewis/Pauline Baynes",
+      "average_rating": 4.21,
+      "isbn": "0060530839",
+      "isbn13": "9780060530839",
+      "language_code": "en-US",
+      "num_pages": 112,
+      "rating_count": 381,
+      "text_review_count": 19,
+      "publication_date": null,
+      "publisher": "HarperCollins;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 31,
+    "model": "book.book",
+    "fields": {
+      "title": "Promise of the Witch King (Forgotten Realms: The Sellswords  #2)",
+      "author": "R.A. Salvatore",
+      "average_rating": 4.17,
+      "isbn": "0786940735",
+      "isbn13": "9780786940738",
+      "language_code": "eng",
+      "num_pages": 373,
+      "rating_count": 7847,
+      "text_review_count": 104,
+      "publication_date": null,
+      "publisher": "Wizards of the Coast;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 32,
+    "model": "book.book",
+    "fields": {
+      "title": "Witches Abroad (Discworld  #12)",
+      "author": "Terry Pratchett",
+      "average_rating": 4.22,
+      "isbn": "055215296X",
+      "isbn13": "9780552152969",
+      "language_code": "en-GB",
+      "num_pages": 368,
+      "rating_count": 346,
+      "text_review_count": 31,
+      "publication_date": null,
+      "publisher": "Corgi;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 33,
+    "model": "book.book",
+    "fields": {
+      "title": "The Wizard's Apprentice (The Keepers  #2)",
+      "author": "Jackie French Koller/Rebecca Guay",
+      "average_rating": 3.8,
+      "isbn": "0689855923",
+      "isbn13": "9780689855924",
+      "language_code": "eng",
+      "num_pages": 175,
+      "rating_count": 353,
+      "text_review_count": 20,
+      "publication_date": null,
+      "publisher": "Aladdin;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 34,
+    "model": "book.book",
+    "fields": {
+      "title": "Magician: Apprentice (The Riftwar Saga  #1)",
+      "author": "Raymond E. Feist",
+      "average_rating": 4.17,
+      "isbn": "0553267604",
+      "isbn13": "9780553267600",
+      "language_code": "eng",
+      "num_pages": 336,
+      "rating_count": 614,
+      "text_review_count": 19,
+      "publication_date": null,
+      "publisher": "Spectra;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 35,
+    "model": "book.book",
+    "fields": {
+      "title": "Magician: Apprentice (The Riftwar Saga  #1)",
+      "author": "Raymond E. Feist/Brett Booth",
+      "average_rating": 4.45,
+      "isbn": "0976401150",
+      "isbn13": "9780976401155",
+      "language_code": "eng",
+      "num_pages": 265,
+      "rating_count": 276,
+      "text_review_count": 5,
+      "publication_date": null,
+      "publisher": "Dabel Brothers Productions;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 36,
+    "model": "book.book",
+    "fields": {
+      "title": "Geek Love",
+      "author": "Katherine Dunn",
+      "average_rating": 3.97,
+      "isbn": "0375713344",
+      "isbn13": "9780375713347",
+      "language_code": "eng",
+      "num_pages": 348,
+      "rating_count": 50103,
+      "text_review_count": 5030,
+      "publication_date": null,
+      "publisher": "Random House Vintage;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 37,
+    "model": "book.book",
+    "fields": {
+      "title": "Dear God  Help!!! Love  Earl",
+      "author": "Barbara Park/Kenneth Lafreniere",
+      "average_rating": 3.97,
+      "isbn": "0679853952",
+      "isbn13": "9780679853954",
+      "language_code": "eng",
+      "num_pages": 144,
+      "rating_count": 37,
+      "text_review_count": 4,
+      "publication_date": null,
+      "publisher": "Yearling;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 38,
+    "model": "book.book",
+    "fields": {
+      "title": "Prince of the Blood (Krondor's Sons  #1)",
+      "author": "Raymond E. Feist",
+      "average_rating": 3.98,
+      "isbn": "0553588117",
+      "isbn13": "9780553588118",
+      "language_code": "eng",
+      "num_pages": 429,
+      "rating_count": 19537,
+      "text_review_count": 171,
+      "publication_date": null,
+      "publisher": "BantamSpectra;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 39,
+    "model": "book.book",
+    "fields": {
+      "title": "Shards of a Broken Crown (The Serpentwar Saga  #4)",
+      "author": "Raymond E. Feist",
+      "average_rating": 4.02,
+      "isbn": "0380973995",
+      "isbn13": "9780380973996",
+      "language_code": "en-US",
+      "num_pages": 417,
+      "rating_count": 131,
+      "text_review_count": 4,
+      "publication_date": null,
+      "publisher": "AvonEos;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 40,
+    "model": "book.book",
+    "fields": {
+      "title": "Rage of a Demon King (The Serpentwar Saga  #3)",
+      "author": "Raymond E. Feist",
+      "average_rating": 4.05,
+      "isbn": "0380974738",
+      "isbn13": "9780380974733",
+      "language_code": "en-US",
+      "num_pages": 436,
+      "rating_count": 21965,
+      "text_review_count": 92,
+      "publication_date": null,
+      "publisher": "Avon Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 41,
+    "model": "book.book",
+    "fields": {
+      "title": "A Crown of Swords (The Wheel of Time  #7)",
+      "author": "Robert Jordan",
+      "average_rating": 4.04,
+      "isbn": "0812550285",
+      "isbn13": "9780812550283",
+      "language_code": "eng",
+      "num_pages": 880,
+      "rating_count": 106712,
+      "text_review_count": 1604,
+      "publication_date": null,
+      "publisher": "Tor Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 42,
+    "model": "book.book",
+    "fields": {
+      "title": "Winter's Heart (The Wheel of Time  #9)",
+      "author": "Robert Jordan",
+      "average_rating": 3.94,
+      "isbn": "081257558X",
+      "isbn13": "9780812575583",
+      "language_code": "eng",
+      "num_pages": 780,
+      "rating_count": 86944,
+      "text_review_count": 1442,
+      "publication_date": null,
+      "publisher": "Tor Fantasy;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 43,
+    "model": "book.book",
+    "fields": {
+      "title": "The Fires of Heaven (The Wheel of Time  #5)",
+      "author": "Robert Jordan",
+      "average_rating": 4.16,
+      "isbn": "1857232097",
+      "isbn13": "9781857232097",
+      "language_code": "eng",
+      "num_pages": 912,
+      "rating_count": 113052,
+      "text_review_count": 1673,
+      "publication_date": null,
+      "publisher": "Orbit;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 44,
+    "model": "book.book",
+    "fields": {
+      "title": "A Beautiful Mind",
+      "author": "Sylvia Nasar",
+      "average_rating": 4.13,
+      "isbn": "0571212921",
+      "isbn13": "9780571212927",
+      "language_code": "eng",
+      "num_pages": 461,
+      "rating_count": 115201,
+      "text_review_count": 1008,
+      "publication_date": null,
+      "publisher": "Faber  Faber;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 45,
+    "model": "book.book",
+    "fields": {
+      "title": "How To Have A Beautiful Mind",
+      "author": "Edward de Bono",
+      "average_rating": 3.62,
+      "isbn": "0091894603",
+      "isbn13": "9780091894603",
+      "language_code": "en-US",
+      "num_pages": 232,
+      "rating_count": 1595,
+      "text_review_count": 135,
+      "publication_date": null,
+      "publisher": "Vermilion;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 46,
+    "model": "book.book",
+    "fields": {
+      "title": "The State of Mind Called Beautiful",
+      "author": "Sayadaw U. Pandita/Kate Wheeler/Swami Vivekananda",
+      "average_rating": 4.22,
+      "isbn": "0861713451",
+      "isbn13": "9780861713455",
+      "language_code": "eng",
+      "num_pages": 170,
+      "rating_count": 28,
+      "text_review_count": 1,
+      "publication_date": null,
+      "publisher": "Wisdom Publications;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 47,
+    "model": "book.book",
+    "fields": {
+      "title": "Il genio dei numeri",
+      "author": "Sylvia Nasar/Carlo Capararo/Sergio Mancini/Roberta Zuppet",
+      "average_rating": 4.13,
+      "isbn": "8817128716",
+      "isbn13": "9788817128711",
+      "language_code": "ita",
+      "num_pages": 442,
+      "rating_count": 45,
+      "text_review_count": 5,
+      "publication_date": null,
+      "publisher": "Rizzoli;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 48,
+    "model": "book.book",
+    "fields": {
+      "title": "Wolfskin (Saga of the Light Isles  #1)",
+      "author": "Juliet Marillier",
+      "average_rating": 4.01,
+      "isbn": "0765345900",
+      "isbn13": "9780765345905",
+      "language_code": "eng",
+      "num_pages": 544,
+      "rating_count": 5653,
+      "text_review_count": 225,
+      "publication_date": null,
+      "publisher": "Tor Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 49,
+    "model": "book.book",
+    "fields": {
+      "title": "Blade of Fortriu (The Bridei Chronicles  #2)",
+      "author": "Juliet Marillier",
+      "average_rating": 4.09,
+      "isbn": "0765309963",
+      "isbn13": "9780765309969",
+      "language_code": "eng",
+      "num_pages": 496,
+      "rating_count": 5141,
+      "text_review_count": 184,
+      "publication_date": null,
+      "publisher": "Tor;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 50,
+    "model": "book.book",
+    "fields": {
+      "title": "The Dark Mirror (The Bridei Chronicles  #1)",
+      "author": "Juliet Marillier",
+      "average_rating": 3.97,
+      "isbn": "076530998X",
+      "isbn13": "9780765309983",
+      "language_code": "en-US",
+      "num_pages": 512,
+      "rating_count": 63,
+      "text_review_count": 8,
+      "publication_date": null,
+      "publisher": "Tor Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 51,
+    "model": "book.book",
+    "fields": {
+      "title": "Child of the Prophecy (Sevenwaters  #3)",
+      "author": "Juliet Marillier",
+      "average_rating": 4.12,
+      "isbn": "0765345013",
+      "isbn13": "9780765345011",
+      "language_code": "eng",
+      "num_pages": 596,
+      "rating_count": 17071,
+      "text_review_count": 708,
+      "publication_date": null,
+      "publisher": "Tor Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 52,
+    "model": "book.book",
+    "fields": {
+      "title": "Son of the Shadows (Sevenwaters  #2)",
+      "author": "Juliet Marillier",
+      "average_rating": 4.33,
+      "isbn": "0765343266",
+      "isbn13": "9780765343260",
+      "language_code": "eng",
+      "num_pages": 608,
+      "rating_count": 24253,
+      "text_review_count": 1070,
+      "publication_date": null,
+      "publisher": "Tor Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 53,
+    "model": "book.book",
+    "fields": {
+      "title": "Wildwood Dancing (Wildwood  #1)",
+      "author": "Juliet Marillier",
+      "average_rating": 4.09,
+      "isbn": "0375833641",
+      "isbn13": "9780375833649",
+      "language_code": "eng",
+      "num_pages": 407,
+      "rating_count": 24751,
+      "text_review_count": 2219,
+      "publication_date": null,
+      "publisher": "Alfred A. Knopf;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 54,
+    "model": "book.book",
+    "fields": {
+      "title": "Foxmask (Saga of the Light Isles  #2)",
+      "author": "Juliet Marillier",
+      "average_rating": 4.1,
+      "isbn": "0330411845",
+      "isbn13": "9780330411844",
+      "language_code": "eng",
+      "num_pages": 670,
+      "rating_count": 104,
+      "text_review_count": 9,
+      "publication_date": null,
+      "publisher": "Tor Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 55,
+    "model": "book.book",
+    "fields": {
+      "title": "Foxmask (Saga of the Light Isles  #2)",
+      "author": "Juliet Marillier",
+      "average_rating": 4.1,
+      "isbn": "0765345919",
+      "isbn13": "9780765345912",
+      "language_code": "eng",
+      "num_pages": 560,
+      "rating_count": 4123,
+      "text_review_count": 145,
+      "publication_date": null,
+      "publisher": "Tor Fantasy;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 56,
+    "model": "book.book",
+    "fields": {
+      "title": "The Noonday Demon: An Atlas of Depression",
+      "author": "Andrew Solomon",
+      "average_rating": 4.18,
+      "isbn": "0684854678",
+      "isbn13": "9780684854670",
+      "language_code": "eng",
+      "num_pages": 576,
+      "rating_count": 9255,
+      "text_review_count": 724,
+      "publication_date": null,
+      "publisher": "Scribner;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 57,
+    "model": "book.book",
+    "fields": {
+      "title": "The Noonday Demon: An Anatomy of Depression",
+      "author": "Andrew Solomon",
+      "average_rating": 4.18,
+      "isbn": "0099277131",
+      "isbn13": "9780099277132",
+      "language_code": "en-GB",
+      "num_pages": 560,
+      "rating_count": 119,
+      "text_review_count": 10,
+      "publication_date": null,
+      "publisher": "Vintage;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 58,
+    "model": "book.book",
+    "fields": {
+      "title": "My Secret: A PostSecret Book",
+      "author": "Frank Warren",
+      "average_rating": 4.34,
+      "isbn": "0061196681",
+      "isbn13": "9780061196683",
+      "language_code": "en-GB",
+      "num_pages": 144,
+      "rating_count": 5874,
+      "text_review_count": 281,
+      "publication_date": null,
+      "publisher": "William Morrow;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 59,
+    "model": "book.book",
+    "fields": {
+      "title": "The Secret Lives of Men and Women: A PostSecret Book",
+      "author": "Frank Warren",
+      "average_rating": 4.37,
+      "isbn": "0061198757",
+      "isbn13": "9780061198755",
+      "language_code": "en-GB",
+      "num_pages": 144,
+      "rating_count": 5406,
+      "text_review_count": 237,
+      "publication_date": null,
+      "publisher": "William Morrow;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 60,
+    "model": "book.book",
+    "fields": {
+      "title": "The Secret Life of Houdini: The Making of America's First Superhero",
+      "author": "William Kalush/Larry Sloman",
+      "average_rating": 3.87,
+      "isbn": "0743272072",
+      "isbn13": "9780743272070",
+      "language_code": "en-US",
+      "num_pages": 592,
+      "rating_count": 1738,
+      "text_review_count": 235,
+      "publication_date": null,
+      "publisher": "Atria Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 61,
+    "model": "book.book",
+    "fields": {
+      "title": "The Golden Key",
+      "author": "Melanie Rawn/Kate Elliott/Jennifer Roberson",
+      "average_rating": 3.82,
+      "isbn": "0330347764",
+      "isbn13": "9780330347761",
+      "language_code": "eng",
+      "num_pages": 1074,
+      "rating_count": 36,
+      "text_review_count": 5,
+      "publication_date": null,
+      "publisher": "Pan;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 62,
+    "model": "book.book",
+    "fields": {
+      "title": "The Case Of The Golden Key (Jigsaw Jones Mystery #19)",
+      "author": "James Preller/Jamie  Smith",
+      "average_rating": 3.88,
+      "isbn": "0439426286",
+      "isbn13": "9780439426282",
+      "language_code": "eng",
+      "num_pages": 80,
+      "rating_count": 87,
+      "text_review_count": 10,
+      "publication_date": null,
+      "publisher": "Scholastic Paperbacks;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 63,
+    "model": "book.book",
+    "fields": {
+      "title": "Mandie and the Jumping Juniper (Mandie  #18)",
+      "author": "Lois Gladys Leppard",
+      "average_rating": 3.89,
+      "isbn": "1556612001",
+      "isbn13": "9781556612008",
+      "language_code": "eng",
+      "num_pages": 160,
+      "rating_count": 874,
+      "text_review_count": 19,
+      "publication_date": null,
+      "publisher": "Bethany House Publishers;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 64,
+    "model": "book.book",
+    "fields": {
+      "title": "Wise Child",
+      "author": "Monica Furlong",
+      "average_rating": 4.14,
+      "isbn": "0394891058",
+      "isbn13": "9780394891057",
+      "language_code": "eng",
+      "num_pages": 228,
+      "rating_count": 178,
+      "text_review_count": 12,
+      "publication_date": null,
+      "publisher": "Random House;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 65,
+    "model": "book.book",
+    "fields": {
+      "title": "The Boys of the Archangel Raphael: A Youth Confraternity in Florence  1411-1785",
+      "author": "Konrad Eisenbichler",
+      "average_rating": 2,
+      "isbn": "0802043291",
+      "isbn13": "9780802043290",
+      "language_code": "eng",
+      "num_pages": 498,
+      "rating_count": 1,
+      "text_review_count": 0,
+      "publication_date": null,
+      "publisher": "University of Toronto Press;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 66,
+    "model": "book.book",
+    "fields": {
+      "title": "King Solomon's Ring",
+      "author": "Konrad Lorenz/Marjorie Kerr Wilson",
+      "average_rating": 4.23,
+      "isbn": "0415267471",
+      "isbn13": "9780415267472",
+      "language_code": "eng",
+      "num_pages": 192,
+      "rating_count": 1509,
+      "text_review_count": 80,
+      "publication_date": null,
+      "publisher": "Routledge;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 67,
+    "model": "book.book",
+    "fields": {
+      "title": "The Konrad Saga (Konrad  #1-3)",
+      "author": "David S. Garnett/David Ferring",
+      "average_rating": 3.57,
+      "isbn": "1841542768",
+      "isbn13": "9781841542768",
+      "language_code": "eng",
+      "num_pages": 608,
+      "rating_count": 74,
+      "text_review_count": 4,
+      "publication_date": null,
+      "publisher": "Games Workshop;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 68,
+    "model": "book.book",
+    "fields": {
+      "title": "Aerie (Dragon Jousters  #4)",
+      "author": "Mercedes Lackey",
+      "average_rating": 3.95,
+      "isbn": "075640391X",
+      "isbn13": "9780756403911",
+      "language_code": "en-US",
+      "num_pages": 291,
+      "rating_count": 4922,
+      "text_review_count": 95,
+      "publication_date": null,
+      "publisher": "DAW Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 69,
+    "model": "book.book",
+    "fields": {
+      "title": "Sanctuary (Dragon Jousters  #3)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.01,
+      "isbn": "0756403413",
+      "isbn13": "9780756403416",
+      "language_code": "eng",
+      "num_pages": 448,
+      "rating_count": 6437,
+      "text_review_count": 81,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 70,
+    "model": "book.book",
+    "fields": {
+      "title": "Fortune's Fool (Five Hundred Kingdoms  #3)",
+      "author": "Mercedes Lackey",
+      "average_rating": 3.83,
+      "isbn": "0373802668",
+      "isbn13": "9780373802661",
+      "language_code": "en-US",
+      "num_pages": 362,
+      "rating_count": 7756,
+      "text_review_count": 283,
+      "publication_date": null,
+      "publisher": "Luna Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 71,
+    "model": "book.book",
+    "fields": {
+      "title": "The Fairy Godmother (Five Hundred Kingdoms  #1)",
+      "author": "Mercedes Lackey",
+      "average_rating": 3.97,
+      "isbn": "0373802455",
+      "isbn13": "9780373802456",
+      "language_code": "eng",
+      "num_pages": 479,
+      "rating_count": 15813,
+      "text_review_count": 871,
+      "publication_date": null,
+      "publisher": "Luna Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 72,
+    "model": "book.book",
+    "fields": {
+      "title": "The Wizard of London (Elemental Masters  #4)",
+      "author": "Mercedes Lackey",
+      "average_rating": 3.79,
+      "isbn": "0756403634",
+      "isbn13": "9780756403638",
+      "language_code": "en-US",
+      "num_pages": 384,
+      "rating_count": 6145,
+      "text_review_count": 202,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 73,
+    "model": "book.book",
+    "fields": {
+      "title": "By Slanderous Tongues (Doubled Edge  #3)",
+      "author": "Mercedes Lackey/Roberta Gellis",
+      "average_rating": 3.9,
+      "isbn": "1416521070",
+      "isbn13": "9781416521075",
+      "language_code": "eng",
+      "num_pages": 544,
+      "rating_count": 698,
+      "text_review_count": 19,
+      "publication_date": null,
+      "publisher": "Baen;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 74,
+    "model": "book.book",
+    "fields": {
+      "title": "Arrows of the Queen (Heralds of Valdemar  #1)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.14,
+      "isbn": "0886773784",
+      "isbn13": "9780886773786",
+      "language_code": "eng",
+      "num_pages": 320,
+      "rating_count": 31058,
+      "text_review_count": 927,
+      "publication_date": null,
+      "publisher": "Daw Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 75,
+    "model": "book.book",
+    "fields": {
+      "title": "Phoenix and Ashes (Elemental Masters  #3)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.01,
+      "isbn": "0756402727",
+      "isbn13": "9780756402723",
+      "language_code": "eng",
+      "num_pages": 480,
+      "rating_count": 6980,
+      "text_review_count": 229,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 76,
+    "model": "book.book",
+    "fields": {
+      "title": "Crossroads and Other Tales of Valdemar (Tales of Valdemar #3)",
+      "author": "Mercedes Lackey/Rosemary Edghill/Sarah A. Hoyt/Tanya Huff/Fiona Patton/Janni Lee Simner/Mickey Zucker Reichert/Judith Tarr/Larry Dixon/Michael Z. Williamson/Nancy Asire/Richard Lee Byers/Brenda Cooper/Stephanie D. Shaver/Kate Paulk/Michael Longcor/Ben Ohlander",
+      "average_rating": 3.87,
+      "isbn": "0756403251",
+      "isbn13": "9780756403256",
+      "language_code": "eng",
+      "num_pages": 338,
+      "rating_count": 3049,
+      "text_review_count": 32,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 77,
+    "model": "book.book",
+    "fields": {
+      "title": "Storm Warning (Valdemar: Mage Storms #1)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.03,
+      "isbn": "0886776619",
+      "isbn13": "9780886776619",
+      "language_code": "eng",
+      "num_pages": 428,
+      "rating_count": 11193,
+      "text_review_count": 123,
+      "publication_date": null,
+      "publisher": "Daw Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 78,
+    "model": "book.book",
+    "fields": {
+      "title": "This Rough Magic (Heirs of Alexandria  #2)",
+      "author": "Mercedes Lackey/Eric Flint/Dave Freer",
+      "average_rating": 3.86,
+      "isbn": "0743499093",
+      "isbn13": "9780743499095",
+      "language_code": "eng",
+      "num_pages": 893,
+      "rating_count": 1189,
+      "text_review_count": 23,
+      "publication_date": null,
+      "publisher": "Baen;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 79,
+    "model": "book.book",
+    "fields": {
+      "title": "Joust (Dragon Jousters  #1)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.02,
+      "isbn": "0756401534",
+      "isbn13": "9780756401535",
+      "language_code": "eng",
+      "num_pages": 448,
+      "rating_count": 10113,
+      "text_review_count": 263,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 80,
+    "model": "book.book",
+    "fields": {
+      "title": "Winds of Fury (Valdemar: Mage Winds #3)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.05,
+      "isbn": "0886776120",
+      "isbn13": "9780886776121",
+      "language_code": "eng",
+      "num_pages": 423,
+      "rating_count": 12027,
+      "text_review_count": 105,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 81,
+    "model": "book.book",
+    "fields": {
+      "title": "Winds of Fate (Valdemar: Mage Winds #1)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.04,
+      "isbn": "0886775167",
+      "isbn13": "9780886775162",
+      "language_code": "eng",
+      "num_pages": 458,
+      "rating_count": 14611,
+      "text_review_count": 208,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 82,
+    "model": "book.book",
+    "fields": {
+      "title": "Alta (Dragon Jousters  #2)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.03,
+      "isbn": "0756402573",
+      "isbn13": "9780756402570",
+      "language_code": "en-US",
+      "num_pages": 434,
+      "rating_count": 7060,
+      "text_review_count": 113,
+      "publication_date": null,
+      "publisher": "Daw Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 83,
+    "model": "book.book",
+    "fields": {
+      "title": "The Serpent's Shadow (Elemental Masters  #1)",
+      "author": "Mercedes Lackey",
+      "average_rating": 3.99,
+      "isbn": "0756400619",
+      "isbn13": "9780756400613",
+      "language_code": "en-US",
+      "num_pages": 394,
+      "rating_count": 8768,
+      "text_review_count": 306,
+      "publication_date": null,
+      "publisher": "Daw Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 84,
+    "model": "book.book",
+    "fields": {
+      "title": "Storm Rising (Valdemar: Mage Storms  #2)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.02,
+      "isbn": "0886777127",
+      "isbn13": "9780886777128",
+      "language_code": "en-US",
+      "num_pages": 412,
+      "rating_count": 10781,
+      "text_review_count": 86,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 85,
+    "model": "book.book",
+    "fields": {
+      "title": "Exile's Valor (Heralds of Valdemar  #7)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.19,
+      "isbn": "0756402212",
+      "isbn13": "9780756402211",
+      "language_code": "en-GB",
+      "num_pages": 438,
+      "rating_count": 10882,
+      "text_review_count": 104,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 86,
+    "model": "book.book",
+    "fields": {
+      "title": "Sword of Ice and Other Tales of Valdemar (Tales of Valdemar #1)",
+      "author": "Mercedes Lackey/Tanya Huff/Mickey Zucker Reichert/Michelle Sagara West/Gary A. Braunbeck/John Helfers/Elisabeth Waters/Lawrence Schimel/Mark Shepherd/Janni Lee Simner/Richard Lee Byers/Josepha Sherman/Larry Dixon/John Yezeguielian/Mel White/Stephanie D. Shaver/Kristin Schwengel/Ben Ohlander/Philip M. Austin",
+      "average_rating": 3.85,
+      "isbn": "0886777208",
+      "isbn13": "9780886777203",
+      "language_code": "eng",
+      "num_pages": 350,
+      "rating_count": 3869,
+      "text_review_count": 50,
+      "publication_date": null,
+      "publisher": "Daw Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 87,
+    "model": "book.book",
+    "fields": {
+      "title": "The River's Gift",
+      "author": "Mercedes Lackey",
+      "average_rating": 3.9,
+      "isbn": "0451457595",
+      "isbn13": "9780451457592",
+      "language_code": "eng",
+      "num_pages": 128,
+      "rating_count": 1050,
+      "text_review_count": 59,
+      "publication_date": null,
+      "publisher": "Roc Hardcover;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 88,
+    "model": "book.book",
+    "fields": {
+      "title": "Jinx High (Diana Tregarde  #3)",
+      "author": "Mercedes Lackey",
+      "average_rating": 3.83,
+      "isbn": "0765313197",
+      "isbn13": "9780765313195",
+      "language_code": "en-US",
+      "num_pages": 335,
+      "rating_count": 3507,
+      "text_review_count": 66,
+      "publication_date": null,
+      "publisher": "St. Martins Press-3PL;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 89,
+    "model": "book.book",
+    "fields": {
+      "title": "Owlknight (Owl Mage Trilogy  #3)",
+      "author": "Mercedes Lackey/Larry Dixon",
+      "average_rating": 3.98,
+      "isbn": "0886779162",
+      "isbn13": "9780886779160",
+      "language_code": "eng",
+      "num_pages": 450,
+      "rating_count": 8045,
+      "text_review_count": 98,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 90,
+    "model": "book.book",
+    "fields": {
+      "title": "Bedlam's Edge (Bedlam's Bard  #8)",
+      "author": "Mercedes Lackey/Rosemary Edghill",
+      "average_rating": 3.92,
+      "isbn": "1416521100",
+      "isbn13": "9781416521105",
+      "language_code": "en-US",
+      "num_pages": 384,
+      "rating_count": 922,
+      "text_review_count": 20,
+      "publication_date": null,
+      "publisher": "Baen;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 91,
+    "model": "book.book",
+    "fields": {
+      "title": "Owlflight (Owl Mage Trilogy  #1)",
+      "author": "Mercedes Lackey/Larry Dixon",
+      "average_rating": 3.98,
+      "isbn": "0886778042",
+      "isbn13": "9780886778040",
+      "language_code": "eng",
+      "num_pages": 342,
+      "rating_count": 9217,
+      "text_review_count": 168,
+      "publication_date": null,
+      "publisher": "DAW;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 92,
+    "model": "book.book",
+    "fields": {
+      "title": "Children of the Night (Diana Tregarde  #2)",
+      "author": "Mercedes Lackey",
+      "average_rating": 3.94,
+      "isbn": "0765313189",
+      "isbn13": "9780765313188",
+      "language_code": "en-US",
+      "num_pages": 320,
+      "rating_count": 4349,
+      "text_review_count": 103,
+      "publication_date": null,
+      "publisher": "St. Martins Press-3PL;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 93,
+    "model": "book.book",
+    "fields": {
+      "title": "Winter Moon (Walker Papers  #1.5)",
+      "author": "Mercedes Lackey/Tanith Lee/C.E. Murphy",
+      "average_rating": 3.78,
+      "isbn": "0373802390",
+      "isbn13": "9780373802395",
+      "language_code": "eng",
+      "num_pages": 393,
+      "rating_count": 2668,
+      "text_review_count": 148,
+      "publication_date": null,
+      "publisher": "Luna Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 94,
+    "model": "book.book",
+    "fields": {
+      "title": "Arrow's Fall (Heralds of Valdemar  #3)",
+      "author": "Mercedes Lackey",
+      "average_rating": 4.19,
+      "isbn": "0886774004",
+      "isbn13": "9780886774004",
+      "language_code": "eng",
+      "num_pages": 319,
+      "rating_count": 19520,
+      "text_review_count": 330,
+      "publication_date": null,
+      "publisher": "Daw Books;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 95,
+    "model": "book.book",
+    "fields": {
+      "title": "Difficult Conversations: How to Discuss What Matters Most",
+      "author": "Bruce Patton/Douglas Stone/Sheila Heen",
+      "average_rating": 4.09,
+      "isbn": "014027782X",
+      "isbn13": "9780140277821",
+      "language_code": "en-US",
+      "num_pages": 250,
+      "rating_count": 61,
+      "text_review_count": 9,
+      "publication_date": null,
+      "publisher": "Penguin;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 96,
+    "model": "book.book",
+    "fields": {
+      "title": "The Scarlet Gang of Asakusa",
+      "author": "Yasunari Kawabata/Alisa Freedman",
+      "average_rating": 3.36,
+      "isbn": "0520241827",
+      "isbn13": "9780520241824",
+      "language_code": "eng",
+      "num_pages": 181,
+      "rating_count": 360,
+      "text_review_count": 34,
+      "publication_date": null,
+      "publisher": "University of California Press;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 97,
+    "model": "book.book",
+    "fields": {
+      "title": "Beauty and Sadness",
+      "author": "Yasunari Kawabata/Howard Hibbett",
+      "average_rating": 3.85,
+      "isbn": "0679761055",
+      "isbn13": "9780679761051",
+      "language_code": "eng",
+      "num_pages": 206,
+      "rating_count": 4933,
+      "text_review_count": 313,
+      "publication_date": null,
+      "publisher": "Vintage;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 98,
+    "model": "book.book",
+    "fields": {
+      "title": "The Dancing Girl of Izu and Other Stories",
+      "author": "Yasunari Kawabata/J. Martin Holman",
+      "average_rating": 3.78,
+      "isbn": "1887178945",
+      "isbn13": "9781887178945",
+      "language_code": "eng",
+      "num_pages": 176,
+      "rating_count": 1385,
+      "text_review_count": 75,
+      "publication_date": null,
+      "publisher": "Counterpoint;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 99,
+    "model": "book.book",
+    "fields": {
+      "title": "Palm-of-the-Hand Stories",
+      "author": "Yasunari Kawabata/Lane Dunlop/J. Martin Holman",
+      "average_rating": 3.99,
+      "isbn": "0374530491",
+      "isbn13": "9780374530495",
+      "language_code": "eng",
+      "num_pages": 288,
+      "rating_count": 1777,
+      "text_review_count": 129,
+      "publication_date": null,
+      "publisher": "Farrar  Straus and Giroux;;;;;;;;;;;"
+    }
+  },
+  {
+    "pk": 100,
+    "model": "book.book",
+    "fields": {
+      "title": "House of the Sleeping Beauties and Other Stories",
+      "author": "Yasunari Kawabata/Edward G. Seidensticker/Yukio Mishima",
+      "average_rating": 3.67,
+      "isbn": "4770029756",
+      "isbn13": "9784770029751",
+      "language_code": "eng",
+      "num_pages": 148,
+      "rating_count": 3581,
+      "text_review_count": 224,
+      "publication_date": null,
+      "publisher": "Kodansha International;;;;;;;;;;;"
+    }
+  }
+]
