@@ -69,7 +69,7 @@ def showprofile(request):
 
 @login_required(login_url='/login')
 def pref_json(request):
-    preferences = Preference.objects.filter(user=request.user)
+    preferences = Preference.objects.filter(user=get_user(request))
     return HttpResponse(serializers.serialize('json', preferences))
 
 @login_required(login_url='/login')
@@ -92,7 +92,7 @@ def ret_review(request):
     title = []
     reviewnya = []
     author = []
-    reviews = review = Review.objects.filter(user=get_user(request))
+    reviews = Review.objects.filter(user=get_user(request))
     for elem in reviews:
         title.append(elem.title)
         reviewnya.append(elem.review)
@@ -104,4 +104,4 @@ def change_pref(request):
         author__icontains='/').distinct()
     author_list = list(author)  # Convert queryset to list
     random_authors = random.sample(author_list, 8)  # Get 8 random elements
-    return JsonResponse(random_authors)
+    return JsonResponse({'author':random_authors})
