@@ -88,6 +88,7 @@ def ret_profile(request):
     # Return it as JSON
     return JsonResponse(data)
 
+@login_required(login_url='/login')
 def ret_review(request):
     title = []
     reviewnya = []
@@ -105,3 +106,15 @@ def change_pref(request):
     author_list = list(author)  # Convert queryset to list
     random_authors = random.sample(author_list, 8)  # Get 8 random elements
     return JsonResponse({'author':random_authors})
+
+def set_pref(request):
+    Preference.objects.filter(user=get_user(request)).delete()
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        for item in data["valid"]:
+            new_pref = Preference.objects.create(user=get_user(request), author=item)
+            new_pref.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
