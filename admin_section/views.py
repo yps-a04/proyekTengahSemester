@@ -105,6 +105,30 @@ def edit_book(request, id):
     context = {'form': form}
     return render(request, "edit_book.html", context)
 
+@csrf_exempt
+def edit_book_flutter(request, id):
+    book = get_object_or_404(Book, pk=id)
+    response_data = {'status': False}
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        book.title = data["title"],
+        book.author = data["author"],
+        book.average_rating = float(data["averageRating"]),
+        book.isbn = data["isbn"],
+        book.isbn13 = data["isbn13"],
+        book.language_code = data["languageCode"],
+        book.num_pages = int(data["numPages"]),
+        book.rating_count = int(data["ratingCount"]),
+        book.text_review_count = int(data["textReviewCount"]),
+        book.publication_date = data["publicationDate"],
+        book.publisher = data["publisher"],
+
+        book.save()
+        response_data['status'] = True
+
+    return JsonResponse(response_data)
 
 def delete_book(request, id):
     book = Book.objects.get(pk = id)
@@ -117,6 +141,15 @@ def delete_book(request, id):
     # book.delete()
     # return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
 
+@csrf_exempt
+def delete_book_flutter(request, id):
+    book = Book.objects.get(pk = id)
+    if request.method == 'POST':
+        book.delete()
+        data = {'status': True}
+
+        return JsonResponse(data, safe=False)
+    return JsonResponse({'status': False}, safe=False)
 
 def get_user(request):
     users = User.objects.all()

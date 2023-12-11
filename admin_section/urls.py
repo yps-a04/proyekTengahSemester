@@ -13,6 +13,8 @@ urlpatterns = [
     path('book-detail/<int:key>', show_book_detail, name='show_book_detail'),
     path('edit-book/<int:id>', edit_book, name='edit_book'),
     path('delete/<int:id>', delete_book, name='delete_book'),
+    path('delete-flutter/<int:id>', delete_book_flutter, name='delete_book_flutter'),
     path('api/users/', get_user, name='user-list'),
     path('create-flutter/', create_book_flutter, name='create_book_flutter'),
+    path('edit-flutter/', edit_book_flutter, name='edit_book_flutter')
 ]
