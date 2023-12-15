@@ -1,5 +1,6 @@
+import json
 from django.shortcuts import render, get_object_or_404, redirect
-from main.models import Book
+from book.models import Book
 from admin_section.models import Review
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
@@ -104,12 +105,65 @@ def edit_book(request, id):
     context = {'form': form}
     return render(request, "edit_book.html", context)
 
+@csrf_exempt
+def edit_book_flutter(request, id):
+    book = Book.objects.get(pk = id)
+    response_data = {'status': False}
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data["averageRating"])
+
+        book.title = data["title"]
+        book.author = data["author"]
+        book.average_rating = float((data["averageRating"]))
+        book.isbn = data["isbn"]
+        book.isbn13 = data["isbn13"]
+        book.language_code = data["languageCode"]
+        book.num_pages = int(data["numPages"])
+        book.rating_count = int(data["ratingCount"])
+        book.text_review_count = int(data["textReviewCount"])
+        book.publication_date = data["publicationDate"]
+        book.publisher = data["publisher"]
+
+        book.save()
+        response_data['status'] = True
+
+    return JsonResponse(response_data)
+
+def remove_parentheses(input_str):
+    # Menghapus "('" di awal string
+    if input_str.startswith("('"):
+        input_str = input_str[2:]
+    elif input_str.startswith("("):
+        input_str = input_str[1:]
+
+    # Menghapus "',')" di akhir string
+    if input_str.endswith("',)"):
+        input_str = input_str[:-4]
+
+    return input_str
 
 def delete_book(request, id):
-    book = Book.objects.get(pk=id)
-    book.delete()
-    return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
+    book = Book.objects.get(pk = id)
+    if request.method == 'POST':
+        book.delete()
+        data = {'status': True}
 
+        return JsonResponse(data, safe=False)
+    return JsonResponse({'status': False}, safe=False)
+    # book.delete()
+    # return HttpResponseRedirect(reverse('admin_section:show_book_list_admin'))
+
+@csrf_exempt
+def delete_book_flutter(request, id):
+    book = Book.objects.get(pk = id)
+    if request.method == 'POST':
+        book.delete()
+        data = {'status': True}
+
+        return JsonResponse(data, safe=False)
+    return JsonResponse({'status': False}, safe=False)
 
 def get_user(request):
     users = User.objects.all()
@@ -117,3 +171,30 @@ def get_user(request):
                   'date_joined': user.date_joined, 'last_login': user.last_login} for user in users]
 
     return JsonResponse(user_data, safe=False)
+
+@csrf_exempt
+def create_book_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_product = Book.objects.create(
+            user = request.user,
+            title = data["title"],
+            author = data["author"],
+            average_rating = float(data["averageRating"]),
+            isbn = data["isbn"],
+            isbn13 = data["isbn13"],
+            language_code = data["languageCode"],
+            num_pages = int(data["numPages"]),
+            rating_count = int(data["ratingCount"]),
+            text_review_count = int(data["textReviewCount"]),
+            publication_date = data["publicationDate"],
+            publisher = data["publisher"],
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)

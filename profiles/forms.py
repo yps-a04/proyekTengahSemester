@@ -1,5 +1,5 @@
 from django import forms
-from main.models import Book
+from book.models import Book
 
 class DynamicCheckboxForm(forms.Form):
     def __init__(self, *args, **kwargs):

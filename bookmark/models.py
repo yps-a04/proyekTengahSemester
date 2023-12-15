@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from main.models import Book
+from book.models import Book
 
 class Bookmark(models.Model):
     user = models.ForeignKey(
