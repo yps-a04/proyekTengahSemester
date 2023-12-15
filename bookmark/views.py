@@ -8,6 +8,26 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+
+@csrf_exempt
+def delete_bookmark_mobile(request, key):
+    data = json.loads(request.body)
+    pkBook = data.get('pk')
+    print(pkBook)
+    book = get_object_or_404(Book, pk=pkBook)
+    if request.method == 'POST':
+        user = request.user
+        try:
+            existing_bookmark = Bookmark.objects.get(user=user, book=book)
+            existing_bookmark.delete()
+        except Bookmark.DoesNotExist:
+            new_bookmark = Bookmark(user=user, book=book)
+            new_bookmark.save()
+
+        return JsonResponse({"status": "success"}, status=200)
 
 def show_bookmark(request, key):
     if request.user.username == key:  
