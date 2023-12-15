@@ -19,6 +19,7 @@ from django.db.models import Case, When, Value, IntegerField
 from profiles.models import Preference
 from django.db.models.query import QuerySet
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user
 # Create your views here.
 
 
@@ -189,7 +190,7 @@ def sort_books(request):
     elif sort_by == 'reviews-count':
         books = Book.objects.order_by('-text_review_count')
     elif sort_by == 'preference':
-        author = Preference.objects.filter(user=request.user).values('author')
+        author = Preference.objects.filter(user=get_user(request)).values('author')
         books = Book.objects.none()
         for book in books:
             print(book.author)
