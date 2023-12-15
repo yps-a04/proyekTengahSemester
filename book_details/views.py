@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 from django.urls import reverse
@@ -98,3 +99,22 @@ def add_review_ajax(request):
 
         return JsonResponse(data, safe=False)
     return HttpResponseNotFound()
+
+
+@csrf_exempt
+def add_review_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        new_review = Review.objects.create(
+            user=request.user,
+            title=data['title'],
+            review=data['review'],
+            book=Book.objects.get(title=data['bookname'])
+        )
+
+        new_review.save();
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
