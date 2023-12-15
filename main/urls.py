@@ -11,6 +11,8 @@ urlpatterns = [
     path('search/', search, name='search'),
     path('sort-books/', sort_books, name='sort_books'),
     path('books-json/', get_book_json, name='get_book_json'),
+    path('bookmarks-json/', get_user_bookmark_json, name='get_bookmark_json'),
+
 
 
     path('b/<str:key>', bookmark, name='bookmark'),
