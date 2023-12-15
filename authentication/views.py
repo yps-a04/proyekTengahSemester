@@ -47,7 +47,8 @@ def register(request):
     password_confirm = request.POST.get('passwordConfirm')
     if request.method == "POST":
         if password_confirm == password:
-            user = User.objects.create(username=username, password=password)
+            user = User.objects.create_user(
+                username=username, password=password)
             user.save()
             return JsonResponse({
                 "status": True,
