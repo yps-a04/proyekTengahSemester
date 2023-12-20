@@ -118,7 +118,25 @@ def get_user_bookmark_json(request):
         book_data = serializers.serialize("json", [bookmark.book])
         book_obj = json.loads(book_data)
         data.append(book_obj[0])  # json.loads() mengembalikan list, jadi kita ambil elemen pertama
-    return HttpResponse(json.dumps(data), content_type="application/json")
+    if data is not None:
+        data2 = [{'pk': books['pk'], 'models': 'main.book', 'fields': {
+            'title': books['fields']['title'],
+            'author': books['fields']['author'],
+            'average_rating': books['fields']['average_rating'],
+            'isbn': books['fields']['isbn'],
+            'isbn13': books['fields']['isbn13'],
+            'language_code': books['fields']['language_code'],
+            'num_pages': books['fields']['num_pages'],
+            'rating_count': books['fields']['rating_count'],
+            'text_review_count': books['fields']['text_review_count'],
+            'publication_date': books['fields']['publication_date'],
+            'publisher': books['fields']['publisher'],
+            'isBookmarked': True
+        }} for books in data]
+    else:
+        data2 = 0            
+
+    return JsonResponse(data2, safe=False)
 
 
 def bookmark(request, key):
