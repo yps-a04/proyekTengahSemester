@@ -81,7 +81,10 @@ def ret_profile(request):
     if (user.is_superuser):
         role = "Admin"
     else:
-        role = "User"
+        if (user.username == "admin"):
+            role = 'Admin'
+        else:
+            role = "User"
 
     data = {
         'user': user.username,
