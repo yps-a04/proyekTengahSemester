@@ -10,13 +10,15 @@ def login(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
 
-    print(username, password)
     user = authenticate(username=username, password=password)
     if user is not None:
         if user.is_active:
             auth_login(request, user)
             # Status login sukses.
-            is_staff = user.is_staff,
+            if username == 'admin':
+                is_staff = True,
+            else:
+                is_staff = False
             return JsonResponse({
                 "username": user.username,
                 "is_staff": is_staff,
