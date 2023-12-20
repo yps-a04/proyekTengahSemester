@@ -118,3 +118,16 @@ def add_review_flutter(request):
         return JsonResponse({"status": "success"}, status=200)
     else:
         return JsonResponse({"status": "error"}, status=401)
+
+@csrf_exempt
+def show_review_flutter(request, key):
+    book = get_object_or_404(Book, pk=key)
+    if request.method == 'GET':
+        review = Review.objects.filter(book=book)
+
+        reviewJson = [{'user': rev.user.username, 'review': rev.review, 'title': rev.title} for rev in review] 
+
+        # return JsonResponse({"status": "success"}, status=200)
+        return JsonResponse({"status": "success", "data": reviewJson}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)

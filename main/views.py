@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
 from django.core import serializers
-
+import json
 from .forms import LoginForm, SignUpForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -19,6 +19,7 @@ from django.db.models import Case, When, Value, IntegerField
 from profiles.models import Preference
 from django.db.models.query import QuerySet
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user
 # Create your views here.
 
 
@@ -94,6 +95,17 @@ def show_book_list(request):
 def get_book_json(request):
     data = Book.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+
+def get_user_bookmark_json(request):
+    user = request.user
+    bookmarks = user.bookmarked.select_related('book')  
+    data = []
+    for bookmark in bookmarks:
+        book_data = serializers.serialize("json", [bookmark.book])
+        book_obj = json.loads(book_data)
+        data.append(book_obj[0])  # json.loads() mengembalikan list, jadi kita ambil elemen pertama
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 def bookmark(request, key):
@@ -189,7 +201,7 @@ def sort_books(request):
     elif sort_by == 'reviews-count':
         books = Book.objects.order_by('-text_review_count')
     elif sort_by == 'preference':
-        author = Preference.objects.filter(user=request.user).values('author')
+        author = Preference.objects.filter(user=get_user(request)).values('author')
         books = Book.objects.none()
         for book in books:
             print(book.author)

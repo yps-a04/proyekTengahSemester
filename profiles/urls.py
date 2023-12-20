@@ -10,4 +10,5 @@ urlpatterns = [
     path('ret_review/', ret_review, name='ret_review'),
     path('ret_profile/', ret_profile, name='ret_profile'),
     path('change_pref/', change_pref, name='change_pref'),
+    path('set_pref/', set_pref, name='set_pref')
 ]

@@ -8,8 +8,12 @@ from profiles.models import *
 from bookmark.models import *
 from django.core import serializers
 import random
+import json
 from admin_section.models import *
 from admin_section.models import Review
+from django.contrib.auth import get_user
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 
 
@@ -36,7 +40,7 @@ def preference(request):
                     flag = True
                     break
             if flag == True:
-                Preference.objects.filter(user=request.user).delete()
+                Preference.objects.filter(user=get_user(request)).delete()
             else:
                 return redirect('profiles:showprofile')
             for field in form.cleaned_data:
@@ -44,12 +48,12 @@ def preference(request):
                     # Assuming the field name is the author's name
                     author_name = form.fields[str(field)].label
                     preference, created = Preference.objects.get_or_create(
-                        user=request.user, author=author_name)
+                        user=get_user(request), author=author_name)
                     if created:
                         counter += 1
                         preference.save()
                     preferences = Preference.objects.filter(
-                        user=request.user).values('author')
+                        user=get_user(request)).values('author')
             return redirect('profiles:showprofile')
 
     return render(request, "preference.html", context)
@@ -57,7 +61,7 @@ def preference(request):
 
 @login_required(login_url='/login')
 def showprofile(request):
-    user_now = request.user
+    user_now = get_user(request)
     review = Review.objects.filter(user=user_now)
     preference = Preference.objects.filter(user=user_now)
     for pref in preference:
@@ -68,12 +72,12 @@ def showprofile(request):
 
 @login_required(login_url='/login')
 def pref_json(request):
-    preferences = Preference.objects.filter(user=request.user)
+    preferences = Preference.objects.filter(user=get_user(request))
     return HttpResponse(serializers.serialize('json', preferences))
 
-#@login_required(login_url='/login')
+@login_required(login_url='/login')
 def ret_profile(request):
-    user = request.user
+    user = get_user(request)
     if (user.is_superuser):
         role = "Admin"
     else:
@@ -87,11 +91,12 @@ def ret_profile(request):
     # Return it as JSON
     return JsonResponse(data)
 
+@login_required(login_url='/login')
 def ret_review(request):
     title = []
     reviewnya = []
     author = []
-    reviews = review = Review.objects.filter(request.user)
+    reviews = Review.objects.filter(user=get_user(request))
     for elem in reviews:
         title.append(elem.title)
         reviewnya.append(elem.review)
@@ -103,4 +108,17 @@ def change_pref(request):
         author__icontains='/').distinct()
     author_list = list(author)  # Convert queryset to list
     random_authors = random.sample(author_list, 8)  # Get 8 random elements
-    return JsonResponse(random_authors)
+    return JsonResponse({'author':random_authors})
+
+@csrf_exempt
+def set_pref(request):
+    Preference.objects.filter(user=get_user(request)).delete()
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        for item in data["valid"]:
+            new_pref = Preference.objects.create(user=get_user(request), author=item)
+            new_pref.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
