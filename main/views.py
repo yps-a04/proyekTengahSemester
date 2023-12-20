@@ -204,25 +204,30 @@ def logout_user(request):
 
 def search(request):
     query = request.GET.get('q')
+    user = request.user
 
     # Misalnya mencari produk berdasarkan nama
-    results = Book.objects.filter(title__icontains=query)
+    results = Book.objects.filter(titleicontains=query)
     results = Book.objects.filter(
-        Q(title__icontains=query) | Q(
-            isbn__icontains=query) | Q(author__icontains=query)
+        Q(titleicontains=query) | Q(
+            isbnicontains=query) | Q(authoricontains=query)
     )
+
+    bookmarks = user.bookmarked.select_related('book')
+    bookmarkedBooks = []
+
+    for bookmark in bookmarks:
+        bookmarkedBooks.append(bookmark.book)
 
     if results is not None:
         data = [{'pk': books.pk, 'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
                  'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code, 'num_pages': books.num_pages,
                  'rating_count': books.rating_count, 'text_review_count': books.text_review_count, 'publication_date': books.publication_date,
-                 'publisher': books.publisher} for books in results]
+                 'publisher': books.publisher,'isBookmarked' : books in bookmarkedBooks } for books in results]
     else:
         data = 0
 
     return JsonResponse(data, safe=False)
-
-
 def sort_books(request):
     sort_by = request.GET.get('sort_by')
     if sort_by == 'alphabet-asc':
@@ -249,9 +254,16 @@ def sort_books(request):
     else:
         books = Book.objects.all()
 
+    user = request.user
+    bookmarks = user.bookmarked.select_related('book')
+    bookmarkedBooks = []
+
+    for bookmark in bookmarks:
+        bookmarkedBooks.append(bookmark.book)
+
     book_list = [{'pk': book.pk, 'title': book.title, 'author': book.author, 'average_rating': book.average_rating,
                  'isbn': book.isbn, 'isbn13': book.isbn13, 'language_code': book.language_code, 'num_pages': book.num_pages,
                   'rating_count': book.rating_count, 'text_review_count': book.text_review_count, 'publication_date': book.publication_date,
-                  'publisher': book.publisher} for book in books[:20]]
+                  'publisher': book.publisher,'isBookmarked' : books in bookmarkedBooks } for book in books[:20]]
 
     return JsonResponse(book_list, safe=False)
