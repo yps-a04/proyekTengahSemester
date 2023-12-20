@@ -179,7 +179,6 @@ def create_book_flutter(request):
         data = json.loads(request.body)
 
         new_product = Book.objects.create(
-            user = request.user,
             title = data["title"],
             author = data["author"],
             average_rating = float(data["averageRating"]),
