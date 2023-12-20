@@ -20,16 +20,22 @@ def login(request):
             auth_login(request, user)
             # Status login sukses.
             if username == 'admin':
-                is_staff = True,
-            else:
-                is_staff = False
-            return JsonResponse({
+                return JsonResponse({
                 "username": user.username,
-                "is_staff": is_staff,
+                "is_staff": [True],
                 "status": True,
                 "message": "Login sukses!"
                 # Tambahkan data lainnya jika ingin mengirim data ke Flutter.
             }, status=200)
+            else:
+                return JsonResponse({
+                "username": user.username,
+                "is_staff": [False],
+                "status": True,
+                "message": "Login sukses!"
+                # Tambahkan data lainnya jika ingin mengirim data ke Flutter.
+            }, status=200)
+
         else:
             return JsonResponse({
                 "status": False,
