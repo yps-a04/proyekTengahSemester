@@ -6,6 +6,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import UserCreationForm
 from main.forms import SignUpForm
 from django.contrib.auth.models import User
+import json
 
 
 @csrf_exempt
@@ -13,13 +14,15 @@ def login(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
 
-    print(username, password)
     user = authenticate(username=username, password=password)
     if user is not None:
         if user.is_active:
             auth_login(request, user)
             # Status login sukses.
-            is_staff = user.is_staff,
+            if username == 'admin':
+                is_staff = True,
+            else:
+                is_staff = False
             return JsonResponse({
                 "username": user.username,
                 "is_staff": is_staff,
@@ -42,9 +45,10 @@ def login(request):
 
 @csrf_exempt
 def register(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    password_confirm = request.POST.get('passwordConfirm')
+    data = json.loads(request.body)
+    username = data['username']
+    password = data['password']
+    password_confirm = data['passwordConfirm']
     if request.method == "POST":
         if password_confirm == password:
             user = User.objects.create_user(
