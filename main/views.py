@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
 from django.core import serializers
-
+import json
 from .forms import LoginForm, SignUpForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -94,7 +94,31 @@ def show_book_list(request):
 
 def get_book_json(request):
     data = Book.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    user = request.user
+    bookmarks = user.bookmarked.select_related('book')  
+    bookmarkedBooks = []
+    for bookmark in bookmarks:
+        bookmarkedBooks.append(bookmark.book)  
+
+    if data is not None:
+        data2 = [{'pk': books.pk, 'models' : 'main.book','fields': {'title': books.title, 'author': books.author, 'average_rating': books.average_rating,
+                 'isbn': books.isbn, 'isbn13': books.isbn13, 'language_code': books.language_code, 'num_pages': books.num_pages,
+                 'rating_count': books.rating_count, 'text_review_count': books.text_review_count, 'publication_date': books.publication_date,
+                 'publisher': books.publisher, 'isBookmarked' : books in bookmarkedBooks }} for books in data]
+    else:
+        data2 = 0    
+    return JsonResponse(data2, safe=False)
+
+
+def get_user_bookmark_json(request):
+    user = request.user
+    bookmarks = user.bookmarked.select_related('book')  
+    data = []
+    for bookmark in bookmarks:
+        book_data = serializers.serialize("json", [bookmark.book])
+        book_obj = json.loads(book_data)
+        data.append(book_obj[0])  # json.loads() mengembalikan list, jadi kita ambil elemen pertama
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 def bookmark(request, key):
