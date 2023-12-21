@@ -207,10 +207,10 @@ def search(request):
     user = request.user
 
     # Misalnya mencari produk berdasarkan nama
-    results = Book.objects.filter(titleicontains=query)
+    results = Book.objects.filter(title__icontains=query)
     results = Book.objects.filter(
-        Q(titleicontains=query) | Q(
-            isbnicontains=query) | Q(authoricontains=query)
+        Q(title__icontains=query) | Q(
+            isbn__icontains=query) | Q(author__icontains=query)
     )
 
     bookmarks = user.bookmarked.select_related('book')
